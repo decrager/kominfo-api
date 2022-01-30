@@ -1,0 +1,119 @@
+<?php
+
+namespace App\Http\Controllers\API;
+
+use App\Http\Controllers\Controller;
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Request;
+use App\Models\Agenda;
+use Illuminate\Support\Facades\DB;
+
+class AgendaController extends Controller
+{
+    public function view()
+    {
+        $agenda = Agenda::orderBy('id', 'ASC')->get();
+        return response()->json([
+            'message' => "Data Agenda Loaded Successfully!",
+            'Agenda' => $agenda
+        ], Response::HTTP_OK);
+    }
+
+    public function viewById($id)
+    {
+        $agenda = Agenda::find($id);
+        return response()->json([
+            'message' => "Data Agenda Loaded Successfully!",
+            'Agenda' => $agenda
+        ], Response::HTTP_OK);
+    }
+
+    public function create(Request $request)
+    {
+        $request->validate([
+            'hari' => 'required',
+            'tgl' => 'required',
+            'waktu' => 'required',
+            'lokasi' => 'required',
+            'kegiatan' => 'required',
+            'user_id' => 'required'
+        ]);
+
+        $agenda = new Agenda;
+        $agenda->hari = $request->hari;
+        $agenda->tgl = $request->tgl;
+        $agenda->waktu = $request->waktu;
+        $agenda->lokasi = $request->lokasi;
+        $agenda->kegiatan = $request->kegiatan;
+        $agenda->user_id = $request->user_id;
+        $agenda->save();
+
+        return response()->json([
+            'message' => "Data Agenda Added Successfully!",
+            'Added Agenda' => $agenda
+        ], Response::HTTP_OK);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $agenda = Agenda::find($id);
+
+        $request->validate([
+            'hari' => 'required',
+            'tgl' => 'required',
+            'waktu' => 'required',
+            'lokasi' => 'required',
+            'kegiatan' => 'required',
+            'user_id' => 'required'
+        ]);
+
+        $agenda->update([
+            'hari' => $request->hari,
+            'tgl' => $request->tgl,
+            'waktu' => $request->waktu,
+            'lokasi' => $request->lokasi,
+            'kegiatan' => $request->kegiatan,
+            'user_id' => $request->user_id
+        ]);
+
+        return response()->json([
+            'message' => "Data Agenda Updated Successfully!",
+            'Updated Agenda' => $agenda
+        ], Response::HTTP_OK);
+    }
+
+    public function destroy($id)
+    {
+        $agenda = Agenda::find($id)->delete();
+        return response()->json([
+            'message' => "Data Agenda Deleted Successfully!"
+        ], Response::HTTP_OK);
+    }
+
+    public function agenda()
+    {
+        $agenda = DB::table('agendas')
+            ->join('penggunas', 'agendas.user_id', '=', 'penggunas.id')
+            ->select('agendas.id', 'agendas.hari', 'agendas.tgl', 'agendas.waktu', 'agendas.lokasi', 'agendas.kegiatan', 'penggunas.username')
+            ->get();
+
+        return response()->json([
+            'message' => "Data Agenda Loaded Successfully!",
+            'Agenda' => $agenda
+        ], Response::HTTP_OK);
+    }
+
+    public function agendaById($id)
+    {
+        $agenda = DB::table('agendas')
+            ->join('penggunas', 'agendas.user_id', '=', 'penggunas.id')
+            ->select('agendas.hari', 'agendas.tgl', 'agendas.waktu', 'agendas.lokasi', 'agendas.kegiatan', 'penggunas.username')
+            ->where('agendas.id', $id)
+            ->get();
+
+        return response()->json([
+            'message' => "Data Agenda Loaded Successfully!",
+            'Agenda' => $agenda
+        ], Response::HTTP_OK);
+    }
+}

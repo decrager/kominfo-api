@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Galerifoto extends Model
+{
+    use HasFactory;
+    protected $table = 'galerifotos';
+    protected $primaryKey = 'id';
+    protected $guarded = [];
+    protected $fillable = [
+        'album_id',
+        'judul',
+        'foto',
+        'keterangan'
+    ];
+
+    public function Album(){
+        return $this->belongsTo(Album::class, 'album_id', 'id');
+    }
+}
