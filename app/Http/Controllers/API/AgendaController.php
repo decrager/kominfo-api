@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use App\Models\Agenda;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class AgendaController extends Controller
@@ -30,6 +31,8 @@ class AgendaController extends Controller
 
     public function create(Request $request)
     {
+        $user = Auth::user();
+
         $request->validate([
             'hari' => 'required',
             'tgl' => 'required',
@@ -39,25 +42,32 @@ class AgendaController extends Controller
             'user_id' => 'required'
         ]);
 
-        $agenda = new Agenda;
-        $agenda->hari = $request->hari;
-        $agenda->tgl = $request->tgl;
-        $agenda->waktu = $request->waktu;
-        $agenda->lokasi = $request->lokasi;
-        $agenda->kegiatan = $request->kegiatan;
-        $agenda->user_id = $request->user_id;
-        $agenda->save();
+        if ($user->role == 'admin') {
+            $agenda = new Agenda;
+            $agenda->hari = $request->hari;
+            $agenda->tgl = $request->tgl;
+            $agenda->waktu = $request->waktu;
+            $agenda->lokasi = $request->lokasi;
+            $agenda->kegiatan = $request->kegiatan;
+            $agenda->user_id = $request->user_id;
+            $agenda->save();
 
-        return response()->json([
-            'message' => "Data Agenda Added Successfully!",
-            'Added Agenda' => $agenda
-        ], Response::HTTP_OK);
+            return response()->json([
+                'message' => "Data Agenda Added Successfully!",
+                'Added Agenda' => $agenda
+            ], Response::HTTP_OK);
+        } else {
+            return response()->json([
+                'message' => 'Unauthorized'
+            ], Response::HTTP_FORBIDDEN);
+        }
     }
 
     public function update(Request $request, $id)
     {
-        $agenda = Agenda::find($id);
+        $user = Auth::user();
 
+        $agenda = Agenda::find($id);
         $request->validate([
             'hari' => 'required',
             'tgl' => 'required',
@@ -67,27 +77,41 @@ class AgendaController extends Controller
             'user_id' => 'required'
         ]);
 
-        $agenda->update([
-            'hari' => $request->hari,
-            'tgl' => $request->tgl,
-            'waktu' => $request->waktu,
-            'lokasi' => $request->lokasi,
-            'kegiatan' => $request->kegiatan,
-            'user_id' => $request->user_id
-        ]);
+        if ($user->role == 'admin') {
+            $agenda->update([
+                'hari' => $request->hari,
+                'tgl' => $request->tgl,
+                'waktu' => $request->waktu,
+                'lokasi' => $request->lokasi,
+                'kegiatan' => $request->kegiatan,
+                'user_id' => $request->user_id
+            ]);
 
-        return response()->json([
-            'message' => "Data Agenda Updated Successfully!",
-            'Updated Agenda' => $agenda
-        ], Response::HTTP_OK);
+            return response()->json([
+                'message' => "Data Agenda Updated Successfully!",
+                'Updated Agenda' => $agenda
+            ], Response::HTTP_OK);
+        } else {
+            return response()->json([
+                'message' => 'Unauthorized'
+            ], Response::HTTP_FORBIDDEN);
+        }
     }
 
     public function destroy($id)
     {
-        $agenda = Agenda::find($id)->delete();
-        return response()->json([
-            'message' => "Data Agenda Deleted Successfully!"
-        ], Response::HTTP_OK);
+        $user = Auth::user();
+
+        if ($user->role == 'admin') {
+            $agenda = Agenda::find($id)->delete();
+            return response()->json([
+                'message' => "Data Agenda Deleted Successfully!"
+            ], Response::HTTP_OK);
+        } else {
+            return response()->json([
+                'message' => 'Unauthorized'
+            ], Response::HTTP_FORBIDDEN);
+        }
     }
 
     public function agenda()
