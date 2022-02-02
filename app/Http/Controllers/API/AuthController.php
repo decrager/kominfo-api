@@ -22,7 +22,7 @@ class AuthController extends Controller
         }
 
         $user->tokens()->delete();
-        $token = $user->createToken('token-name', ['server:update'])->plainTextToken;
+        $token = $user->createToken('token-name')->plainTextToken;
         return response()->json([
             'message' => 'Success',
             'user' => $user,

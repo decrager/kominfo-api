@@ -2,7 +2,8 @@
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                {{-- <x-application-logo class="w-20 h-20 fill-current text-gray-500" /> --}}
+                <img src="{{asset('logo_bogor.png')}}" class="w-20 h-20 fill-current" alt="">
             </a>
         </x-slot>
 
@@ -24,6 +25,18 @@
                 <x-label for="email" :value="__('Email')" />
 
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+            </div>
+
+            <!-- Role -->
+            <div class="mt-4">
+                <x-label for="email" :value="__('Role')" />
+
+                <select name="role" id="role" class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 block mt-1 w-full" aria-label="Select role">
+                    <option selected>Select Role</option>
+                    <option value="publik">Publik</option>
+                    <option value="admin">Admin</option>
+                </select>
+                {{-- <x-input id="email" class="block mt-1 w-full" type="select" name="Role" :value="old('role')" required /> --}}
             </div>
 
             <!-- Password -->

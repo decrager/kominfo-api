@@ -32,7 +32,7 @@ use GuzzleHttp\Middleware;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
@@ -51,11 +51,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 });
 
 Route::get('/dashboard', function (Request $request) {
-    $token = PersonalAccessToken::where('tokenable_id', Auth::user()->id)->firstOrFail();
-    return view('dashboard', ['token'=>$token]);
-    // $user = User::where('email', $request->email)->first();
-    // $token = $user->$request->bearerToken();
-    // return view('dashboard', $token);
+    return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__ . '/auth.php';
