@@ -30,46 +30,69 @@ class KatBeritaController extends Controller
     public function create(Request $request)
     {
         $request->validate([
-            'kategori' => 'required',
-            'keterangan' => 'required'
+            'kategori' => 'required|max:50',
+            'keterangan' => 'required|max:50'
         ]);
 
-        $katBerita = new Kat_berita;
-        $katBerita->kategori = $request->kategori;
-        $katBerita->keterangan = $request->keterangan;
-        $katBerita->save();
+        $user = Auth::user();
 
-        return response()->json([
-            'message' => "Data Kategori Berita Added Successfully!",
-            'Kategori Berita Baru' => $katBerita
-        ], Response::HTTP_OK);
+        if ($user->role == 'admin') {
+            $katBerita = new Kat_berita;
+            $katBerita->kategori = $request->kategori;
+            $katBerita->keterangan = $request->keterangan;
+            $katBerita->save();
+
+            return response()->json([
+                'message' => "Data Kategori Berita Added Successfully!",
+                'Kategori Berita Baru' => $katBerita
+            ], Response::HTTP_OK);
+        } else {
+            return response()->json([
+                'message' => "Unauthorized"
+            ], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     public function update(Request $request, $id)
     {
         $katBerita = Kat_berita::find($id);
+        $user = Auth::user();
 
         $request->validate([
-            'kategori' => 'required',
-            'keterangan' => 'required'
+            'kategori' => 'required|max:50',
+            'keterangan' => 'required|max:50'
         ]);
 
-        $katBerita->update([
-            'kategori' => $request->kategori,
-            'keterangan' => $request->keterangan
-        ]);
+        if ($user->role == 'admin') {
+            $katBerita->update([
+                'kategori' => $request->kategori,
+                'keterangan' => $request->keterangan
+            ]);
 
-        return response()->json([
-            'message' => "Data Kategori Berita Updated Successfully!",
-            'Kategori Berita Baru' => $katBerita
-        ], Response::HTTP_OK);
+            return response()->json([
+                'message' => "Data Kategori Berita Updated Successfully!",
+                'Kategori Berita Baru' => $katBerita
+            ], Response::HTTP_OK);
+        } else {
+            return response()->json([
+                'message' => "Unauthorized"
+            ], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     public function destroy($id)
     {
-        $katBerita = Kat_berita::find($id)->delete();
-        return response()->json([
-            'message' => "Data Kategori Berita Deleted Successfully!"
-        ]);
+        $user = Auth::user();
+
+        if ($user->role == 'admin') {
+            $katBerita = Kat_berita::find($id)->delete();
+            return response()->json([
+                'message' => "Data Kategori Berita Deleted Successfully!"
+            ]);
+        } else {
+            return response()->json([
+                'message' => "Unauthorized"
+            ], Response::HTTP_UNAUTHORIZED);
+        }
     }
 }

@@ -32,66 +32,89 @@ class PenggunaController extends Controller
     public function create(Request $request)
     {
         $request->validate([
-            'nama' => 'required',
-            'email' => 'required',
-            'telp' => 'required',
-            'username' => 'required',
-            'password' => 'required',
-            'foto' => 'required',
-            'level' => 'required'
+            'nama' => 'required|max:50',
+            'email' => 'required|max:50',
+            'telp' => 'required|max:15',
+            'username' => 'required|max:25',
+            'password' => 'required|max:100',
+            'foto' => 'required|mimes:jpeg,jpg,png|max:50',
+            'level' => 'required|max:2'
         ]);
 
-        $pengguna = new Pengguna;
-        $pengguna->nama = $request->nama;
-        $pengguna->email = $request->email;
-        $pengguna->telp = $request->telp;
-        $pengguna->username = $request->username;
-        $pengguna->password = Hash::make($request->password);
-        $pengguna->foto = $request->foto;
-        $pengguna->level = $request->level;
-        $pengguna->save();
+        $user = Auth::user();
 
-        return response()->json([
-            'message' => "Data Pengguna Added Successfully!",
-            'Added Pengguna' => $pengguna
-        ], Response::HTTP_OK);
+        if ($user->role == 'admin') {
+            $pengguna = new Pengguna;
+            $pengguna->nama = $request->nama;
+            $pengguna->email = $request->email;
+            $pengguna->telp = $request->telp;
+            $pengguna->username = $request->username;
+            $pengguna->password = Hash::make($request->password);
+            $pengguna->foto = $request->foto;
+            $pengguna->level = $request->level;
+            $pengguna->save();
+
+            return response()->json([
+                'message' => "Data Pengguna Added Successfully!",
+                'Added Pengguna' => $pengguna
+            ], Response::HTTP_OK);
+        } else {
+            return response()->json([
+                'message' => "Unauthorized"
+            ], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     public function update(Request $request, $id)
     {
         $pengguna = Pengguna::find($id);
+        $user = Auth::user();
 
         $request->validate([
-            'nama' => 'required',
-            'email' => 'required',
-            'telp' => 'required',
-            'username' => 'required',
-            'password' => 'required',
-            'foto' => 'required',
-            'level' => 'required'
+            'nama' => 'required|max:50',
+            'email' => 'required|max:50',
+            'telp' => 'required|max:15',
+            'username' => 'required|max:25',
+            'password' => 'required|max:100',
+            'foto' => 'required|mimes:jpeg,jpg,png|max:50',
+            'level' => 'required|max:2'
         ]);
 
-        $pengguna->update([
-            'nama' => $request->nama,
-            'email' => $request->email,
-            'telp' => $request->telp,
-            'username' => $request->username,
-            'password' => $request->password,
-            'foto' => $request->foto,
-            'level' => $request->level
-        ]);
+        if ($user->role == 'admin') {
+            $pengguna->update([
+                'nama' => $request->nama,
+                'email' => $request->email,
+                'telp' => $request->telp,
+                'username' => $request->username,
+                'password' => $request->password,
+                'foto' => $request->foto,
+                'level' => $request->level
+            ]);
 
-        return response()->json([
-            'message' => "Data Pengguna Updated Successfully!",
-            'Updated Pengguna' => $pengguna
-        ], Response::HTTP_OK);
+            return response()->json([
+                'message' => "Data Pengguna Updated Successfully!",
+                'Updated Pengguna' => $pengguna
+            ], Response::HTTP_OK);
+        } else {
+            return response()->json([
+                'message' => "Unauthorized"
+            ], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     public function destroy($id)
     {
-        $pengguna = Pengguna::find($id)->delete();
-        return response()->json([
-            'message' => "Data Pengguna Deleted Successfully!"
-        ], Response::HTTP_OK);
+        $user = Auth::user();
+
+        if ($user->role == 'admin') {
+            $pengguna = Pengguna::find($id)->delete();
+            return response()->json([
+                'message' => "Data Pengguna Deleted Successfully!"
+            ], Response::HTTP_OK);
+        } else {
+            return response()->json([
+                'message' => "Unauthorized"
+            ], Response::HTTP_UNAUTHORIZED);
+        }
     }
 }

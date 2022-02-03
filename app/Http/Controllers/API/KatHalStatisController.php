@@ -30,46 +30,69 @@ class KatHalStatisController extends Controller
     public function create(Request $request)
     {
         $request->validate([
-            'kategori' => 'required',
-            'keterangan' => 'required'
+            'kategori' => 'required|max:50',
+            'keterangan' => 'required|max:50'
         ]);
 
-        $katStatis = new Kat_HalStatis;
-        $katStatis->kategori = $request->kategori;
-        $katStatis->keterangan = $request->keterangan;
-        $katStatis->save();
+        $user = Auth::user();
 
-        return response()->json([
-            'message' => "Data Kat_halstatis Added Successfully!",
-            'Added Kat_halstatis' => $katStatis
-        ], Response::HTTP_OK);
+        if ($user->role == 'admin') {
+            $katStatis = new Kat_HalStatis;
+            $katStatis->kategori = $request->kategori;
+            $katStatis->keterangan = $request->keterangan;
+            $katStatis->save();
+
+            return response()->json([
+                'message' => "Data Kat_halstatis Added Successfully!",
+                'Added Kat_halstatis' => $katStatis
+            ], Response::HTTP_OK);
+        } else {
+            return response()->json([
+                'message' => "Unauthorized"
+            ], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     public function update(Request $request, $id)
     {
         $katStatis = Kat_HalStatis::find($id);
+        $user = Auth::user();
 
         $request->validate([
-            'kategori' => 'required',
-            'keterangan' => 'required'
+            'kategori' => 'required|max:50',
+            'keterangan' => 'required|max:50'
         ]);
 
-        $katStatis->update([
-            'kategori' => $request->kategori,
-            'keterangan' => $request->keterangan
-        ]);
+        if ($user->role == 'admin') {
+            $katStatis->update([
+                'kategori' => $request->kategori,
+                'keterangan' => $request->keterangan
+            ]);
 
-        return response()->json([
-            'message' => "Data Kat_halstatis Updated Successfully!",
-            'Updated Kat_halstatis' => $katStatis
-        ], Response::HTTP_OK);
+            return response()->json([
+                'message' => "Data Kat_halstatis Updated Successfully!",
+                'Updated Kat_halstatis' => $katStatis
+            ], Response::HTTP_OK);
+        } else {
+            return response()->json([
+                'message' => "Unauthorized"
+            ], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     public function destroy($id)
     {
-        $katStatis = Kat_HalStatis::find($id)->delete();
-        return response()->json([
-            'message' => "Data Kat_halstatis Deleted Successfully!"
-        ], Response::HTTP_OK);
+        $user = Auth::user();
+
+        if ($user->role == 'admin') {
+            $katStatis = Kat_HalStatis::find($id)->delete();
+            return response()->json([
+                'message' => "Data Kat_halstatis Deleted Successfully!"
+            ], Response::HTTP_OK);
+        } else {
+            return response()->json([
+                'message' => "Unauthorized"
+            ], Response::HTTP_UNAUTHORIZED);
+        }
     }
 }

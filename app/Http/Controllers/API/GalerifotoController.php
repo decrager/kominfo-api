@@ -31,47 +31,62 @@ class GalerifotoController extends Controller
     public function create(Request $request)
     {
         $request->validate([
-            'album_id' => 'required',
-            'judul' => 'required',
-            'foto' => 'required',
-            'keterangan' => 'required'
+            'album_id' => 'required|max:11',
+            'judul' => 'required|max:100',
+            'foto' => 'required|mimes:jpeg,jpg,png|max:50',
+            'keterangan' => 'required|max:100'
         ]);
 
-        $foto = new Galerifoto;
-        $foto->album_id = $request->album_id;
-        $foto->judul = $request->judul;
-        $foto->foto = $request->foto;
-        $foto->keterangan = $request->keterangan;
-        $foto->save();
+        $user = Auth::user();
 
-        return response()->json([
-            'message' => "Data Galerifoto Added Successfully",
-            'Added Galerifoto' => $foto
-        ], Response::HTTP_OK);
+        if ($user->role == 'admin') {
+            $foto = new Galerifoto;
+            $foto->album_id = $request->album_id;
+            $foto->judul = $request->judul;
+            $foto->foto = $request->foto;
+            $foto->keterangan = $request->keterangan;
+            $foto->save();
+
+            return response()->json([
+                'message' => "Data Galerifoto Added Successfully",
+                'Added Galerifoto' => $foto
+            ], Response::HTTP_OK);
+        } else {
+            return response()->json([
+                'message' => "Unauthorized"
+            ], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     public function update(Request $request, $id)
     {
         $foto = Galerifoto::find($id);
+        $user = Auth::user();
 
         $request->validate([
-            'album_id' => 'required',
-            'judul' => 'required',
-            'foto' => 'required',
-            'keterangan' => 'required'
+            'album_id' => 'required|max:11',
+            'judul' => 'required|max:100',
+            'foto' => 'required|mimes:jpeg,jpg,png|max:50',
+            'keterangan' => 'required|max:100'
         ]);
 
-        $foto->update([
-            'album_id' => $request->album_id,
-            'judul' => $request->judul,
-            'foto' => $request->foto,
-            'keterangan' => $request->keterangan
-        ]);
+        if ($user->role == 'admin') {
+            $foto->update([
+                'album_id' => $request->album_id,
+                'judul' => $request->judul,
+                'foto' => $request->foto,
+                'keterangan' => $request->keterangan
+            ]);
 
-        return response()->json([
-            'message' => "Data Galerifoto Updated Successfully!",
-            'Updated Galerifoto' => $foto
-        ], Response::HTTP_OK);
+            return response()->json([
+                'message' => "Data Galerifoto Updated Successfully!",
+                'Updated Galerifoto' => $foto
+            ], Response::HTTP_OK);
+        } else {
+            return response()->json([
+                'message' => "Unauthorized"
+            ], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     public function destroy($id)

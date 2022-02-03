@@ -31,67 +31,90 @@ class BeritaController extends Controller
     public function create(Request $request)
     {
         $request->validate([
-            'judul' => 'required',
-            'kategori_id' => 'required',
-            'isi' => 'required',
-            'gambar' => 'required',
-            'tgl' => 'required',
-            'status' => 'required',
-            'user_id' => 'required'
+            'judul' => 'required|max:100',
+            'kategori_id' => 'required|max:11',
+            'isi' => 'required|text',
+            'gambar' => 'required|mimes:jpeg,jpg,png|max:50',
+            'tgl' => 'required|date',
+            'status' => 'required|in:0,1',
+            'user_id' => 'required|max:11'
         ]);
 
-        $berita = new Berita;
-        $berita->judul = $request->judul;
-        $berita->kategori_id = $request->kategori_id;
-        $berita->isi = $request->isi;
-        $berita->gambar = $request->gambar;
-        $berita->tgl = $request->tgl;
-        $berita->status = $request->status;
-        $berita->user_id = $request->user_id;
-        $berita->save();
+        $user = Auth::user();
 
-        return response()->json([
-            'message' => "Data Berita Added Successfully!",
-            'Added Berita' => $berita
-        ], Response::HTTP_OK);
+        if ($user->role == 'admin') {
+            $berita = new Berita;
+            $berita->judul = $request->judul;
+            $berita->kategori_id = $request->kategori_id;
+            $berita->isi = $request->isi;
+            $berita->gambar = $request->gambar;
+            $berita->tgl = $request->tgl;
+            $berita->status = $request->status;
+            $berita->user_id = $request->user_id;
+            $berita->save();
+
+            return response()->json([
+                'message' => "Data Berita Added Successfully!",
+                'Added Berita' => $berita
+            ], Response::HTTP_OK);
+        } else {
+            return response()->json([
+                'message' => "Unauthorized"
+            ], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     public function update(Request $request, $id)
     {
         $berita = Berita::find($id);
+        $user = Auth::user();
 
         $request->validate([
-            'judul' => 'required',
-            'kategori_id' => 'required',
-            'isi' => 'required',
-            'gambar' => 'required',
-            'tgl' => 'required',
-            'status' => 'required',
-            'user_id' => 'required'
+            'judul' => 'required|max:100',
+            'kategori_id' => 'required|max:11',
+            'isi' => 'required|text',
+            'gambar' => 'required|mimes:jpeg,jpg,png|max:50',
+            'tgl' => 'required|date',
+            'status' => 'required|in:0,1',
+            'user_id' => 'required|max:11'
         ]);
 
-        $berita->update([
-            'judul' => $request->judul,
-            'kategori_id' => $request->kategori_id,
-            'isi' => $request->isi,
-            'gambar' => $request->gambar,
-            'tgl' => $request->tgl,
-            'status' => $request->status,
-            'user_id' => $request->user_id
-        ]);
+        if ($user->role == 'admin') {
+            $berita->update([
+                'judul' => $request->judul,
+                'kategori_id' => $request->kategori_id,
+                'isi' => $request->isi,
+                'gambar' => $request->gambar,
+                'tgl' => $request->tgl,
+                'status' => $request->status,
+                'user_id' => $request->user_id
+            ]);
 
-        return response()->json([
-            'message' => "Data Berita Updated Successfully!",
-            'Updated Berita' => $berita
-        ], Response::HTTP_OK);
+            return response()->json([
+                'message' => "Data Berita Updated Successfully!",
+                'Updated Berita' => $berita
+            ], Response::HTTP_OK);
+        } else {
+            return response()->json([
+                'message' => "Unauthorized"
+            ], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     public function destroy($id)
     {
-        $berita = Berita::find($id)->delete();
-        return response()->json([
-            'message' => "Data Berita Deleted Successfully!"
-        ], Response::HTTP_OK);
+        $user = Auth::user();
+
+        if ($user->role == 'admin') {
+            $berita = Berita::find($id)->delete();
+            return response()->json([
+                'message' => "Data Berita Deleted Successfully!"
+            ], Response::HTTP_OK);
+        } else {
+            return response()->json([
+                'message' => "Unauthorized"
+            ], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     public function berita()

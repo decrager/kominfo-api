@@ -31,67 +31,90 @@ class HalstatisController extends Controller
     public function create(Request $request)
     {
         $request->validate([
-            'judul' => 'required',
-            'kategori_id' => 'required',
-            'isi' => 'required',
-            'file' => 'required',
-            'tgl' => 'required',
-            'status' => 'required',
-            'user_id' => 'required'
+            'judul' => 'required|max:100',
+            'kategori_id' => 'required|max:11',
+            'isi' => 'required|text',
+            'file' => 'nullable|mimes:jpeg,jpg,png|max:50',
+            'tgl' => 'required|date',
+            'status' => 'required|in:0,1',
+            'user_id' => 'required|max:11'
         ]);
 
-        $halstatis = new Halstatis;
-        $halstatis->judul = $request->judul;
-        $halstatis->kategori_id = $request->kategori_id;
-        $halstatis->isi = $request->isi;
-        $halstatis->file = $request->file;
-        $halstatis->tgl = $request->tgl;
-        $halstatis->status = $request->status;
-        $halstatis->user_id = $request->user_id;
-        $halstatis->save();
+        $user = Auth::user();
 
-        return response()->json([
-            'message' => "Data Halstatis Added Successfully!",
-            'Added Halstatis' => $halstatis
-        ], Response::HTTP_OK);
+        if ($user->role == 'admin') {
+            $halstatis = new Halstatis;
+            $halstatis->judul = $request->judul;
+            $halstatis->kategori_id = $request->kategori_id;
+            $halstatis->isi = $request->isi;
+            $halstatis->file = $request->file;
+            $halstatis->tgl = $request->tgl;
+            $halstatis->status = $request->status;
+            $halstatis->user_id = $request->user_id;
+            $halstatis->save();
+
+            return response()->json([
+                'message' => "Data Halstatis Added Successfully!",
+                'Added Halstatis' => $halstatis
+            ], Response::HTTP_OK);
+        } else {
+            return response()->json([
+                'message' => "Unauthorized"
+            ], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     public function update(Request $request, $id)
     {
         $halstatis = Halstatis::find($id);
+        $user = Auth::user();
 
         $request->validate([
-            'judul' => 'required',
-            'kategori_id' => 'required',
-            'isi' => 'required',
-            'file' => 'required',
-            'tgl' => 'required',
-            'status' => 'required',
-            'user_id' => 'required'
+            'judul' => 'required|max:100',
+            'kategori_id' => 'required|max:11',
+            'isi' => 'required|text',
+            'file' => 'nullable|mimes:jpeg,jpg,png|max:50',
+            'tgl' => 'required|date',
+            'status' => 'required|in:0,1',
+            'user_id' => 'required|max:11'
         ]);
 
-        $halstatis->update([
-            'judul' => $request->judul,
-            'kategori_id' => $request->kategori_id,
-            'isi' => $request->isi,
-            'file' => $request->file,
-            'tgl' => $request->tgl,
-            'status' => $request->status,
-            'user_id' => $request->user_id
-        ]);
+        if ($user->role == 'admin') {
+            $halstatis->update([
+                'judul' => $request->judul,
+                'kategori_id' => $request->kategori_id,
+                'isi' => $request->isi,
+                'file' => $request->file,
+                'tgl' => $request->tgl,
+                'status' => $request->status,
+                'user_id' => $request->user_id
+            ]);
 
-        return response()->json([
-            'message' => "Data Halstatis Updated Successfully!",
-            'Updated Halstatis' => $halstatis
-        ], Response::HTTP_OK);
+            return response()->json([
+                'message' => "Data Halstatis Updated Successfully!",
+                'Updated Halstatis' => $halstatis
+            ], Response::HTTP_OK);
+        } else {
+            return response()->json([
+                'message' => "Unauthorized"
+            ], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     public function destroy($id)
     {
-        $halstatis = Halstatis::find($id)->delete();
-        return response()->json([
-            'message' => "Data Halstatis Deleted Successfully!"
-        ], Response::HTTP_OK);
+        $user = Auth::user();
+
+        if ($user->role == 'admin') {
+            $halstatis = Halstatis::find($id)->delete();
+            return response()->json([
+                'message' => "Data Halstatis Deleted Successfully!"
+            ], Response::HTTP_OK);
+        } else {
+            return response()->json([
+                'message' => "Unauthorized"
+            ], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     public function halstatis()

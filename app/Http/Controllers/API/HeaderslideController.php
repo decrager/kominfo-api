@@ -30,54 +30,77 @@ class HeaderslideController extends Controller
     public function create(Request $request)
     {
         $request->validate([
-            'judul' => 'required',
-            'file' => 'required',
-            'keterangan' => 'required',
-            'status' => 'required'
+            'judul' => 'required|max:85',
+            'file' => 'required|mimes:jpeg,jpg,png|max:50',
+            'keterangan' => 'required|max:85',
+            'status' => 'required|in:0,1'
         ]);
 
-        $header = new Headerslide;
-        $header->judul = $request->judul;
-        $header->file = $request->file;
-        $header->keterangan = $request->keterangan;
-        $header->status = $request->status;
-        $header->save();
+        $user = Auth::user();
 
-        return response()->json([
-            'message' => "Data Headerslide Added Successfully!",
-            'Added Headerslide' => $header
-        ], Response::HTTP_OK);
+        if ($user->role == 'admin') {
+            $header = new Headerslide;
+            $header->judul = $request->judul;
+            $header->file = $request->file;
+            $header->keterangan = $request->keterangan;
+            $header->status = $request->status;
+            $header->save();
+
+            return response()->json([
+                'message' => "Data Headerslide Added Successfully!",
+                'Added Headerslide' => $header
+            ], Response::HTTP_OK);
+        } else {
+            return response()->json([
+                'message' => "Unauthorized"
+            ], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     public function update(Request $request, $id)
     {
         $header = Headerslide::find($id);
-
+        $user = Auth::user();
+        
         $request->validate([
-            'judul' => 'required',
-            'file' => 'required',
-            'keterangan' => 'required',
-            'status' => 'required'
+            'judul' => 'required|max:85',
+            'file' => 'required|mimes:jpeg,jpg,png|max:50',
+            'keterangan' => 'required|max:85',
+            'status' => 'required|in:0,1'
         ]);
 
-        $header->update([
-            'judul' => $request->judul,
-            'file' => $request->file,
-            'keterangan' => $request->keterangan,
-            'status' => $request->status
-        ]);
+        if ($user->role == 'admin') {
+            $header->update([
+                'judul' => $request->judul,
+                'file' => $request->file,
+                'keterangan' => $request->keterangan,
+                'status' => $request->status
+            ]);
 
-        return response()->json([
-            'message' => "Data Headerslide Updated Successfully!",
-            'Updated Headerslide' => $header
-        ], Response::HTTP_OK);
+            return response()->json([
+                'message' => "Data Headerslide Updated Successfully!",
+                'Updated Headerslide' => $header
+            ], Response::HTTP_OK);
+        } else {
+            return response()->json([
+                'message' => "Unauthorized"
+            ], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     public function destroy($id)
     {
-        $header = Headerslide::find($id)->delete();
-        return response()->json([
-            'message' => "Data Headerslide Deleted Successfully!"
-        ], Response::HTTP_OK);
+        $user = Auth::user();
+
+        if ($user->role == 'admin') {
+            $header = Headerslide::find($id)->delete();
+            return response()->json([
+                'message' => "Data Headerslide Deleted Successfully!"
+            ], Response::HTTP_OK);
+        } else {
+            return response()->json([
+                'message' => "Unauthorized"
+            ], Response::HTTP_UNAUTHORIZED);
+        }
     }
 }

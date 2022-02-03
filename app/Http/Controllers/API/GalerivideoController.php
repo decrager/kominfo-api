@@ -31,51 +31,66 @@ class GalerivideoController extends Controller
     public function create(Request $request)
     {
         $request->validate([
-            'judul' => 'required',
-            'cover' => 'required',
-            'embed' => 'required',
-            'keterangan' => 'required',
-            'user_id' => 'required'
+            'judul' => 'required|max:85',
+            'cover' => 'required|mimes:jpeg,jpg,png|max:50',
+            'embed' => 'required|max:50',
+            'keterangan' => 'required|max:200',
+            'user_id' => 'required|max:11'
         ]);
 
-        $video = new Galerivideo;
-        $video->judul = $request->judul;
-        $video->cover = $request->cover;
-        $video->embed = $request->embed;
-        $video->keterangan = $request->keterangan;
-        $video->user_id = $request->user_id;
-        $video->save();
+        $user = Auth::user();
 
-        return response()->json([
-            'message' => "Data Galerivideo Added Successfully!",
-            'Added Galerivideo' => $video
-        ], Response::HTTP_OK);
+        if ($user->role == 'admin') {
+            $video = new Galerivideo;
+            $video->judul = $request->judul;
+            $video->cover = $request->cover;
+            $video->embed = $request->embed;
+            $video->keterangan = $request->keterangan;
+            $video->user_id = $request->user_id;
+            $video->save();
+
+            return response()->json([
+                'message' => "Data Galerivideo Added Successfully!",
+                'Added Galerivideo' => $video
+            ], Response::HTTP_OK);
+        } else {
+            return response()->json([
+                'message' => "Unauthorized"
+            ], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     public function update(Request $request, $id)
     {
         $video = Galerivideo::find($id);
+        $user = Auth::user();
 
         $request->validate([
-            'judul' => 'required',
-            'cover' => 'required',
-            'embed' => 'required',
-            'keterangan' => 'required',
-            'user_id' => 'required'
+            'judul' => 'required|max:85',
+            'cover' => 'required|mimes:jpeg,jpg,png|max:50',
+            'embed' => 'required|max:50',
+            'keterangan' => 'required|max:200',
+            'user_id' => 'required|max:11'
         ]);
 
-        $video->update([
-            'judul' => $request->judul,
-            'cover' => $request->cover,
-            'embed' => $request->embed,
-            'keterangan' => $request->keterangan,
-            'user_id' => $request->user_id
-        ]);
+        if ($user->role == 'admin') {
+            $video->update([
+                'judul' => $request->judul,
+                'cover' => $request->cover,
+                'embed' => $request->embed,
+                'keterangan' => $request->keterangan,
+                'user_id' => $request->user_id
+            ]);
 
-        return response()->json([
-            'message' => "Data Galerivideo Updated Successfully!",
-            'Updated Galerivideo' => $video
-        ], Response::HTTP_OK);
+            return response()->json([
+                'message' => "Data Galerivideo Updated Successfully!",
+                'Updated Galerivideo' => $video
+            ], Response::HTTP_OK);
+        } else {
+            return response()->json([
+                'message' => "Unauthorized"
+            ], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     public function destroy($id)

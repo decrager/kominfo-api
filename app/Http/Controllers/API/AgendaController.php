@@ -34,12 +34,12 @@ class AgendaController extends Controller
         $user = Auth::user();
 
         $request->validate([
-            'hari' => 'required',
-            'tgl' => 'required',
-            'waktu' => 'required',
-            'lokasi' => 'required',
-            'kegiatan' => 'required',
-            'user_id' => 'required'
+            'hari' => 'required|max:10',
+            'tgl' => 'required|date',
+            'waktu' => 'required|time',
+            'lokasi' => 'required|max:100',
+            'kegiatan' => 'required|max:250',
+            'user_id' => 'required|max:11'
         ]);
 
         if ($user->role == 'admin') {
@@ -58,8 +58,8 @@ class AgendaController extends Controller
             ], Response::HTTP_OK);
         } else {
             return response()->json([
-                'message' => 'Unauthorized'
-            ], Response::HTTP_FORBIDDEN);
+                'message' => "Unauthorized"
+            ], Response::HTTP_UNAUTHORIZED);
         }
     }
 
@@ -69,12 +69,12 @@ class AgendaController extends Controller
 
         $agenda = Agenda::find($id);
         $request->validate([
-            'hari' => 'required',
-            'tgl' => 'required',
-            'waktu' => 'required',
-            'lokasi' => 'required',
-            'kegiatan' => 'required',
-            'user_id' => 'required'
+            'hari' => 'required|max:10',
+            'tgl' => 'required|date',
+            'waktu' => 'required|time',
+            'lokasi' => 'required|max:100',
+            'kegiatan' => 'required|max:250',
+            'user_id' => 'required|max:11'
         ]);
 
         if ($user->role == 'admin') {
@@ -93,8 +93,8 @@ class AgendaController extends Controller
             ], Response::HTTP_OK);
         } else {
             return response()->json([
-                'message' => 'Unauthorized'
-            ], Response::HTTP_FORBIDDEN);
+                'message' => "Unauthorized"
+            ], Response::HTTP_UNAUTHORIZED);
         }
     }
 
@@ -109,8 +109,8 @@ class AgendaController extends Controller
             ], Response::HTTP_OK);
         } else {
             return response()->json([
-                'message' => 'Unauthorized'
-            ], Response::HTTP_FORBIDDEN);
+                'message' => "Unauthorized"
+            ], Response::HTTP_UNAUTHORIZED);
         }
     }
 
