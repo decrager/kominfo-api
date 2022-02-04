@@ -34,14 +34,14 @@ class AlbumController extends Controller
     {
         $user = Auth::user();
 
-        $request->validate([
-            'judul' => 'required|max:100',
-            'tgl' => 'required|date',
-            'cover' => 'required|mimes:jpg,png|max:50',
-            'user_id' => 'required|max:11'
-        ]);
-
         if ($user->role == 'admin') {
+            $request->validate([
+                'judul' => 'required|max:100',
+                'tgl' => 'required|date',
+                'cover' => 'required|mimes:jpeg,jpg,png|max:5000',
+                'user_id' => 'required|max:11'
+            ]);
+
             $album = new Album;
             $album->judul = $request->judul;
             $album->tgl = $request->tgl;
@@ -65,14 +65,14 @@ class AlbumController extends Controller
         $album = Album::find($id);
         $user = Auth::user();
 
-        $request->validate([
-            'judul' => 'required|max:100',
-            'tgl' => 'required|date',
-            'cover' => 'required|mimes:jpg,png,jpeg|max:50',
-            'user_id' => 'required|max:11'
-        ]);
-
         if ($user->role == 'admin') {
+            $request->validate([
+                'judul' => 'required|max:100',
+                'tgl' => 'required|date',
+                'cover' => 'required|mimes:jpg,png,jpeg|max:5000',
+                'user_id' => 'required|max:11'
+            ]);
+
             $album->update([
                 'judul' => $request->judul,
                 'tgl' => $request->tgl,

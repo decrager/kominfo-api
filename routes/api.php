@@ -32,12 +32,61 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('/logout', [AuthController::class, 'logout']);
     Route::get('/form', [FormController::class, 'index']);
 
+    // CRUD table Agendas
+    Route::get('/get/Agenda', [AgendaController::class, 'view']); // GET ALL
+    Route::get('/get/Agenda/{id}', [AgendaController::class, 'viewById']); // GET by ID
+    Route::post('/post/Agenda', [AgendaController::class, 'create']); // POST
+    Route::put('/put/Agenda/{id}', [AgendaController::class, 'update']); // PUT
+    Route::delete('/delete/Agenda/{id}', [AgendaController::class, 'destroy']); // DELETE
+    
+    // CRUD table Albums
+    Route::get('/get/Album', [AlbumController::class, 'view']); // GET ALL
+    Route::get('/get/Album/{id}', [AlbumController::class, 'viewById']); // GET by ID
+    Route::post('/post/Album', [AlbumController::class, 'create']); // POST
+    Route::post('/put/Album/{id}', [AlbumController::class, 'update']); // PUT
+    Route::delete('/delete/Album/{id}', [AlbumController::class, 'destroy']); // DELETE
+
+    // CRUD table Banners
+    Route::get('/get/Banner', [BannerController::class, 'view']); // GET ALL
+    Route::get('/get/Banner/{id}', [BannerController::class, 'viewById']); // GET by ID
+    Route::post('/post/Banner', [BannerController::class, 'create']); // POST
+    Route::post('/put/Banner/{id}', [BannerController::class, 'update']); // PUT
+    Route::delete('/delete/Banner/{id}', [BannerController::class, 'destroy']); // DELETE
+
     // CRUD table Beritas
     Route::get('/get/Berita', [BeritaController::class, 'view']); // GET All
     Route::get('/get/Berita/{id}', [BeritaController::class, 'viewById']); // GET by ID
     Route::post('/post/Berita', [BeritaController::class, 'create']); // POST
-    Route::put('/put/Berita/{id}', [BeritaController::class, 'update']); // PUT
+    Route::post('/put/Berita/{id}', [BeritaController::class, 'update']); // PUT
     Route::delete('/delete/Berita/{id}', [BeritaController::class, 'destroy']); // DELETE
+
+    // CRUD table Galerifotos
+    Route::get('/get/Galerifoto', [GalerifotoController::class, 'view']); // GET ALL
+    Route::get('/get/Galerifoto/{id}', [GalerifotoController::class, 'viewById']); // GET by ID
+    Route::post('/post/Galerifoto', [GalerifotoController::class, 'create']); // POST
+    Route::post('/put/Galerifoto/{id}', [GalerifotoController::class, 'update']); // PUT
+    Route::delete('/delete/Galerifoto/{id}', [GalerifotoController::class, 'destroy']); // DELETE
+
+    // CRUD table Galerivideos
+    Route::get('/get/Galerivideo', [GalerivideoController::class, 'view']); // GET ALL
+    Route::get('/get/Galerivideo/{id}', [GalerivideoController::class, 'viewById']); // GET by ID
+    Route::post('/post/Galerivideo', [GalerivideoController::class, 'create']); // POST
+    Route::post('/put/Galerivideo/{id}', [GalerivideoController::class, 'update']); // PUT
+    Route::delete('/delete/Galerivideo/{id}', [GalerivideoController::class, 'destroy']); // DELETE
+
+    // CRUD table Halstatis
+    Route::get('/get/Halstatis', [HalstatisController::class, 'view']); // GET ALL
+    Route::get('/get/Halstatis/{id}', [HalstatisController::class, 'viewById']); // GET by ID
+    Route::post('/post/Halstatis', [HalstatisController::class, 'create']); // POST
+    Route::post('/put/Halstatis/{id}', [HalstatisController::class, 'update']); // PUT
+    Route::delete('/delete/Halstatis/{id}', [HalstatisController::class, 'destroy']); // DELETE
+
+    // CRUD table Headerslides
+    Route::get('/get/Headerslide', [HeaderslideController::class, 'view']); // GET ALL
+    Route::get('/get/Headerslide/{id}', [HeaderslideController::class, 'viewById']); // GET by ID
+    Route::post('/post/Headerslide', [HeaderslideController::class, 'create']); // POST
+    Route::post('/put/Headerslide/{id}', [HeaderslideController::class, 'update']); // PUT
+    Route::delete('/delete/Headerslide/{id}', [HeaderslideController::class, 'destroy']); // DELETE
 
     // CRUD table Kat_beritas
     Route::get('/get/KatBerita', [KatBeritaController::class, 'view']); // GET ALL
@@ -46,48 +95,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::put('/put/KatBerita/{id}', [KatBeritaController::class, 'update']); // PUT
     Route::delete('/delete/KatBerita/{id}', [KatBeritaController::class, 'destroy']); // DELETE
 
-    // CRUD table Penggunas
-    Route::get('/get/Pengguna', [PenggunaController::class, 'view']); // GET ALL
-    Route::get('/get/Pengguna/{id}', [PenggunaController::class, 'viewById']); // GET by ID
-    Route::post('/post/Pengguna', [PenggunaController::class, 'create']); // POST
-    Route::put('/put/Pengguna/{id}', [PenggunaController::class, 'update']); // PUT
-    Route::delete('/delete/Pengguna/{id}', [PenggunaController::class, 'destroy']); // DELETE
-
-    // CRUD table Agendas
-    Route::get('/get/Agenda', [AgendaController::class, 'view']); // GET ALL
-    Route::get('/get/Agenda/{id}', [AgendaController::class, 'viewById']); // GET by ID
-    Route::post('/post/Agenda', [AgendaController::class, 'create']); // POST
-    Route::put('/put/Agenda/{id}', [AgendaController::class, 'update']); // PUT
-    Route::delete('/delete/Agenda/{id}', [AgendaController::class, 'destroy']); // DELETE
-
-    // CRUD table Profilopds
-    Route::get('/get/Profilopd', [ProfilopdController::class, 'view']); // GET ALL
-    Route::get('/get/Profilopd/{id}', [ProfilopdController::class, 'viewById']); // GET by ID
-    Route::post('/post/Profilopd', [ProfilopdController::class, 'create']); // POST
-    Route::put('/put/Profilopd/{id}', [ProfilopdController::class, 'update']); // PUT
-    Route::delete('/delete/Profilopd/{id}', [ProfilopdController::class, 'destroy']); // DELETE
-
-    // CRUD table Banners
-    Route::get('/get/Banner', [BannerController::class, 'view']); // GET ALL
-    Route::get('/get/Banner/{id}', [BannerController::class, 'viewById']); // GET by ID
-    Route::post('/post/Banner', [BannerController::class, 'create']); // POST
-    Route::put('/put/Banner/{id}', [BannerController::class, 'update']); // PUT
-    Route::delete('/delete/Banner/{id}', [BannerController::class, 'destroy']); // DELETE
-
-    // CRUD table Headerslides
-    Route::get('/get/Headerslide', [HeaderslideController::class, 'view']); // GET ALL
-    Route::get('/get/Headerslide/{id}', [HeaderslideController::class, 'viewById']); // GET by ID
-    Route::post('/post/Headerslide', [HeaderslideController::class, 'create']); // POST
-    Route::put('/put/Headerslide/{id}', [HeaderslideController::class, 'update']); // PUT
-    Route::delete('/delete/Headerslide/{id}', [HeaderslideController::class, 'destroy']); // DELETE
-
-    // CRUD table Albums
-    Route::get('/get/Album', [AlbumController::class, 'view']); // GET ALL
-    Route::get('/get/Album/{id}', [AlbumController::class, 'viewById']); // GET by ID
-    Route::post('/post/Album', [AlbumController::class, 'create']); // POST
-    Route::put('/put/Album/{id}', [AlbumController::class, 'update']); // PUT
-    Route::delete('/delete/Album/{id}', [AlbumController::class, 'destroy']); // DELETE
-
     // CRUD table Kat_halstatis
     Route::get('/get/Kat_halstatis', [KatHalStatisController::class, 'view']); // GET ALL
     Route::get('/get/Kat_halstatis/{id}', [KatHalStatisController::class, 'viewById']); // GET by ID
@@ -95,26 +102,19 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::put('/put/Kat_halstatis/{id}', [KatHalStatisController::class, 'update']); // PUT
     Route::delete('/delete/Kat_halstatis/{id}', [KatHalStatisController::class, 'destroy']); // DELETE
 
-    // CRUD table Halstatis
-    Route::get('/get/Halstatis', [HalstatisController::class, 'view']); // GET ALL
-    Route::get('/get/Halstatis/{id}', [HalstatisController::class, 'viewById']); // GET by ID
-    Route::post('/post/Halstatis', [HalstatisController::class, 'create']); // POST
-    Route::put('/put/Halstatis/{id}', [HalstatisController::class, 'update']); // PUT
-    Route::delete('/delete/Halstatis/{id}', [HalstatisController::class, 'destroy']); // DELETE
+    // CRUD table Penggunas
+    Route::get('/get/Pengguna', [PenggunaController::class, 'view']); // GET ALL
+    Route::get('/get/Pengguna/{id}', [PenggunaController::class, 'viewById']); // GET by ID
+    Route::post('/post/Pengguna', [PenggunaController::class, 'create']); // POST
+    Route::post('/put/Pengguna/{id}', [PenggunaController::class, 'update']); // PUT
+    Route::delete('/delete/Pengguna/{id}', [PenggunaController::class, 'destroy']); // DELETE
 
-    // CRUD table Galerifotos
-    Route::get('/get/Galerifoto', [GalerifotoController::class, 'view']); // GET ALL
-    Route::get('/get/Galerifoto/{id}', [GalerifotoController::class, 'viewById']); // GET by ID
-    Route::post('/post/Galerifoto', [GalerifotoController::class, 'create']); // POST
-    Route::put('/put/Galerifoto/{id}', [GalerifotoController::class, 'update']); // PUT
-    Route::delete('/delete/Galerifoto/{id}', [GalerifotoController::class, 'destroy']); // DELETE
-
-    // CRUD table Galerivideos
-    Route::get('/get/Galerivideo', [GalerivideoController::class, 'view']); // GET ALL
-    Route::get('/get/Galerivideo/{id}', [GalerivideoController::class, 'viewById']); // GET by ID
-    Route::post('/post/Galerivideo', [GalerivideoController::class, 'create']); // POST
-    Route::put('/put/Galerivideo/{id}', [GalerivideoController::class, 'update']); // PUT
-    Route::delete('/delete/Galerivideo/{id}', [GalerivideoController::class, 'destroy']); // DELETE
+    // CRUD table Profilopds
+    Route::get('/get/Profilopd', [ProfilopdController::class, 'view']); // GET ALL
+    Route::get('/get/Profilopd/{id}', [ProfilopdController::class, 'viewById']); // GET by ID
+    Route::post('/post/Profilopd', [ProfilopdController::class, 'create']); // POST
+    Route::post('/put/Profilopd/{id}', [ProfilopdController::class, 'update']); // PUT
+    Route::delete('/delete/Profilopd/{id}', [ProfilopdController::class, 'destroy']); // DELETE
 
     // GET RELATION TABLES
     Route::get('/berita', [BeritaController::class, 'berita']); // Berita Table

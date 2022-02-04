@@ -30,17 +30,17 @@ class BannerController extends Controller
 
     public function create(Request $request)
     {
-        $request->validate([
-            'judul' => 'required|max:85',
-            'kategori' => 'required|in:0,1',
-            'file' => 'required|mimes:jpg,png,jpeg|max:50',
-            'link' => 'required|max:100',
-            'status' => 'required|in:0,1'
-        ]);
-
         $user = Auth::user();
 
         if ($user->role == 'admin') {
+            $request->validate([
+                'judul' => 'required|max:85',
+                'kategori' => 'required|in:0,1',
+                'file' => 'required|mimes:jpg,png,jpeg|max:5000',
+                'link' => 'required|max:100',
+                'status' => 'required|in:0,1'
+            ]);
+
             $banner = new Banner;
             $banner->judul = $request->judul;
             $banner->kategori = $request->kategori;
@@ -65,15 +65,15 @@ class BannerController extends Controller
         $banner = Banner::find($id);
         $user = Auth::user();
 
-        $request->validate([
-            'judul' => 'required|max:85',
-            'kategori' => 'required|in:0,1',
-            'file' => 'required|mimes:jpg,png,jpeg|max:50',
-            'link' => 'required|max:100',
-            'status' => 'required|in:0,1'
-        ]);
-
         if ($user->role == 'admin') {
+            $request->validate([
+                'judul' => 'required|max:85',
+                'kategori' => 'required|in:0,1',
+                'file' => 'required|mimes:jpg,png,jpeg|max:5000',
+                'link' => 'required|max:100',
+                'status' => 'required|in:0,1'
+            ]);
+            
             $banner->update([
                 'judul' => $request->judul,
                 'kategori' => $request->kategori,

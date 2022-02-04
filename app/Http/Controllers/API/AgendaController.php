@@ -33,16 +33,16 @@ class AgendaController extends Controller
     {
         $user = Auth::user();
 
-        $request->validate([
-            'hari' => 'required|max:10',
-            'tgl' => 'required|date',
-            'waktu' => 'required|time',
-            'lokasi' => 'required|max:100',
-            'kegiatan' => 'required|max:250',
-            'user_id' => 'required|max:11'
-        ]);
-
         if ($user->role == 'admin') {
+            $request->validate([
+                'hari' => 'required|max:10',
+                'tgl' => 'required|date',
+                'waktu' => 'required|date_format:H:i',
+                'lokasi' => 'required|max:100',
+                'kegiatan' => 'required|max:250',
+                'user_id' => 'required|max:11'
+            ]);
+
             $agenda = new Agenda;
             $agenda->hari = $request->hari;
             $agenda->tgl = $request->tgl;
@@ -66,18 +66,18 @@ class AgendaController extends Controller
     public function update(Request $request, $id)
     {
         $user = Auth::user();
-
         $agenda = Agenda::find($id);
-        $request->validate([
-            'hari' => 'required|max:10',
-            'tgl' => 'required|date',
-            'waktu' => 'required|time',
-            'lokasi' => 'required|max:100',
-            'kegiatan' => 'required|max:250',
-            'user_id' => 'required|max:11'
-        ]);
 
         if ($user->role == 'admin') {
+            $request->validate([
+                'hari' => 'required|max:10',
+                'tgl' => 'required|date',
+                'waktu' => 'required|date_format:H:i',
+                'lokasi' => 'required|max:100',
+                'kegiatan' => 'required|max:250',
+                'user_id' => 'required|max:11'
+            ]);
+            
             $agenda->update([
                 'hari' => $request->hari,
                 'tgl' => $request->tgl,

@@ -11,7 +11,7 @@ class Pengguna extends Model
     protected $table = 'penggunas';
     protected $primaryKey = 'id';
     protected $guarded = [];
-    protected $fillable = ['nama', 'email', 'telp', 'username', 'password', 'foto', 'level'];
+    protected $fillable = ['nama', 'email', 'telp', 'username', 'password', 'role', 'foto', 'level'];
 
     public function Berita(){
         return $this->hasMany(Berita::class, 'user_id', 'id');

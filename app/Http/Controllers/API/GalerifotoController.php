@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use App\Models\Galerifoto;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class GalerifotoController extends Controller
 {
@@ -30,16 +31,16 @@ class GalerifotoController extends Controller
 
     public function create(Request $request)
     {
-        $request->validate([
-            'album_id' => 'required|max:11',
-            'judul' => 'required|max:100',
-            'foto' => 'required|mimes:jpeg,jpg,png|max:50',
-            'keterangan' => 'required|max:100'
-        ]);
-
         $user = Auth::user();
 
         if ($user->role == 'admin') {
+            $request->validate([
+                'album_id' => 'required|max:11',
+                'judul' => 'required|max:100',
+                'foto' => 'required|mimes:jpeg,jpg,png|max:5000',
+                'keterangan' => 'required|max:100'
+            ]);
+
             $foto = new Galerifoto;
             $foto->album_id = $request->album_id;
             $foto->judul = $request->judul;
@@ -63,14 +64,14 @@ class GalerifotoController extends Controller
         $foto = Galerifoto::find($id);
         $user = Auth::user();
 
-        $request->validate([
-            'album_id' => 'required|max:11',
-            'judul' => 'required|max:100',
-            'foto' => 'required|mimes:jpeg,jpg,png|max:50',
-            'keterangan' => 'required|max:100'
-        ]);
-
         if ($user->role == 'admin') {
+            $request->validate([
+                'album_id' => 'required|max:11',
+                'judul' => 'required|max:100',
+                'foto' => 'required|mimes:jpeg,jpg,png|max:5000',
+                'keterangan' => 'required|max:100'
+            ]);
+
             $foto->update([
                 'album_id' => $request->album_id,
                 'judul' => $request->judul,

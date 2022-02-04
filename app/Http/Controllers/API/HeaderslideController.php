@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use App\Models\Headerslide;
+use Illuminate\Support\Facades\Auth;
 
 class HeaderslideController extends Controller
 {
@@ -29,16 +30,16 @@ class HeaderslideController extends Controller
 
     public function create(Request $request)
     {
-        $request->validate([
-            'judul' => 'required|max:85',
-            'file' => 'required|mimes:jpeg,jpg,png|max:50',
-            'keterangan' => 'required|max:85',
-            'status' => 'required|in:0,1'
-        ]);
-
         $user = Auth::user();
 
         if ($user->role == 'admin') {
+            $request->validate([
+                'judul' => 'required|max:85',
+                'file' => 'required|mimes:jpeg,jpg,png|max:5000',
+                'keterangan' => 'required|max:85',
+                'status' => 'required|in:0,1'
+            ]);
+
             $header = new Headerslide;
             $header->judul = $request->judul;
             $header->file = $request->file;
@@ -61,15 +62,15 @@ class HeaderslideController extends Controller
     {
         $header = Headerslide::find($id);
         $user = Auth::user();
-        
-        $request->validate([
-            'judul' => 'required|max:85',
-            'file' => 'required|mimes:jpeg,jpg,png|max:50',
-            'keterangan' => 'required|max:85',
-            'status' => 'required|in:0,1'
-        ]);
 
         if ($user->role == 'admin') {
+            $request->validate([
+                'judul' => 'required|max:85',
+                'file' => 'required|mimes:jpeg,jpg,png|max:5000',
+                'keterangan' => 'required|max:85',
+                'status' => 'required|in:0,1'
+            ]);
+            
             $header->update([
                 'judul' => $request->judul,
                 'file' => $request->file,

@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use App\Models\Berita;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class BeritaController extends Controller
 {
@@ -30,19 +31,19 @@ class BeritaController extends Controller
 
     public function create(Request $request)
     {
-        $request->validate([
-            'judul' => 'required|max:100',
-            'kategori_id' => 'required|max:11',
-            'isi' => 'required|text',
-            'gambar' => 'required|mimes:jpeg,jpg,png|max:50',
-            'tgl' => 'required|date',
-            'status' => 'required|in:0,1',
-            'user_id' => 'required|max:11'
-        ]);
-
         $user = Auth::user();
 
         if ($user->role == 'admin') {
+            $request->validate([
+                'judul' => 'required|max:100',
+                'kategori_id' => 'required|max:11',
+                'isi' => 'required',
+                'gambar' => 'required|mimes:jpeg,jpg,png|max:5000',
+                'tgl' => 'required|date',
+                'status' => 'required|in:0,1',
+                'user_id' => 'required|max:11'
+            ]);
+
             $berita = new Berita;
             $berita->judul = $request->judul;
             $berita->kategori_id = $request->kategori_id;
@@ -69,17 +70,17 @@ class BeritaController extends Controller
         $berita = Berita::find($id);
         $user = Auth::user();
 
-        $request->validate([
-            'judul' => 'required|max:100',
-            'kategori_id' => 'required|max:11',
-            'isi' => 'required|text',
-            'gambar' => 'required|mimes:jpeg,jpg,png|max:50',
-            'tgl' => 'required|date',
-            'status' => 'required|in:0,1',
-            'user_id' => 'required|max:11'
-        ]);
-
         if ($user->role == 'admin') {
+            $request->validate([
+                'judul' => 'required|max:100',
+                'kategori_id' => 'required|max:11',
+                'isi' => 'required',
+                'gambar' => 'required|mimes:jpeg,jpg,png|max:5000',
+                'tgl' => 'required|date',
+                'status' => 'required|in:0,1',
+                'user_id' => 'required|max:11'
+            ]);
+            
             $berita->update([
                 'judul' => $request->judul,
                 'kategori_id' => $request->kategori_id,

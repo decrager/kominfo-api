@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use App\Models\Profilopd;
 use Symfony\Component\HttpKernel\Profiler\Profile;
+use Illuminate\Support\Facades\Auth;
 
 class ProfilopdController extends Controller
 {
@@ -30,26 +31,26 @@ class ProfilopdController extends Controller
 
     public function create(Request $request)
     {
-        $request->validate([
-            'nama_opd' => 'required|max:50',
-            'foto_kantor' => 'required|max:50',
-            'nama_kepalaopd' => 'required|max:50',
-            'foto_kepalaopd' => 'required|max:50',
-            'alamat' => 'required||max:100',
-            'telp' => 'required|max:15',
-            'email' => 'required|max:50',
-            'website' => 'required|max:50',
-            'twitter_alamat' => 'required|max:50',
-            'twitter_link' => 'required|max:50',
-            'ig_alamat' => 'required|max:50',
-            'ig_link' => 'required|max:50',
-            'facebook_alamat' => 'required|max:50',
-            'facebook_link' => 'required|max:50'
-        ]);
-
         $user = Auth::user();
 
         if ($user->role == 'admin') {
+            $request->validate([
+                'nama_opd' => 'required|max:50',
+                'foto_kantor' => 'required|mimes:jpeg,jpg,png|max:5000',
+                'nama_kepalaopd' => 'required|max:5000',
+                'foto_kepalaopd' => 'required|mimes:jpeg,jpg,png|max:5000',
+                'alamat' => 'required||max:100',
+                'telp' => 'required|max:15',
+                'email' => 'required|max:50',
+                'website' => 'required|max:50',
+                'twitter_alamat' => 'required|max:50',
+                'twitter_link' => 'required|max:100',
+                'ig_alamat' => 'required|max:100',
+                'ig_link' => 'required|max:50',
+                'facebook_alamat' => 'required|max:50',
+                'facebook_link' => 'required|max:100'
+            ]);
+
             $profil = new Profilopd;
             $profil->nama_opd = $request->nama_opd;
             $profil->foto_kantor = $request->foto_kantor;
@@ -83,24 +84,24 @@ class ProfilopdController extends Controller
         $profil = Profilopd::find($id);
         $user = Auth::user();
 
-        $request->validate([
-            'nama_opd' => 'required|max:50',
-            'foto_kantor' => 'required|max:50',
-            'nama_kepalaopd' => 'required|max:50',
-            'foto_kepalaopd' => 'required|max:50',
-            'alamat' => 'required||max:100',
-            'telp' => 'required|max:15',
-            'email' => 'required|max:50',
-            'website' => 'required|max:50',
-            'twitter_alamat' => 'required|max:50',
-            'twitter_link' => 'required|max:50',
-            'ig_alamat' => 'required|max:50',
-            'ig_link' => 'required|max:50',
-            'facebook_alamat' => 'required|max:50',
-            'facebook_link' => 'required|max:50'
-        ]);
-
         if ($user->role == 'admin') {
+            $request->validate([
+                'nama_opd' => 'required|max:50',
+                'foto_kantor' => 'required|mimes:jpeg,jpg,png|max:5000',
+                'nama_kepalaopd' => 'required|max:5000',
+                'foto_kepalaopd' => 'required|mimes:jpeg,jpg,png|max:5000',
+                'alamat' => 'required||max:100',
+                'telp' => 'required|max:15',
+                'email' => 'required|max:50',
+                'website' => 'required|max:50',
+                'twitter_alamat' => 'nullable|max:50',
+                'twitter_link' => 'nullable|max:100',
+                'ig_alamat' => 'nullable|max:50',
+                'ig_link' => 'nullable|max:100',
+                'facebook_alamat' => 'nullable|max:50',
+                'facebook_link' => 'nullable|max:100'
+            ]);
+            
             $profil->update([
                 'nama_opd' => $request->nama_opd,
                 'foto_kantor' => $request->foto_kantor,

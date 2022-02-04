@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use App\Models\Galerivideo;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class GalerivideoController extends Controller
 {
@@ -30,17 +31,17 @@ class GalerivideoController extends Controller
 
     public function create(Request $request)
     {
-        $request->validate([
-            'judul' => 'required|max:85',
-            'cover' => 'required|mimes:jpeg,jpg,png|max:50',
-            'embed' => 'required|max:50',
-            'keterangan' => 'required|max:200',
-            'user_id' => 'required|max:11'
-        ]);
-
         $user = Auth::user();
 
         if ($user->role == 'admin') {
+            $request->validate([
+                'judul' => 'required|max:85',
+                'cover' => 'required|mimes:jpeg,jpg,png|max:5000',
+                'embed' => 'required|max:50',
+                'keterangan' => 'required|max:200',
+                'user_id' => 'required|max:11'
+            ]);
+            
             $video = new Galerivideo;
             $video->judul = $request->judul;
             $video->cover = $request->cover;
@@ -65,15 +66,15 @@ class GalerivideoController extends Controller
         $video = Galerivideo::find($id);
         $user = Auth::user();
 
-        $request->validate([
-            'judul' => 'required|max:85',
-            'cover' => 'required|mimes:jpeg,jpg,png|max:50',
-            'embed' => 'required|max:50',
-            'keterangan' => 'required|max:200',
-            'user_id' => 'required|max:11'
-        ]);
-
         if ($user->role == 'admin') {
+            $request->validate([
+                'judul' => 'required|max:85',
+                'cover' => 'required|mimes:jpeg,jpg,png|max:5000',
+                'embed' => 'required|max:50',
+                'keterangan' => 'required|max:200',
+                'user_id' => 'required|max:11'
+            ]);
+
             $video->update([
                 'judul' => $request->judul,
                 'cover' => $request->cover,
@@ -95,10 +96,19 @@ class GalerivideoController extends Controller
 
     public function destroy($id)
     {
-        $video = Galerivideo::find($id)->delete();
-        return response()->json([
-            'message' => "Data Galerivideo Deleted Successfully!"
-        ], Response::HTTP_OK);
+        $user = Auth::user();
+
+        if($user->role=='admin'){
+            $video = Galerivideo::find($id)->delete();
+            return response()->json([
+                'message' => "Data Galerivideo Deleted Successfully!"
+            ], Response::HTTP_OK);
+        } else {
+            return response()->json([
+                'message' => "Unauthorized"
+            ], Response::HTTP_UNAUTHORIZED);
+        }
+        
     }
 
     public function galerivideo()

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use App\Models\Kat_HalStatis;
+use Illuminate\Support\Facades\Auth;
 
 class KatHalStatisController extends Controller
 {
@@ -29,14 +30,14 @@ class KatHalStatisController extends Controller
 
     public function create(Request $request)
     {
-        $request->validate([
-            'kategori' => 'required|max:50',
-            'keterangan' => 'required|max:50'
-        ]);
-
         $user = Auth::user();
 
         if ($user->role == 'admin') {
+            $request->validate([
+                'kategori' => 'required|max:50',
+                'keterangan' => 'required|max:50'
+            ]);
+
             $katStatis = new Kat_HalStatis;
             $katStatis->kategori = $request->kategori;
             $katStatis->keterangan = $request->keterangan;
@@ -58,12 +59,12 @@ class KatHalStatisController extends Controller
         $katStatis = Kat_HalStatis::find($id);
         $user = Auth::user();
 
-        $request->validate([
-            'kategori' => 'required|max:50',
-            'keterangan' => 'required|max:50'
-        ]);
-
         if ($user->role == 'admin') {
+            $request->validate([
+                'kategori' => 'required|max:50',
+                'keterangan' => 'required|max:50'
+            ]);
+            
             $katStatis->update([
                 'kategori' => $request->kategori,
                 'keterangan' => $request->keterangan

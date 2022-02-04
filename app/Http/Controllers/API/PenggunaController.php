@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Pengguna;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class PenggunaController extends Controller
 {
@@ -31,25 +32,27 @@ class PenggunaController extends Controller
 
     public function create(Request $request)
     {
-        $request->validate([
-            'nama' => 'required|max:50',
-            'email' => 'required|max:50',
-            'telp' => 'required|max:15',
-            'username' => 'required|max:25',
-            'password' => 'required|max:100',
-            'foto' => 'required|mimes:jpeg,jpg,png|max:50',
-            'level' => 'required|max:2'
-        ]);
-
         $user = Auth::user();
 
         if ($user->role == 'admin') {
+            $request->validate([
+                'nama' => 'required|max:50',
+                'email' => 'required|max:50',
+                'telp' => 'required|max:15',
+                'username' => 'required|max:25',
+                'password' => 'required|max:100',
+                'role' => 'required|max:25',
+                'foto' => 'required|mimes:jpeg,jpg,png|max:5000',
+                'level' => 'required|max:2'
+            ]);
+            
             $pengguna = new Pengguna;
             $pengguna->nama = $request->nama;
             $pengguna->email = $request->email;
             $pengguna->telp = $request->telp;
             $pengguna->username = $request->username;
             $pengguna->password = Hash::make($request->password);
+            $pengguna->role = $request->role;
             $pengguna->foto = $request->foto;
             $pengguna->level = $request->level;
             $pengguna->save();
@@ -70,23 +73,25 @@ class PenggunaController extends Controller
         $pengguna = Pengguna::find($id);
         $user = Auth::user();
 
-        $request->validate([
-            'nama' => 'required|max:50',
-            'email' => 'required|max:50',
-            'telp' => 'required|max:15',
-            'username' => 'required|max:25',
-            'password' => 'required|max:100',
-            'foto' => 'required|mimes:jpeg,jpg,png|max:50',
-            'level' => 'required|max:2'
-        ]);
-
         if ($user->role == 'admin') {
+            $request->validate([
+                'nama' => 'required|max:50',
+                'email' => 'required|max:50',
+                'telp' => 'required|max:15',
+                'username' => 'required|max:25',
+                'password' => 'required|max:100',
+                'role' => 'required|max:25',
+                'foto' => 'required|mimes:jpeg,jpg,png|max:5000',
+                'level' => 'required|max:2'
+            ]);
+
             $pengguna->update([
                 'nama' => $request->nama,
                 'email' => $request->email,
                 'telp' => $request->telp,
                 'username' => $request->username,
                 'password' => $request->password,
+                'role' => $request->role,
                 'foto' => $request->foto,
                 'level' => $request->level
             ]);

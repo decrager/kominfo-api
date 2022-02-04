@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use App\Models\Kat_berita;
+use Illuminate\Support\Facades\Auth;
 
 class KatBeritaController extends Controller
 {
@@ -29,14 +30,14 @@ class KatBeritaController extends Controller
 
     public function create(Request $request)
     {
-        $request->validate([
-            'kategori' => 'required|max:50',
-            'keterangan' => 'required|max:50'
-        ]);
-
         $user = Auth::user();
 
         if ($user->role == 'admin') {
+            $request->validate([
+                'kategori' => 'required|max:50',
+                'keterangan' => 'required|max:50'
+            ]);
+
             $katBerita = new Kat_berita;
             $katBerita->kategori = $request->kategori;
             $katBerita->keterangan = $request->keterangan;
@@ -58,12 +59,12 @@ class KatBeritaController extends Controller
         $katBerita = Kat_berita::find($id);
         $user = Auth::user();
 
-        $request->validate([
-            'kategori' => 'required|max:50',
-            'keterangan' => 'required|max:50'
-        ]);
-
         if ($user->role == 'admin') {
+            $request->validate([
+                'kategori' => 'required|max:50',
+                'keterangan' => 'required|max:50'
+            ]);
+            
             $katBerita->update([
                 'kategori' => $request->kategori,
                 'keterangan' => $request->keterangan

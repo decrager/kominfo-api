@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use App\Models\Halstatis;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class HalstatisController extends Controller
 {
@@ -30,19 +31,19 @@ class HalstatisController extends Controller
 
     public function create(Request $request)
     {
-        $request->validate([
-            'judul' => 'required|max:100',
-            'kategori_id' => 'required|max:11',
-            'isi' => 'required|text',
-            'file' => 'nullable|mimes:jpeg,jpg,png|max:50',
-            'tgl' => 'required|date',
-            'status' => 'required|in:0,1',
-            'user_id' => 'required|max:11'
-        ]);
-
         $user = Auth::user();
 
         if ($user->role == 'admin') {
+            $request->validate([
+                'judul' => 'required|max:100',
+                'kategori_id' => 'required|max:11',
+                'isi' => 'required',
+                'file' => 'nullable|mimes:jpeg,jpg,png|max:5000',
+                'tgl' => 'required|date',
+                'status' => 'required|in:0,1',
+                'user_id' => 'required|max:11'
+            ]);
+
             $halstatis = new Halstatis;
             $halstatis->judul = $request->judul;
             $halstatis->kategori_id = $request->kategori_id;
@@ -69,17 +70,17 @@ class HalstatisController extends Controller
         $halstatis = Halstatis::find($id);
         $user = Auth::user();
 
-        $request->validate([
-            'judul' => 'required|max:100',
-            'kategori_id' => 'required|max:11',
-            'isi' => 'required|text',
-            'file' => 'nullable|mimes:jpeg,jpg,png|max:50',
-            'tgl' => 'required|date',
-            'status' => 'required|in:0,1',
-            'user_id' => 'required|max:11'
-        ]);
-
         if ($user->role == 'admin') {
+            $request->validate([
+                'judul' => 'required|max:100',
+                'kategori_id' => 'required|max:11',
+                'isi' => 'required',
+                'file' => 'nullable|mimes:jpeg,jpg,png|max:5000',
+                'tgl' => 'required|date',
+                'status' => 'required|in:0,1',
+                'user_id' => 'required|max:11'
+            ]);
+            
             $halstatis->update([
                 'judul' => $request->judul,
                 'kategori_id' => $request->kategori_id,
