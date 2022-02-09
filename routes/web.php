@@ -206,6 +206,13 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/dashboard', function (Request $request) {
+    // $user = Auth::user();
+
+    // if($user->role=='admin') {
+    //     return view('admin');
+    // } else {
+    //     return view('public');
+    // }
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
