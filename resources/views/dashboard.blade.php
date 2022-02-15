@@ -9,7 +9,21 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <h1 style="font-size: 20px" class="mb-1">Tabel Agenda</h1>
+                    <h1 style="font-size: 20px" class="mb-1">Login & Logout</h1>
+                    <h1 class="mb-1">Login menggunakan postman terlebih dahulu untuk medapatkan token</h1>
+                    <div class="p-2 bg-gray border-l-4 border-gray-200">
+                        <p>
+                            <p id="login" style="display: none">https://kominfo.kotabogor-api.my.id/login</p>
+                            <font color="#F59946">POST</font> https://kominfo.kotabogor-api.my.id/login |
+                            <button onclick="copy('login')">Copy</button>
+                        </p>
+                        <p>
+                            <p id="logout" style="display: none">https://kominfo.kotabogor-api.my.id/logout</p>
+                            <font color="green">GET</font> https://kominfo.kotabogor-api.my.id/logout |
+                            <button onclick="copy('logout')">Copy</button>
+                        </p>
+                    </div>
+                    <h1 style="font-size: 20px" class="mb-1 mt-4">Tabel Agenda</h1>
                     <div class="p-2 bg-gray border-l-4 border-gray-200">
                         <p>
                             <p id="agenda1" style="display: none">https://kominfo.kotabogor-api.my.id/Agenda</p>
