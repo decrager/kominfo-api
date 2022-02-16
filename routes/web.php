@@ -139,7 +139,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('/galerivideo/{id}', [GalerivideoController::class, 'galerivideoById']); // Album Table
 });
 
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/loginAPI', [AuthController::class, 'login']);
 
 Route::get('/dashboard', function (Request $request) {
     // $user = Auth::user();
