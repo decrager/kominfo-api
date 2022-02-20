@@ -36,7 +36,7 @@ class HeaderslideController extends Controller
             $request->validate([
                 'judul' => 'required|max:85',
                 'file' => 'required|mimes:jpeg,jpg,png|max:5000',
-                'keterangan' => 'required|max:85',
+                'keterangan' => 'required|max:100',
                 'status' => 'required|in:0,1'
             ]);
 
@@ -67,7 +67,7 @@ class HeaderslideController extends Controller
             $request->validate([
                 'judul' => 'required|max:85',
                 'file' => 'required|mimes:jpeg,jpg,png|max:5000',
-                'keterangan' => 'required|max:85',
+                'keterangan' => 'required|max:100',
                 'status' => 'required|in:0,1'
             ]);
             

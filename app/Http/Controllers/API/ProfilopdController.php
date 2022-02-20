@@ -43,12 +43,12 @@ class ProfilopdController extends Controller
                 'telp' => 'required|max:15',
                 'email' => 'required|max:50',
                 'website' => 'required|max:50',
-                'twitter_alamat' => 'required|max:50',
-                'twitter_link' => 'required|max:100',
-                'ig_alamat' => 'required|max:100',
-                'ig_link' => 'required|max:50',
-                'facebook_alamat' => 'required|max:50',
-                'facebook_link' => 'required|max:100'
+                'twitter_alamat' => 'nullable|max:50',
+                'twitter_link' => 'nullable|max:100',
+                'ig_alamat' => 'nullable|max:100',
+                'ig_link' => 'nullable|max:50',
+                'facebook_alamat' => 'nullable|max:50',
+                'facebook_link' => 'nullable|max:100'
             ]);
 
             $profil = new Profilopd;

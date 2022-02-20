@@ -109,27 +109,36 @@ class AlbumController extends Controller
 
     public function album()
     {
-        $album = DB::table('albums')
-            ->join('penggunas', 'albums.user_id', '=', 'penggunas.id')
-            ->select('albums.id', 'albums.judul', 'albums.tgl', 'albums.cover', 'penggunas.username')
-            ->get();
+        $album = Album::with('Pengguna')
+        ->select(
+            'id',
+            'judul',
+            'tgl',
+            'cover',
+            'user_id'
+        )->get();
 
         return response()->json([
-            'message' => "Data Album Loaded Successfully!",
+            'message' => "Data Album with Pengguna Loaded Successfully!",
             'Album' => $album
         ], Response::HTTP_OK);
     }
 
     public function albumById($id)
     {
-        $album = DB::table('albums')
-            ->join('penggunas', 'albums.user_id', '=', 'penggunas.id')
-            ->select('albums.judul', 'albums.tgl', 'albums.cover', 'penggunas.username')
-            ->where('albums.id', $id)
-            ->get();
+        $album = Album::with('Pengguna')
+        ->select(
+            'id',
+            'judul',
+            'tgl',
+            'cover',
+            'user_id'
+        )
+        ->where('id', $id)
+        ->get();
 
         return response()->json([
-            'message' => "Data Album Loaded Successfully!",
+            'message' => "Data Album with Pengguna Loaded Successfully!",
             'Album' => $album
         ], Response::HTTP_OK);
     }

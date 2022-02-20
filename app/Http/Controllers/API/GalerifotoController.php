@@ -100,27 +100,36 @@ class GalerifotoController extends Controller
 
     public function galerifoto()
     {
-        $foto = DB::table('galerifotos')
-            ->join('albums', 'galerifotos.album_id', '=', 'albums.id')
-            ->select('galerifotos.id', 'albums.judul', 'galerifotos.foto', 'galerifotos.keterangan')
-            ->get();
+        $foto = Galerifoto::with('Album')
+        ->select(
+            'id',
+            'album_id',
+            'judul',
+            'foto',
+            'keterangan'
+        )->get();
 
         return response()->json([
-            'message' => "Data Galerifoto Loaded Successfully!",
+            'message' => "Data Galerifoto with Album Loaded Successfully!",
             'Galerifoto' => $foto
         ], Response::HTTP_OK);
     }
 
     public function galerifotoById($id)
     {
-        $foto = DB::table('galerifotos')
-            ->join('albums', 'galerifotos.album_id', '=', 'albums.id')
-            ->select('albums.judul', 'galerifotos.foto', 'galerifotos.keterangan')
-            ->where('galerifotos.id', $id)
-            ->get();
+        $foto = Galerifoto::with('Album')
+        ->select(
+            'id',
+            'album_id',
+            'judul',
+            'foto',
+            'keterangan'
+        )
+        ->where('id', $id)
+        ->get();
 
         return response()->json([
-            'message' => "Data Galerifoto Loaded Successfully!",
+            'message' => "Data Galerifoto with Album Loaded Successfully!",
             'Galerifoto' => $foto
         ], Response::HTTP_OK);
     }

@@ -11,13 +11,34 @@ class Berita extends Model
     protected $table = 'beritas';
     protected $primaryKey = 'id';
     protected $guarded = [];
-    protected $fillable = ['judul', 'kategori_id', 'isi', 'gambar', 'tgl', 'status', 'user_id'];
+    protected $fillable = [
+        'judul',
+        'kategori_id',
+        'isi',
+        'gambar',
+        'tgl',
+        'status',
+        'user_id'
+    ];
 
-    public function Kat_berita(){
-        return $this->belongsTo(Kat_berita::class, 'kategori_id', 'id');
+    public function Kat_berita()
+    {
+        return $this->belongsTo(Kat_berita::class, 'kategori_id', 'id')
+            ->select('id', 'kategori', 'keterangan');
     }
 
-    public function Pengguna(){
-        return $this->belongsTo(Pengguna::class, 'user_id', 'id');
+    public function Pengguna()
+    {
+        return $this->belongsTo(Pengguna::class, 'user_id', 'id')
+            ->select(
+                'id',
+                'nama',
+                'email',
+                'telp',
+                'username',
+                'role',
+                'foto',
+                'level'
+            );
     }
 }

@@ -19,6 +19,13 @@ class Galerifoto extends Model
     ];
 
     public function Album(){
-        return $this->belongsTo(Album::class, 'album_id', 'id');
+        return $this->belongsTo(Album::class, 'album_id', 'id')
+        ->select(
+            'id',
+            'judul',
+            'tgl',
+            'cover',
+            'user_id'
+        );
     }
 }

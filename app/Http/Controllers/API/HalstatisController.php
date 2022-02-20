@@ -80,7 +80,7 @@ class HalstatisController extends Controller
                 'status' => 'required|in:0,1',
                 'user_id' => 'required|max:11'
             ]);
-            
+
             $halstatis->update([
                 'judul' => $request->judul,
                 'kategori_id' => $request->kategori_id,
@@ -120,11 +120,17 @@ class HalstatisController extends Controller
 
     public function halstatis()
     {
-        $halstatis = DB::table('halstatis')
-            ->join('kat_halstatis', 'halstatis.kategori_id', '=', 'kat_halstatis.id')
-            ->join('penggunas', 'halstatis.user_id', '=', 'penggunas.id')
-            ->select('halstatis.id', 'kat_halstatis.kategori', 'halstatis.isi', 'halstatis.file', 'halstatis.tgl', 'halstatis.status', 'penggunas.username')
-            ->get();
+        $halstatis = Halstatis::with('Kat_halstatis', 'Pengguna')
+            ->select(
+                'id',
+                'judul',
+                'kategori_id',
+                'isi',
+                'file',
+                'tgl',
+                'status',
+                'user_id'
+            )->get();
 
         return response()->json([
             'message' => "Data Halstatis Loaded Successfully!",
@@ -134,11 +140,18 @@ class HalstatisController extends Controller
 
     public function halstatisById($id)
     {
-        $halstatis = DB::table('halstatis')
-            ->join('kat_halstatis', 'halstatis.kategori_id', '=', 'kat_halstatis.id')
-            ->join('penggunas', 'halstatis.user_id', '=', 'penggunas.id')
-            ->select('kat_halstatis.kategori', 'halstatis.isi', 'halstatis.file', 'halstatis.tgl', 'halstatis.status', 'penggunas.username')
-            ->where('halstatis.id', $id)
+        $halstatis = Halstatis::with('Kat_halstatis', 'Pengguna')
+            ->select(
+                'id',
+                'judul',
+                'kategori_id',
+                'isi',
+                'file',
+                'tgl',
+                'status',
+                'user_id'
+            )
+            ->where('id',$id)
             ->get();
 
         return response()->json([

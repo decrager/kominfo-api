@@ -80,7 +80,7 @@ class BeritaController extends Controller
                 'status' => 'required|in:0,1',
                 'user_id' => 'required|max:11'
             ]);
-            
+
             $berita->update([
                 'judul' => $request->judul,
                 'kategori_id' => $request->kategori_id,
@@ -120,29 +120,42 @@ class BeritaController extends Controller
 
     public function berita()
     {
-        $berita = DB::table('beritas')
-            ->join('kat_beritas', 'beritas.kategori_id', '=', 'kat_beritas.id')
-            ->join('penggunas', 'beritas.user_id', '=', 'penggunas.id')
-            ->select('beritas.id', 'beritas.judul', 'kat_beritas.kategori', 'beritas.isi', 'beritas.gambar', 'beritas.tgl', 'beritas.status', 'penggunas.username')
-            ->get();
+        $berita = Berita::with('Kat_berita', 'Pengguna')
+            ->select(
+                'id',
+                'judul',
+                'kategori_id',
+                'isi',
+                'gambar',
+                'tgl',
+                'status',
+                'user_id'
+            )->get();
 
         return response()->json([
-            'message' => "Data Berita Loaded Successfully!",
+            'message' => "Data Berita with Kategori & Pengguna Loaded Successfully!",
             'Berita' => $berita
         ], Response::HTTP_OK);
     }
 
     public function beritaById($id)
     {
-        $berita = DB::table('beritas')
-            ->join('kat_beritas', 'beritas.kategori_id', '=', 'kat_beritas.id')
-            ->join('penggunas', 'beritas.user_id', '=', 'penggunas.id')
-            ->select('beritas.judul', 'kat_beritas.kategori', 'beritas.isi', 'beritas.gambar', 'beritas.tgl', 'beritas.status', 'penggunas.username')
-            ->where('beritas.id', $id)
+        $berita = Berita::with('Kat_berita', 'Pengguna')
+            ->select(
+                'id',
+                'judul',
+                'kategori_id',
+                'isi',
+                'gambar',
+                'tgl',
+                'status',
+                'user_id'
+            )
+            ->where('id', $id)
             ->get();
 
         return response()->json([
-            'message' => "Data Berita Loaded Successfully!",
+            'message' => "Data Berita with Kategori & Pengguna Loaded Successfully!",
             'Berita' => $berita
         ], Response::HTTP_OK);
     }

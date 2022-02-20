@@ -21,11 +21,25 @@ class Halstatis extends Model
         'user_id'
     ];
 
-    public function Kat_halstatis(){
-        return $this->belongsTo(Kat_HalStatis::class, 'kategori_id', 'id');
+    public function Kat_halstatis()
+    {
+        return $this->belongsTo(Kat_HalStatis::class, 'kategori_id', 'id')
+            ->select('id', 'kategori', 'keterangan');
     }
 
-    public function Pengguna(){
-        return $this->belongsTo(Pengguna::class, 'user_id', 'id');
+    public function Pengguna()
+    {
+        return $this->belongsTo(Pengguna::class, 'user_id', 'id')
+            ->select(
+                'id',
+                'nama',
+                'email',
+                'telp',
+                'username',
+                'password',
+                'role',
+                'foto',
+                'level'
+            );
     }
 }

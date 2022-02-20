@@ -113,10 +113,15 @@ class GalerivideoController extends Controller
 
     public function galerivideo()
     {
-        $video = DB::table('galerivideos')
-            ->join('penggunas', 'galerivideos.user_id', '=', 'penggunas.id')
-            ->select('galerivideos.id', 'galerivideos.cover', 'galerivideos.embed', 'galerivideos.keterangan', 'penggunas.username')
-            ->get();
+        $video = Galerivideo::with('Pengguna')
+        ->select(
+            'id',
+            'judul',
+            'cover',
+            'embed',
+            'keterangan',
+            'user_id'
+        )->get();
 
         return response()->json([
             'message' => "Data Galerivideo Loaded Successfully!",
@@ -126,11 +131,17 @@ class GalerivideoController extends Controller
 
     public function galerivideoById($id)
     {
-        $video = DB::table('galerivideos')
-            ->join('penggunas', 'galerivideos.user_id', '=', 'penggunas.id')
-            ->select('galerivideos.cover', 'galerivideos.embed', 'galerivideos.keterangan', 'penggunas.username')
-            ->where('galerivideos.id', $id)
-            ->get();
+        $video = Galerivideo::with('Pengguna')
+        ->select(
+            'id',
+            'judul',
+            'cover',
+            'embed',
+            'keterangan',
+            'user_id'
+        )
+        ->where('id', $id)
+        ->get();
 
         return response()->json([
             'message' => "Data Galerivideo Loaded Successfully!",

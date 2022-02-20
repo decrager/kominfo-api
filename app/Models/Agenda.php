@@ -11,9 +11,27 @@ class Agenda extends Model
     protected $table = 'agendas';
     protected $primaryKey = 'id';
     protected $guarded = [];
-    protected $fillable = ['hari', 'tgl', 'waktu', 'lokasi', 'kegiatan', 'user_id'];
-    
-    public function Pengguna(){
-        return $this->belongsTo(Pengguna::class, 'user_id', 'id');
+    protected $fillable = [
+        'hari',
+        'tgl',
+        'waktu',
+        'lokasi',
+        'kegiatan',
+        'user_id'
+    ];
+
+    public function Pengguna()
+    {
+        return $this->belongsTo(Pengguna::class, 'user_id', 'id')
+            ->select(
+                'id',
+                'nama',
+                'email',
+                'telp',
+                'username',
+                'role',
+                'foto',
+                'level'
+            );
     }
 }

@@ -77,7 +77,7 @@ class AgendaController extends Controller
                 'kegiatan' => 'required|max:250',
                 'user_id' => 'required|max:11'
             ]);
-            
+
             $agenda->update([
                 'hari' => $request->hari,
                 'tgl' => $request->tgl,
@@ -116,27 +116,41 @@ class AgendaController extends Controller
 
     public function agenda()
     {
-        $agenda = DB::table('agendas')
-            ->join('penggunas', 'agendas.user_id', '=', 'penggunas.id')
-            ->select('agendas.id', 'agendas.hari', 'agendas.tgl', 'agendas.waktu', 'agendas.lokasi', 'agendas.kegiatan', 'penggunas.username')
+        $agenda = Agenda::with('Pengguna')
+            ->select(
+                'id',
+                'hari',
+                'tgl',
+                'waktu',
+                'lokasi',
+                'kegiatan',
+                'user_id',
+            )
             ->get();
 
         return response()->json([
-            'message' => "Data Agenda Loaded Successfully!",
+            'message' => "Data Agenda with Pengguna Loaded Successfully!",
             'Agenda' => $agenda
         ], Response::HTTP_OK);
     }
 
     public function agendaById($id)
     {
-        $agenda = DB::table('agendas')
-            ->join('penggunas', 'agendas.user_id', '=', 'penggunas.id')
-            ->select('agendas.hari', 'agendas.tgl', 'agendas.waktu', 'agendas.lokasi', 'agendas.kegiatan', 'penggunas.username')
-            ->where('agendas.id', $id)
+        $agenda = Agenda::with('Pengguna')
+            ->select(
+                'id',
+                'hari',
+                'tgl',
+                'waktu',
+                'lokasi',
+                'kegiatan',
+                'user_id',
+            )
+            ->where('id', $id)
             ->get();
 
         return response()->json([
-            'message' => "Data Agenda Loaded Successfully!",
+            'message' => "Data Agenda with Pengguna Loaded Successfully!",
             'Agenda' => $agenda
         ], Response::HTTP_OK);
     }
