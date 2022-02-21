@@ -68,7 +68,7 @@
                             "nama_kepalaopd": "varchar(50)",
                             "foto_kepalaopd": "varchar(50)",
                             "alamat": "varchar(100)",
-                            "telp": varchar(15),
+                            "telp": "varchar(15)",
                             "email": "varchar(50)",
                             "website": "varchar(50)",
                             "twitter_alamat": "varchar(50)",
