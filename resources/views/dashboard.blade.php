@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('REST API Web Kominfo Kota Bogor') }}
+            {{ __('REST API Website Kominfo Kota Bogor') }}
         </h2>
     </x-slot>
 
