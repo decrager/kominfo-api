@@ -43,7 +43,7 @@
                     </tr>
                     <tr>
                         <td class="col-1" scope="row"><button
-                                class="btn btn-outline-primary pe-none">PUT</button></td>
+                                class="btn btn-outline-warning pe-none">POST</button></td>
                         <td id="Berita4">https://kominfo.kotabogor-api.my.id/BeritaUpd/{id}</td>
                         <td><button class="btn btn-success float-end"
                                 onclick="copy('Berita4')">Copy</button></td>
