@@ -48,7 +48,7 @@ class HalstatisController extends Controller
             $halstatis->judul = $request->judul;
             $halstatis->kategori_id = $request->kategori_id;
             $halstatis->isi = $request->isi;
-            $halstatis->file = $request->file;
+            $halstatis->file = $request->file('file')->store('images');
             $halstatis->tgl = $request->tgl;
             $halstatis->status = $request->status;
             $halstatis->user_id = $request->user_id;
@@ -85,7 +85,7 @@ class HalstatisController extends Controller
                 'judul' => $request->judul,
                 'kategori_id' => $request->kategori_id,
                 'isi' => $request->isi,
-                'file' => $request->file,
+                'file' => $request->file('file')->store('images'),
                 'tgl' => $request->tgl,
                 'status' => $request->status,
                 'user_id' => $request->user_id

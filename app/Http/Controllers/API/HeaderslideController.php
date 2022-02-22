@@ -42,7 +42,7 @@ class HeaderslideController extends Controller
 
             $header = new Headerslide;
             $header->judul = $request->judul;
-            $header->file = $request->file;
+            $header->file = $request->file('file')->store('images');
             $header->keterangan = $request->keterangan;
             $header->status = $request->status;
             $header->save();
@@ -73,7 +73,7 @@ class HeaderslideController extends Controller
             
             $header->update([
                 'judul' => $request->judul,
-                'file' => $request->file,
+                'file' => $request->file('file')->store('images'),
                 'keterangan' => $request->keterangan,
                 'status' => $request->status
             ]);

@@ -48,7 +48,7 @@ class BeritaController extends Controller
             $berita->judul = $request->judul;
             $berita->kategori_id = $request->kategori_id;
             $berita->isi = $request->isi;
-            $berita->gambar = $request->gambar;
+            $berita->gambar = $request->file('gambar')->store('images');
             $berita->tgl = $request->tgl;
             $berita->status = $request->status;
             $berita->user_id = $request->user_id;
@@ -85,7 +85,7 @@ class BeritaController extends Controller
                 'judul' => $request->judul,
                 'kategori_id' => $request->kategori_id,
                 'isi' => $request->isi,
-                'gambar' => $request->gambar,
+                'gambar' => $request->file('gambar')->store('images'),
                 'tgl' => $request->tgl,
                 'status' => $request->status,
                 'user_id' => $request->user_id

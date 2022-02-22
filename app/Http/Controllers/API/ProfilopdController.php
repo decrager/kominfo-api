@@ -53,9 +53,9 @@ class ProfilopdController extends Controller
 
             $profil = new Profilopd;
             $profil->nama_opd = $request->nama_opd;
-            $profil->foto_kantor = $request->foto_kantor;
+            $profil->foto_kantor = $request->file('foto_kantor')->store('images');
             $profil->nama_kepalaopd = $request->nama_kepalaopd;
-            $profil->foto_kepalaopd = $request->foto_kepalaopd;
+            $profil->foto_kepalaopd = $request->file('foto_kepalaopd')->store('images');
             $profil->alamat = $request->alamat;
             $profil->telp = $request->telp;
             $profil->email = $request->email;
@@ -104,9 +104,9 @@ class ProfilopdController extends Controller
             
             $profil->update([
                 'nama_opd' => $request->nama_opd,
-                'foto_kantor' => $request->foto_kantor,
+                'foto_kantor' => $request->file('foto_kantor')->store('images'),
                 'nama_kepalaopd' => $request->nama_kepalaopd,
-                'foto_kepalaopd' => $request->foto_kepalaopd,
+                'foto_kepalaopd' => $request->file('foto_kepalaopd')->store('images'),
                 'alamat' => $request->alamat,
                 'telp' => $request->telp,
                 'email' => $request->email,

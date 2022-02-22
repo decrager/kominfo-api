@@ -44,7 +44,7 @@ class BannerController extends Controller
             $banner = new Banner;
             $banner->judul = $request->judul;
             $banner->kategori = $request->kategori;
-            $banner->file = $request->file;
+            $banner->file = $request->file('file')->store('images');
             $banner->link = $request->link;
             $banner->status = $request->status;
             $banner->save();
@@ -77,7 +77,7 @@ class BannerController extends Controller
             $banner->update([
                 'judul' => $request->judul,
                 'kategori' => $request->kategori,
-                'file' => $request->file,
+                'file' => $request->file('file')->store('images'),
                 'link' => $request->link,
                 'status' => $request->status
             ]);

@@ -53,7 +53,7 @@ class PenggunaController extends Controller
             $pengguna->username = $request->username;
             $pengguna->password = Hash::make($request->password);
             $pengguna->role = $request->role;
-            $pengguna->foto = $request->foto;
+            $pengguna->foto = $request->file('foto')->store('images');
             $pengguna->level = $request->level;
             $pengguna->save();
 
@@ -92,7 +92,7 @@ class PenggunaController extends Controller
                 'username' => $request->username,
                 'password' => $request->password,
                 'role' => $request->role,
-                'foto' => $request->foto,
+                'foto' => $request->file('foto')->store('images'),
                 'level' => $request->level
             ]);
 
