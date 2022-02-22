@@ -64,7 +64,7 @@
                         {
                             "id": "int(11)",
                             "judul": "varchar(85)",
-                            "file": "varchar(50)",
+                            "file": "varchar(255)",
                             "keterangan": "varchar(100)",
                             "status": "enum('0','1')",
                             "created_at": "Timestamp",

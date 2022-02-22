@@ -69,7 +69,7 @@
                             "username": "varchar(25)",
                             "password": "varchar(100)",
                             "role": "varchar(25)",
-                            "foto": "varchar(50)",
+                            "foto": "varchar(255)",
                             "level": "int(2)",
                             "created_at": "Timestamp",
                             "updated_at": "Timestamp"

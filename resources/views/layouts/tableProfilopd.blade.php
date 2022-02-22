@@ -63,9 +63,9 @@
                     <code class="language-json text-left pt-3">
                         {
                             "id": "int(3)",
-                            "nama_opd": "varchar(50)",
+                            "nama_opd": "varchar(255)",
                             "foto_kantor": "varchar(50)",
-                            "nama_kepalaopd": "varchar(50)",
+                            "nama_kepalaopd": "varchar(255)",
                             "foto_kepalaopd": "varchar(50)",
                             "alamat": "varchar(100)",
                             "telp": "varchar(15)",

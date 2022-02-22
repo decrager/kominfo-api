@@ -72,7 +72,7 @@
                                         "telp": "varchar(15)",
                                         "username": "varchar(25)",
                                         "role": "varchar(25)",
-                                        "foto": "varchar(50)",
+                                        "foto": "varchar(255)",
                                         "level": "int(2)"
                                     }
                                 }
@@ -125,7 +125,7 @@
                                     "id": "int(11)",
                                         "judul": "varchar(100)",
                                         "tgl": "date(yyyy-mm-dd)",
-                                        "cover": "varchar(50)",
+                                        "cover": "varchar(255)",
                                         "user_id": "int(11)",
                                     "pengguna": {
                                         "id": "int(3)",
@@ -134,7 +134,7 @@
                                         "telp": "varchar(15)",
                                         "username": "varchar(25)",
                                         "role": "varchar(25)",
-                                        "foto": "varchar(50)",
+                                        "foto": "varchar(255)",
                                         "level": "int(2)"
                                     }
                                 }
@@ -184,7 +184,7 @@
                                     "judul": "varchar(100)",
                                     "kategori_id": "int(11)",
                                     "isi": "text",
-                                    "gambar": "varchar(50)",
+                                    "gambar": "varchar(255)",
                                     "tgl" : "date(yyyy-mm-dd)",
                                     "status": "enum('0','1')",
                                     "Kat_berita": {
@@ -199,7 +199,7 @@
                                         "telp": "varchar(15)",
                                         "username": "varchar(25)",
                                         "role": "varchar(25)",
-                                        "foto": "varchar(50)",
+                                        "foto": "varchar(255)",
                                         "level": "int(2)"
                                     }
                                 }
@@ -249,7 +249,7 @@
                                     "judul": "varchar(100)",
                                     "kategori_id": "int(11)",
                                     "isi": "text",
-                                    "file": "varchar(50)",
+                                    "file": "varchar(255)",
                                     "tgl": "date(yyyy-mm-dd)",
                                     "status": "enum('0','1')",
                                     "user_id": "int(11)",
@@ -265,7 +265,7 @@
                                         "telp": "varchar(15)",
                                         "username": "varchar(25)",
                                         "role": "varchar(25)",
-                                        "foto": "varchar(50)",
+                                        "foto": "varchar(255)",
                                         "level": "int(2)"
                                     }
                                 }
@@ -314,13 +314,13 @@
                                     "id": "int(11)",
                                     "album_id": "int(11)",
                                     "judul": "varchar",
-                                    "foto": "varchar(50)",
+                                    "foto": "varchar(255)",
                                     "keterangan": "varchar(100)",
                                     "album": {
                                         "id": "int(11)",
                                         "judul": "varchar(100)",
                                         "tgl": "date(yyyy-mm-dd)",
-                                        "cover": "varchar(50)",
+                                        "cover": "varchar(255)",
                                         "user_id": "int(11)",
                                     }
                                 }
@@ -368,7 +368,7 @@
                                 {
                                     "id": "int(11)",
                                     "judul": "varchar(85)",
-                                    "cover": "varchar(50)",
+                                    "cover": "varchar(255)",
                                     "embed": "varchar(50)",
                                     "keterangan": "varchar(100)",
                                     "user_id": "int(11)",
@@ -379,7 +379,7 @@
                                         "telp": "varchar(15)",
                                         "username": "varchar(25)",
                                         "role": "varchar(25)",
-                                        "foto": "varchar(50)",
+                                        "foto": "varchar(255)",
                                         "level": "int(2)"
                                     }
                                 }

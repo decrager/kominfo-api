@@ -64,7 +64,7 @@
                         {
                             "id": "int(11)",
                             "judul": "varchar(85)",
-                            "cover": "varchar(50)",
+                            "cover": "varchar(255)",
                             "embed": "varchar(50)",
                             "keterangan": "varchar(100)",
                             "user_id": "int(11)",
