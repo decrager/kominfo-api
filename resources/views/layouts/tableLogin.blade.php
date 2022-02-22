@@ -22,14 +22,14 @@
                     <tr>
                         <td class="col-1" scope="row"><button
                                 class="btn btn-outline-warning pe-none">POST</button></td>
-                        <td id="login">https://kominfo.kotabogor-api.my.id/loginAPI</td>
-                        <td><button class="btn btn-success float-end" onclick="copy('login')">Copy</button></td>
+                        <td id="loginAPI">https://kominfo.kotabogor-api.my.id/loginAPI</td>
+                        <td><button class="btn btn-success float-end" onclick="copy('loginAPI')">Copy</button></td>
                     </tr>
                     <tr class="py-2">
                         <td class="col-1" scope="row"><button
                                 class="btn btn-outline-success pe-none">GET</button></td>
-                        <td id="login">https://kominfo.kotabogor-api.my.id/logout</td>
-                        <td><button class="btn btn-success float-end" onclick="copy('login')">Copy</button></td>
+                        <td id="logoutAPI">https://kominfo.kotabogor-api.my.id/logout</td>
+                        <td><button class="btn btn-success float-end" onclick="copy('logoutAPI')">Copy</button></td>
                     </tr>
                 </tbody>
                 <tbody class="mb-2 py-2">
@@ -40,7 +40,7 @@
                 <pre>
                     <code class="language-json text-left pt-3">
                         {
-                            "email" : "varchar(255)"
+                            "email" : "varchar(255)",
                             "password" : "varchar(255)"
                         }
                     </code>
