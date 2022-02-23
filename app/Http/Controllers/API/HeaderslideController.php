@@ -15,7 +15,7 @@ class HeaderslideController extends Controller
         $header = Headerslide::orderBy('id', 'ASC')->get();
         return response()->json([
             'message' => "Data Headerslide Loaded Successfully!",
-            'Banner' => $header
+            'Headerslide' => $header
         ], Response::HTTP_OK);
     }
 
@@ -24,7 +24,7 @@ class HeaderslideController extends Controller
         $header = Headerslide::find($id);
         return response()->json([
             'message' => "Data Headerslide Loaded Successfully!",
-            'Header' => $header
+            'Headerslide' => $header
         ], Response::HTTP_OK);
     }
 
