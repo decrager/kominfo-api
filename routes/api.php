@@ -16,6 +16,7 @@ use App\Http\Controllers\API\KatHalStatisController;
 use App\Http\Controllers\API\HalstatisController;
 use App\Http\Controllers\API\GalerifotoController;
 use App\Http\Controllers\API\GalerivideoController;
+use App\Http\Controllers\API\VisitorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -115,6 +116,13 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/ProfilopdCrt', [ProfilopdController::class, 'create']); // POST
     Route::post('/ProfilopdUpd/{id}', [ProfilopdController::class, 'update']); // PUT
     Route::delete('/ProfilopdDest/{id}', [ProfilopdController::class, 'destroy']); // DELETE
+
+    // CRUD table Visitor
+    Route::get('/Visitor', [VisitorController::class, 'view']);
+    Route::get('/Visitor/{id}', [VisitorController::class, 'viewById']);
+    Route::post('/VisitorCrt', [VisitorController::class, 'create']);
+    Route::put('/VisitorUpd/{id}', [VisitorController::class, 'update']);
+    Route::delete('/VisitorDest/{id}', [VisitorController::class, 'destroy']);
 
     // GET RELATION TABLES
     Route::get('/berita', [BeritaController::class, 'berita']); // Berita Table

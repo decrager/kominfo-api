@@ -9,20 +9,21 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    @include('layouts.tableLogin')
-                    @include('layouts.tableAgenda')
-                    @include('layouts.tableAlbum')
-                    @include('layouts.tableBanner')
-                    @include('layouts.tableBerita')
-                    @include('layouts.tableGalerifoto')
-                    @include('layouts.tableGalerivideo')
-                    @include('layouts.tableHalstatis')
-                    @include('layouts.tableHeaderslide')
-                    @include('layouts.tableKatBerita')
-                    @include('layouts.tableKatHalstatis')
-                    @include('layouts.tablePengguna')
-                    @include('layouts.tableProfilopd')
-                    @include('layouts.tableRelasi')
+                    @include('tables.tableLogin')
+                    @include('tables.tableAgenda')
+                    @include('tables.tableAlbum')
+                    @include('tables.tableBanner')
+                    @include('tables.tableBerita')
+                    @include('tables.tableGalerifoto')
+                    @include('tables.tableGalerivideo')
+                    @include('tables.tableHalstatis')
+                    @include('tables.tableHeaderslide')
+                    @include('tables.tableKatBerita')
+                    @include('tables.tableKatHalstatis')
+                    @include('tables.tablePengguna')
+                    @include('tables.tableProfilopd')
+                    @include('tables.tableVisitor')
+                    @include('tables.tableRelasi')
                 </div>
             </div>
         </div>
