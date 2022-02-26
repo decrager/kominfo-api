@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\FormController;
 use App\Http\Controllers\API\BeritaController;
+use App\Http\Controllers\API\DokumenController;
+use App\Http\Controllers\API\FaqController;
 use App\Http\Controllers\API\KatBeritaController;
 use App\Http\Controllers\API\PenggunaController;
 use App\Http\Controllers\API\AgendaController;
@@ -60,6 +62,20 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/BeritaCrt', [BeritaController::class, 'create']); // POST
     Route::post('/BeritaUpd/{id}', [BeritaController::class, 'update']); // PUT
     Route::delete('/BeritaDest/{id}', [BeritaController::class, 'destroy']); // DELETE
+
+    // CRUD table Dokumen
+    Route::get('/Dokumen', [DokumenController::class, 'view']);
+    Route::get('/Dokumen/{id}', [DokumenController::class, 'viewById']);
+    Route::post('/DokumenCrt', [DokumenController::class, 'create']);
+    Route::put('/DokumenUpd/{id}', [DokumenController::class, 'update']);
+    Route::delete('/DokumenDest/{id}', [DokumenController::class, 'destroy']);
+
+    // CRUD table Faq
+    Route::get('/Faq', [FaqController::class, 'view']);
+    Route::get('/Faq/{id}', [FaqController::class, 'viewById']);
+    Route::post('/FaqCrt', [FaqController::class, 'create']);
+    Route::put('/FaqUpd/{id}', [FaqController::class, 'update']);
+    Route::delete('/FaqDest/{id}', [FaqController::class, 'destroy']);
 
     // CRUD table Galerifotos
     Route::get('/Galerifoto', [GalerifotoController::class, 'view']); // GET ALL

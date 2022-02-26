@@ -14,6 +14,8 @@
                     @include('tables.tableAlbum')
                     @include('tables.tableBanner')
                     @include('tables.tableBerita')
+                    @include('tables.tableDokumen')
+                    @include('tables.tableFaq')
                     @include('tables.tableGalerifoto')
                     @include('tables.tableGalerivideo')
                     @include('tables.tableHalstatis')

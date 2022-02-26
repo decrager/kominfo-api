@@ -43,11 +43,11 @@ class ProfilopdController extends Controller
                 'telp' => 'required|max:15',
                 'email' => 'required|max:50',
                 'website' => 'required|max:50',
-                'twitter_alamat' => 'nullable|max:50',
+                'twitter_widget' => 'nullable',
                 'twitter_link' => 'nullable|max:100',
-                'ig_alamat' => 'nullable|max:100',
-                'ig_link' => 'nullable|max:50',
-                'facebook_alamat' => 'nullable|max:50',
+                'ig_widget' => 'nullable|max:100',
+                'ig_link' => 'nullable',
+                'facebook_widget' => 'nullable',
                 'facebook_link' => 'nullable|max:100'
             ]);
 
@@ -60,11 +60,11 @@ class ProfilopdController extends Controller
             $profil->telp = $request->telp;
             $profil->email = $request->email;
             $profil->website = $request->website;
-            $profil->twitter_alamat = $request->twitter_alamat;
+            $profil->twitter_widget = $request->twitter_widget;
             $profil->twitter_link = $request->twitter_link;
-            $profil->ig_alamat = $request->ig_alamat;
+            $profil->ig_widget = $request->ig_widget;
             $profil->ig_link = $request->ig_link;
-            $profil->facebook_alamat = $request->facebook_alamat;
+            $profil->facebook_widget = $request->facebook_widget;
             $profil->facebook_link = $request->facebook_link;
             $profil->save();
 
@@ -94,11 +94,11 @@ class ProfilopdController extends Controller
                 'telp' => 'required|max:15',
                 'email' => 'required|max:50',
                 'website' => 'required|max:50',
-                'twitter_alamat' => 'nullable|max:50',
+                'twitter_widget' => 'nullable',
                 'twitter_link' => 'nullable|max:100',
-                'ig_alamat' => 'nullable|max:50',
+                'ig_widget' => 'nullable',
                 'ig_link' => 'nullable|max:100',
-                'facebook_alamat' => 'nullable|max:50',
+                'facebook_widget' => 'nullable',
                 'facebook_link' => 'nullable|max:100'
             ]);
             
@@ -111,11 +111,11 @@ class ProfilopdController extends Controller
                 'telp' => $request->telp,
                 'email' => $request->email,
                 'website' => $request->website,
-                'twitter_alamat' => $request->twitter_alamat,
+                'twitter_widget' => $request->twitter_widget,
                 'twitter_link' => $request->twitter_link,
-                'ig_alamat' => $request->ig_alamat,
+                'ig_widget' => $request->ig_widget,
                 'ig_link' => $request->ig_link,
-                'facebook_alamat' => $request->facebook_alamat,
+                'facebook_widget' => $request->facebook_widget,
                 'facebook_link' => $request->facebook_link
             ]);
 

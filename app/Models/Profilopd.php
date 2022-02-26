@@ -20,11 +20,11 @@ class Profilopd extends Model
         'telp',
         'email',
         'website',
-        'twitter_alamat',
+        'twitter_widget',
         'twitter_link',
-        'ig_alamat',
+        'ig_widget',
         'ig_link',
-        'facebook_alamat',
+        'facebook_widget',
         'facebook_link'
     ];
 }
