@@ -17,6 +17,8 @@ class VerifyCsrfToken extends Middleware
         '/AlbumCrt','/AlbumUpd/*','AlbumDest/*',
         '/BannerCrt','/BannerUpd/*','BannerDest/*',
         '/BeritaCrt','/BeritaUpd/*','BeritaDest/*',
+        '/DokumenCrt','/DokumenUpd/*','DokumenDest/*',
+        '/FaqCrt','/FaqUpd/*','FaqDest/*',
         '/GalerifotoCrt','/GalerifotoUpd/*','GalerifotoDest/*',
         '/GalerivideoCrt','/GalerivideoUpd/*','GalerivideoDest/*',
         '/HalstatisCrt','/HalstatisUpd/*','HalstatisDest/*',
