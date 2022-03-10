@@ -70,6 +70,7 @@
                             "created_at": "Timestamp",
                             "updated_at": "Timestamp"
                         }
+                        "Path to files": "https://api-kominfo.kotabogor.my.id/storage/images/album/{file_name}"
                     </code>
                 </pre>
             </div>

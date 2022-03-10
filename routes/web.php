@@ -21,7 +21,6 @@ use App\Http\Controllers\API\GalerifotoController;
 use App\Http\Controllers\API\GalerivideoController;
 use App\Http\Controllers\API\VisitorController;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +34,6 @@ use Illuminate\Support\Facades\Artisan;
 */
 
 Route::get('/', function () {
-    Artisan::call('storage:link');
     return view('auth.login');
 });
 
