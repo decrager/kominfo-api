@@ -56,7 +56,7 @@
                     name="password_confirmation" required />
             </div>
 
-            <div class="form-group row mt-3">
+            <div class="form-group row mt-6">
                 <div class="col-md-6"> {!! htmlFormSnippet() !!} </div>
             </div>
 
