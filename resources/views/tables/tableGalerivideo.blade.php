@@ -22,14 +22,14 @@
                     <tr>
                         <td class="col-1" scope="row"><button
                                 class="btn btn-outline-success pe-none">GET</button></td>
-                        <td id="Galerivideo1">https://kominfo.kotabogor-api.my.id/Galerivideo</td>
+                        <td id="Galerivideo1">https://api-kominfo.kotabogor.my.id/Galerivideo</td>
                         <td><button class="btn btn-success float-end"
                                 onclick="copy('Galerivideo1')">Copy</button></td>
                     </tr>
                     <tr>
                         <td class="col-1" scope="row"><button
                                 class="btn btn-outline-success pe-none">GET</button></td>
-                        <td id="Galerivideo2">https://kominfo.kotabogor-api.my.id/Galerivideo/{id}</td>
+                        <td id="Galerivideo2">https://api-kominfo.kotabogor.my.id/Galerivideo/{id}</td>
                         <td><button class="btn btn-success float-end"
                                 onclick="copy('Galerivideo2')">Copy</button></td>
                     </tr>
@@ -37,21 +37,21 @@
                     <tr>
                         <td class="col-1" scope="row"><button
                                 class="btn btn-outline-warning pe-none">POST</button></td>
-                        <td id="Galerivideo3">https://kominfo.kotabogor-api.my.id/GalerivideoCrt</td>
+                        <td id="Galerivideo3">https://api-kominfo.kotabogor.my.id/GalerivideoCrt</td>
                         <td><button class="btn btn-success float-end"
                                 onclick="copy('Galerivideo3')">Copy</button></td>
                     </tr>
                     <tr>
                         <td class="col-1" scope="row"><button
                                 class="btn btn-outline-warning pe-none">POST</button></td>
-                        <td id="Galerivideo4">https://kominfo.kotabogor-api.my.id/GalerivideoUpd/{id}</td>
+                        <td id="Galerivideo4">https://api-kominfo.kotabogor.my.id/GalerivideoUpd/{id}</td>
                         <td><button class="btn btn-success float-end"
                                 onclick="copy('Galerivideo4')">Copy</button></td>
                     </tr>
                     <tr>
                         <td class="col-1" scope="row"><button
                                 class="btn btn-outline-danger pe-none">DELETE</button></td>
-                        <td id="Galerivideo5">https://kominfo.kotabogor-api.my.id/GalerivideoDest/{id}</td>
+                        <td id="Galerivideo5">https://api-kominfo.kotabogor.my.id/GalerivideoDest/{id}</td>
                         <td><button class="btn btn-success float-end"
                                 onclick="copy('Galerivideo5')">Copy</button></td>
                     </tr>

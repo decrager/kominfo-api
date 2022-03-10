@@ -7,8 +7,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use App\Models\Pengguna;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PenggunaController extends Controller
 {
@@ -42,9 +42,13 @@ class PenggunaController extends Controller
                 'username' => 'required|max:25',
                 'password' => 'required|max:100',
                 'role' => 'required|max:25',
-                'foto' => 'required|mimes:jpeg,jpg,png|max:5000',
+                'foto' => 'required|mimes:jpeg,jpg,png|max:3072',
                 'level' => 'required|max:2'
             ]);
+
+            $file = $request->file('foto');
+            $fileName = $file->getClientOriginalName();
+            $file->storeAs('images/fotoPengguna', $fileName);
             
             $pengguna = new Pengguna;
             $pengguna->nama = $request->nama;
@@ -53,7 +57,7 @@ class PenggunaController extends Controller
             $pengguna->username = $request->username;
             $pengguna->password = Hash::make($request->password);
             $pengguna->role = $request->role;
-            $pengguna->foto = $request->file('foto')->store('images');
+            $pengguna->foto = $request->file('foto')->getClientOriginalName();
             $pengguna->level = $request->level;
             $pengguna->save();
 
@@ -81,9 +85,18 @@ class PenggunaController extends Controller
                 'username' => 'required|max:25',
                 'password' => 'required|max:100',
                 'role' => 'required|max:25',
-                'foto' => 'required|mimes:jpeg,jpg,png|max:5000',
+                'foto' => 'required|mimes:jpeg,jpg,png|max:3072',
                 'level' => 'required|max:2'
             ]);
+
+            $file = $request->file('foto');
+            $fileName = $file->getClientOriginalName();
+            $file->storeAs('images/fotoPengguna', $fileName);
+
+            $destination = 'images/fotoPengguna/' . $pengguna->foto;
+            if ($destination) {
+                Storage::delete($destination);
+            }
 
             $pengguna->update([
                 'nama' => $request->nama,
@@ -92,7 +105,7 @@ class PenggunaController extends Controller
                 'username' => $request->username,
                 'password' => $request->password,
                 'role' => $request->role,
-                'foto' => $request->file('foto')->store('images'),
+                'foto' => $request->file('foto')->getClientOriginalName(),
                 'level' => $request->level
             ]);
 
@@ -110,8 +123,13 @@ class PenggunaController extends Controller
     public function destroy($id)
     {
         $user = Auth::user();
+        $pengguna = Pengguna::find($id);
+        $destination = 'images/fotoPengguna/' . $pengguna->foto;
 
         if ($user->role == 'admin') {
+            if ($destination) {
+                Storage::delete($destination);
+            }
             $pengguna = Pengguna::find($id)->delete();
             return response()->json([
                 'message' => "Data Pengguna Deleted Successfully!"

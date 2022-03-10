@@ -22,14 +22,14 @@
                     <tr>
                         <td class="col-1" scope="row"><button
                                 class="btn btn-outline-success pe-none">GET</button></td>
-                        <td id="Kat_halstatis1">https://kominfo.kotabogor-api.my.id/Kat_halstatis</td>
+                        <td id="Kat_halstatis1">https://api-kominfo.kotabogor.my.id/Kat_halstatis</td>
                         <td><button class="btn btn-success float-end"
                                 onclick="copy('Kat_halstatis1')">Copy</button></td>
                     </tr>
                     <tr>
                         <td class="col-1" scope="row"><button
                                 class="btn btn-outline-success pe-none">GET</button></td>
-                        <td id="Kat_halstatis2">https://kominfo.kotabogor-api.my.id/Kat_halstatis/{id}</td>
+                        <td id="Kat_halstatis2">https://api-kominfo.kotabogor.my.id/Kat_halstatis/{id}</td>
                         <td><button class="btn btn-success float-end"
                                 onclick="copy('Kat_halstatis2')">Copy</button></td>
                     </tr>
@@ -37,21 +37,21 @@
                     <tr>
                         <td class="col-1" scope="row"><button
                                 class="btn btn-outline-warning pe-none">POST</button></td>
-                        <td id="Kat_halstatis3">https://kominfo.kotabogor-api.my.id/Kat_halstatisCrt</td>
+                        <td id="Kat_halstatis3">https://api-kominfo.kotabogor.my.id/Kat_halstatisCrt</td>
                         <td><button class="btn btn-success float-end"
                                 onclick="copy('Kat_halstatis3')">Copy</button></td>
                     </tr>
                     <tr>
                         <td class="col-1" scope="row"><button
                                 class="btn btn-outline-primary pe-none">PUT</button></td>
-                        <td id="Kat_halstatis4">https://kominfo.kotabogor-api.my.id/Kat_halstatisUpd/{id}</td>
+                        <td id="Kat_halstatis4">https://api-kominfo.kotabogor.my.id/Kat_halstatisUpd/{id}</td>
                         <td><button class="btn btn-success float-end"
                                 onclick="copy('Kat_halstatis4')">Copy</button></td>
                     </tr>
                     <tr>
                         <td class="col-1" scope="row"><button
                                 class="btn btn-outline-danger pe-none">DELETE</button></td>
-                        <td id="Kat_halstatis5">https://kominfo.kotabogor-api.my.id/Kat_halstatisDest/{id}</td>
+                        <td id="Kat_halstatis5">https://api-kominfo.kotabogor.my.id/Kat_halstatisDest/{id}</td>
                         <td><button class="btn btn-success float-end"
                                 onclick="copy('Kat_halstatis5')">Copy</button></td>
                     </tr>

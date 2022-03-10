@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use App\Models\Galerivideo;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class GalerivideoController extends Controller
 {
@@ -36,15 +36,19 @@ class GalerivideoController extends Controller
         if ($user->role == 'admin') {
             $request->validate([
                 'judul' => 'required|max:85',
-                'cover' => 'required|mimes:jpeg,jpg,png|max:5000',
+                'cover' => 'required|mimes:jpeg,jpg,png|max:3072',
                 'embed' => 'required|max:50',
                 'keterangan' => 'required|max:200',
                 'user_id' => 'required|max:11'
             ]);
-            
+
+            $file = $request->file('cover');
+            $fileName = $file->getClientOriginalName();
+            $file->storeAs('images/coverVideo', $fileName);
+
             $video = new Galerivideo;
             $video->judul = $request->judul;
-            $video->cover = $request->file('cover')->store('images');
+            $video->cover = $request->file('cover')->getClientOriginalName();
             $video->embed = $request->embed;
             $video->keterangan = $request->keterangan;
             $video->user_id = $request->user_id;
@@ -69,15 +73,24 @@ class GalerivideoController extends Controller
         if ($user->role == 'admin') {
             $request->validate([
                 'judul' => 'required|max:85',
-                'cover' => 'required|mimes:jpeg,jpg,png|max:5000',
+                'cover' => 'required|mimes:jpeg,jpg,png|max:3072',
                 'embed' => 'required|max:50',
                 'keterangan' => 'required|max:200',
                 'user_id' => 'required|max:11'
             ]);
 
+            $file = $request->file('cover');
+            $fileName = $file->getClientOriginalName();
+            $file->storeAs('images/coverVideo', $fileName);
+
+            $destination = 'images/coverVideo/' . $video->cover;
+            if ($destination) {
+                Storage::delete($destination);
+            }
+
             $video->update([
                 'judul' => $request->judul,
-                'cover' => $request->file('cover')->store('images'),
+                'cover' => $request->file('cover')->getClientOriginalName(),
                 'embed' => $request->embed,
                 'keterangan' => $request->keterangan,
                 'user_id' => $request->user_id
@@ -97,9 +110,14 @@ class GalerivideoController extends Controller
     public function destroy($id)
     {
         $user = Auth::user();
+        $video = Galerivideo::find($id);
+        $destination = 'images/coverVideo/' . $video->cover;
 
-        if($user->role=='admin'){
-            $video = Galerivideo::find($id)->delete();
+        if ($user->role == 'admin') {
+            if ($destination) {
+                Storage::delete($destination);
+            }
+            Galerivideo::find($id)->delete();
             return response()->json([
                 'message' => "Data Galerivideo Deleted Successfully!"
             ], Response::HTTP_OK);
@@ -108,20 +126,19 @@ class GalerivideoController extends Controller
                 'message' => "Unauthorized"
             ], Response::HTTP_UNAUTHORIZED);
         }
-        
     }
 
     public function galerivideo()
     {
         $video = Galerivideo::with('Pengguna')
-        ->select(
-            'id',
-            'judul',
-            'cover',
-            'embed',
-            'keterangan',
-            'user_id'
-        )->get();
+            ->select(
+                'id',
+                'judul',
+                'cover',
+                'embed',
+                'keterangan',
+                'user_id'
+            )->get();
 
         return response()->json([
             'message' => "Data Galerivideo Loaded Successfully!",
@@ -132,16 +149,16 @@ class GalerivideoController extends Controller
     public function galerivideoById($id)
     {
         $video = Galerivideo::with('Pengguna')
-        ->select(
-            'id',
-            'judul',
-            'cover',
-            'embed',
-            'keterangan',
-            'user_id'
-        )
-        ->where('id', $id)
-        ->get();
+            ->select(
+                'id',
+                'judul',
+                'cover',
+                'embed',
+                'keterangan',
+                'user_id'
+            )
+            ->where('id', $id)
+            ->get();
 
         return response()->json([
             'message' => "Data Galerivideo Loaded Successfully!",

@@ -41,14 +41,14 @@
                             <tr>
                                 <td class="col-1" scope="row"><button
                                         class="btn btn-outline-success pe-none">GET</button></td>
-                                <td id="agenda01">https://kominfo.kotabogor-api.my.id/agenda</td>
+                                <td id="agenda01">https://api-kominfo.kotabogor.my.id/agenda</td>
                                 <td><button class="btn btn-success float-end" onclick="copy('agenda01')">Copy</button>
                                 </td>
                             </tr>
                             <tr>
                                 <td class="col-1" scope="row"><button
                                         class="btn btn-outline-success pe-none">GET</button></td>
-                                <td id="agenda02">https://kominfo.kotabogor-api.my.id/agenda/{id}</td>
+                                <td id="agenda02">https://api-kominfo.kotabogor.my.id/agenda/{id}</td>
                                 <td><button class="btn btn-success float-end" onclick="copy('agenda02')">Copy</button>
                                 </td>
                             </tr>
@@ -105,14 +105,14 @@
                             <tr>
                                 <td class="col-1" scope="row"><button
                                         class="btn btn-outline-success pe-none">GET</button></td>
-                                <td id="album01">https://kominfo.kotabogor-api.my.id/album</td>
+                                <td id="album01">https://api-kominfo.kotabogor.my.id/album</td>
                                 <td><button class="btn btn-success float-end" onclick="copy('album01')">Copy</button>
                                 </td>
                             </tr>
                             <tr>
                                 <td class="col-1" scope="row"><button
                                         class="btn btn-outline-success pe-none">GET</button></td>
-                                <td id="album02">https://kominfo.kotabogor-api.my.id/album/{id}</td>
+                                <td id="album02">https://api-kominfo.kotabogor.my.id/album/{id}</td>
                                 <td><button class="btn btn-success float-end" onclick="copy('album02')">Copy</button>
                                 </td>
                             </tr>
@@ -166,12 +166,12 @@
                         <tbody class="mb-2">
                             <tr>
                                 <td class="col-1" scope="row"><button class="btn btn-outline-success pe-none">GET</button></td>
-                                <td id="berita01">https://kominfo.kotabogor-api.my.id/berita</td>
+                                <td id="berita01">https://api-kominfo.kotabogor.my.id/berita</td>
                                 <td><button class="btn btn-success float-end" onclick="copy('berita01')">Copy</button></td>
                             </tr>
                             <tr>
                                 <td class="col-1" scope="row"><button class="btn btn-outline-success pe-none">GET</button></td>
-                                <td id="berita02">https://kominfo.kotabogor-api.my.id/berita/{id}</td>
+                                <td id="berita02">https://api-kominfo.kotabogor.my.id/berita/{id}</td>
                                 <td><button class="btn btn-success float-end" onclick="copy('berita02')">Copy</button></td>
                             </tr>
                         </tbody>
@@ -231,12 +231,12 @@
                         <tbody class="mb-2">
                             <tr>
                                 <td class="col-1" scope="row"><button class="btn btn-outline-success pe-none">GET</button></td>
-                                <td id="halstatis01">https://kominfo.kotabogor-api.my.id/halstatis</td>
+                                <td id="halstatis01">https://api-kominfo.kotabogor.my.id/halstatis</td>
                                 <td><button class="btn btn-success float-end" onclick="copy('halstatis01')">Copy</button></td>
                             </tr>
                             <tr>
                                 <td class="col-1" scope="row"><button class="btn btn-outline-success pe-none">GET</button></td>
-                                <td id="halstatis02">https://kominfo.kotabogor-api.my.id/halstatis/{id}</td>
+                                <td id="halstatis02">https://api-kominfo.kotabogor.my.id/halstatis/{id}</td>
                                 <td><button class="btn btn-success float-end" onclick="copy('halstatis02')">Copy</button></td>
                             </tr>
                         </tbody>
@@ -297,12 +297,12 @@
                         <tbody class="mb-2">
                             <tr>
                                 <td class="col-1" scope="row"><button class="btn btn-outline-success pe-none">GET</button></td>
-                                <td id="galerifoto01">https://kominfo.kotabogor-api.my.id/galerifoto</td>
+                                <td id="galerifoto01">https://api-kominfo.kotabogor.my.id/galerifoto</td>
                                 <td><button class="btn btn-success float-end" onclick="copy('galerifoto01')">Copy</button></td>
                             </tr>
                             <tr>
                                 <td class="col-1" scope="row"><button class="btn btn-outline-success pe-none">GET</button></td>
-                                <td id="galerifoto02">https://kominfo.kotabogor-api.my.id/galerifoto/{id}</td>
+                                <td id="galerifoto02">https://api-kominfo.kotabogor.my.id/galerifoto/{id}</td>
                                 <td><button class="btn btn-success float-end" onclick="copy('galerifoto02')">Copy</button></td>
                             </tr>
                         </tbody>
@@ -352,12 +352,12 @@
                         <tbody class="mb-2">
                             <tr>
                                 <td class="col-1" scope="row"><button class="btn btn-outline-success pe-none">GET</button></td>
-                                <td id="galerivideo01">https://kominfo.kotabogor-api.my.id/galerivideo</td>
+                                <td id="galerivideo01">https://api-kominfo.kotabogor.my.id/galerivideo</td>
                                 <td><button class="btn btn-success float-end" onclick="copy('galerivideo01')">Copy</button></td>
                             </tr>
                             <tr>
                                 <td class="col-1" scope="row"><button class="btn btn-outline-success pe-none">GET</button></td>
-                                <td id="galerivideo02">https://kominfo.kotabogor-api.my.id/galerivideo/{id}</td>
+                                <td id="galerivideo02">https://api-kominfo.kotabogor.my.id/galerivideo/{id}</td>
                                 <td><button class="btn btn-success float-end" onclick="copy('galerivideo02')">Copy</button></td>
                             </tr>
                         </tbody>

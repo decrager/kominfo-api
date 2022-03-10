@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use App\Models\Profilopd;
-use Symfony\Component\HttpKernel\Profiler\Profile;
+use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProfilopdController extends Controller
 {
@@ -36,9 +37,9 @@ class ProfilopdController extends Controller
         if ($user->role == 'admin') {
             $request->validate([
                 'nama_opd' => 'required|max:50',
-                'foto_kantor' => 'required|mimes:jpeg,jpg,png|max:5000',
-                'nama_kepalaopd' => 'required|max:5000',
-                'foto_kepalaopd' => 'required|mimes:jpeg,jpg,png|max:5000',
+                'foto_kantor' => 'required|mimes:jpeg,jpg,png|max:3072',
+                'nama_kepalaopd' => 'required|max:50',
+                'foto_kepalaopd' => 'required|mimes:jpeg,jpg,png|max:3072',
                 'alamat' => 'required||max:100',
                 'telp' => 'required|max:15',
                 'email' => 'required|max:50',
@@ -51,11 +52,19 @@ class ProfilopdController extends Controller
                 'facebook_link' => 'nullable|max:100'
             ]);
 
+            $file1 = $request->file('foto_kantor');
+            $fileName1 = $file1->getClientOriginalName();
+            $file1->storeAs('images/opd', $fileName1);
+
+            $file2 = $request->file('foto_kepalaopd');
+            $fileName2 = $file2->getClientOriginalName();
+            $file2->storeAs('images/opd', $fileName2);
+
             $profil = new Profilopd;
             $profil->nama_opd = $request->nama_opd;
-            $profil->foto_kantor = $request->file('foto_kantor')->store('images');
+            $profil->foto_kantor = $request->file('foto_kantor')->getClientOriginalName();
             $profil->nama_kepalaopd = $request->nama_kepalaopd;
-            $profil->foto_kepalaopd = $request->file('foto_kepalaopd')->store('images');
+            $profil->foto_kepalaopd = $request->file('foto_kepalaopd')->getClientOriginalName();
             $profil->alamat = $request->alamat;
             $profil->telp = $request->telp;
             $profil->email = $request->email;
@@ -87,9 +96,9 @@ class ProfilopdController extends Controller
         if ($user->role == 'admin') {
             $request->validate([
                 'nama_opd' => 'required|max:50',
-                'foto_kantor' => 'required|mimes:jpeg,jpg,png|max:5000',
-                'nama_kepalaopd' => 'required|max:5000',
-                'foto_kepalaopd' => 'required|mimes:jpeg,jpg,png|max:5000',
+                'foto_kantor' => 'required|mimes:jpeg,jpg,png|max:3072',
+                'nama_kepalaopd' => 'required|max:50',
+                'foto_kepalaopd' => 'required|mimes:jpeg,jpg,png|max:3072',
                 'alamat' => 'required||max:100',
                 'telp' => 'required|max:15',
                 'email' => 'required|max:50',
@@ -101,12 +110,31 @@ class ProfilopdController extends Controller
                 'facebook_widget' => 'nullable',
                 'facebook_link' => 'nullable|max:100'
             ]);
-            
+
+            $file1 = $request->file('foto_kantor');
+            $fileName1 = $file1->getClientOriginalName();
+            $file1->storeAs('images/opd', $fileName1);
+
+            $file2 = $request->file('foto_kepalaopd');
+            $fileName2 = $file2->getClientOriginalName();
+            $file2->storeAs('images/opd', $fileName2);
+
+            $destination1 = 'images/opd/' . $profil->foto_kantor;
+            $destination2 = 'images/opd/' . $profil->foto_kepalaopd;
+
+            if ($destination1) {
+                Storage::delete($destination1);
+            }
+
+            if ($destination2) {
+                Storage::delete($destination2);
+            }
+
             $profil->update([
                 'nama_opd' => $request->nama_opd,
-                'foto_kantor' => $request->file('foto_kantor')->store('images'),
+                'foto_kantor' => $request->file('foto_kantor')->getClientOriginalName(),
                 'nama_kepalaopd' => $request->nama_kepalaopd,
-                'foto_kepalaopd' => $request->file('foto_kepalaopd')->store('images'),
+                'foto_kepalaopd' => $request->file('foto_kepalaopd')->getClientOriginalName(),
                 'alamat' => $request->alamat,
                 'telp' => $request->telp,
                 'email' => $request->email,
@@ -133,8 +161,17 @@ class ProfilopdController extends Controller
     public function destroy($id)
     {
         $user = Auth::user();
+        $profil = Profilopd::find($id);
+        $destination1 = 'images/opd/' . $profil->foto_kantor;
+        $destination2 = 'images/opd/' . $profil->foto_kepalaopd;
 
         if ($user->role == 'admin') {
+            if ($destination1) {
+                Storage::delete($destination1);
+            }
+            if ($destination2) {
+                Storage::delete($destination2);
+            }
             $profil = Profilopd::find($id)->delete();
             return response()->json([
                 'message' => "Data Profilopd Deleted Successfully!"

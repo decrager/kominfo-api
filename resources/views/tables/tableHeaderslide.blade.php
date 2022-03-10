@@ -22,14 +22,14 @@
                     <tr>
                         <td class="col-1" scope="row"><button
                                 class="btn btn-outline-success pe-none">GET</button></td>
-                        <td id="Headerslide1">https://kominfo.kotabogor-api.my.id/Headerslide</td>
+                        <td id="Headerslide1">https://api-kominfo.kotabogor.my.id/Headerslide</td>
                         <td><button class="btn btn-success float-end"
                                 onclick="copy('Headerslide1')">Copy</button></td>
                     </tr>
                     <tr>
                         <td class="col-1" scope="row"><button
                                 class="btn btn-outline-success pe-none">GET</button></td>
-                        <td id="Headerslide2">https://kominfo.kotabogor-api.my.id/Headerslide/{id}</td>
+                        <td id="Headerslide2">https://api-kominfo.kotabogor.my.id/Headerslide/{id}</td>
                         <td><button class="btn btn-success float-end"
                                 onclick="copy('Headerslide2')">Copy</button></td>
                     </tr>
@@ -37,21 +37,21 @@
                     <tr>
                         <td class="col-1" scope="row"><button
                                 class="btn btn-outline-warning pe-none">POST</button></td>
-                        <td id="Headerslide3">https://kominfo.kotabogor-api.my.id/HeaderslideCrt</td>
+                        <td id="Headerslide3">https://api-kominfo.kotabogor.my.id/HeaderslideCrt</td>
                         <td><button class="btn btn-success float-end"
                                 onclick="copy('Headerslide3')">Copy</button></td>
                     </tr>
                     <tr>
                         <td class="col-1" scope="row"><button
                                 class="btn btn-outline-warning pe-none">POST</button></td>
-                        <td id="Headerslide4">https://kominfo.kotabogor-api.my.id/HeaderslideUpd/{id}</td>
+                        <td id="Headerslide4">https://api-kominfo.kotabogor.my.id/HeaderslideUpd/{id}</td>
                         <td><button class="btn btn-success float-end"
                                 onclick="copy('Headerslide4')">Copy</button></td>
                     </tr>
                     <tr>
                         <td class="col-1" scope="row"><button
                                 class="btn btn-outline-danger pe-none">DELETE</button></td>
-                        <td id="Headerslide5">https://kominfo.kotabogor-api.my.id/HeaderslideDest/{id}</td>
+                        <td id="Headerslide5">https://api-kominfo.kotabogor.my.id/HeaderslideDest/{id}</td>
                         <td><button class="btn btn-success float-end"
                                 onclick="copy('Headerslide5')">Copy</button></td>
                     </tr>

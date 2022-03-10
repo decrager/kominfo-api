@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use App\Models\Banner;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class BannerController extends Controller
 {
@@ -36,15 +37,19 @@ class BannerController extends Controller
             $request->validate([
                 'judul' => 'required|max:85',
                 'kategori' => 'required|in:0,1',
-                'file' => 'required|mimes:jpg,png,jpeg|max:5000',
+                'file' => 'required|mimes:jpg,png,jpeg|max:3072',
                 'link' => 'required|max:100',
                 'status' => 'required|in:0,1'
             ]);
 
+            $file = $request->file('file');
+            $fileName = $file->getClientOriginalName();
+            $file->storeAs('images/banner', $fileName);
+
             $banner = new Banner;
             $banner->judul = $request->judul;
             $banner->kategori = $request->kategori;
-            $banner->file = $request->file('file')->store('images');
+            $banner->file = $request->file('file')->getClientOriginalName();
             $banner->link = $request->link;
             $banner->status = $request->status;
             $banner->save();
@@ -69,15 +74,24 @@ class BannerController extends Controller
             $request->validate([
                 'judul' => 'required|max:85',
                 'kategori' => 'required|in:0,1',
-                'file' => 'required|mimes:jpg,png,jpeg|max:5000',
+                'file' => 'required|mimes:jpg,png,jpeg|max:3072',
                 'link' => 'required|max:100',
                 'status' => 'required|in:0,1'
             ]);
+
+            $file = $request->file('file');
+            $fileName = $file->getClientOriginalName();
+            $file->storeAs('images/banner', $fileName);
             
+            $destination = 'images/banner/'.$banner->file;
+            if ($destination) {
+                Storage::delete($destination);
+            }
+
             $banner->update([
                 'judul' => $request->judul,
                 'kategori' => $request->kategori,
-                'file' => $request->file('file')->store('images'),
+                'file' => $request->file('file')->getClientOriginalName(),
                 'link' => $request->link,
                 'status' => $request->status
             ]);
@@ -96,9 +110,14 @@ class BannerController extends Controller
     public function destroy($id)
     {
         $user = Auth::user();
+        $file = Banner::find($id);
+        $destination = 'images/banner/'.$file->file;
 
         if ($user->role == 'admin') {
-            $banner = Banner::find($id)->delete();
+            if ($destination) {
+                Storage::delete($destination);
+            }
+            Banner::find($id)->delete();
             return response()->json([
                 'message' => "Data Banner Deleted Successfully!"
             ], Response::HTTP_OK);

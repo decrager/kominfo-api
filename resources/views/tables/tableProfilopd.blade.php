@@ -22,14 +22,14 @@
                     <tr>
                         <td class="col-1" scope="row"><button
                                 class="btn btn-outline-success pe-none">GET</button></td>
-                        <td id="Profilopd1">https://kominfo.kotabogor-api.my.id/Profilopd</td>
+                        <td id="Profilopd1">https://api-kominfo.kotabogor.my.id/Profilopd</td>
                         <td><button class="btn btn-success float-end"
                                 onclick="copy('Profilopd1')">Copy</button></td>
                     </tr>
                     <tr>
                         <td class="col-1" scope="row"><button
                                 class="btn btn-outline-success pe-none">GET</button></td>
-                        <td id="Profilopd2">https://kominfo.kotabogor-api.my.id/Profilopd/{id}</td>
+                        <td id="Profilopd2">https://api-kominfo.kotabogor.my.id/Profilopd/{id}</td>
                         <td><button class="btn btn-success float-end"
                                 onclick="copy('Profilopd2')">Copy</button></td>
                     </tr>
@@ -37,21 +37,21 @@
                     <tr>
                         <td class="col-1" scope="row"><button
                                 class="btn btn-outline-danger pe-none">POST</button></td>
-                        <td id="Profilopd3">https://kominfo.kotabogor-api.my.id/ProfilopdCrt</td>
+                        <td id="Profilopd3">https://api-kominfo.kotabogor.my.id/ProfilopdCrt</td>
                         <td><button class="btn btn-success float-end"
                                 onclick="copy('Profilopd3')">Copy</button></td>
                     </tr>
                     <tr>
                         <td class="col-1" scope="row"><button
                                 class="btn btn-outline-warning pe-none">POST</button></td>
-                        <td id="Profilopd4">https://kominfo.kotabogor-api.my.id/ProfilopdUpd/{id}</td>
+                        <td id="Profilopd4">https://api-kominfo.kotabogor.my.id/ProfilopdUpd/{id}</td>
                         <td><button class="btn btn-success float-end"
                                 onclick="copy('Profilopd4')">Copy</button></td>
                     </tr>
                     <tr>
                         <td class="col-1" scope="row"><button
                                 class="btn btn-outline-warning pe-none">DELETE</button></td>
-                        <td id="Profilopd5">https://kominfo.kotabogor-api.my.id/ProfilopdDest/{id}</td>
+                        <td id="Profilopd5">https://api-kominfo.kotabogor.my.id/ProfilopdDest/{id}</td>
                         <td><button class="btn btn-success float-end"
                                 onclick="copy('Profilopd5')">Copy</button></td>
                     </tr>
@@ -63,10 +63,10 @@
                     <code class="language-json text-left pt-3">
                         {
                             "id": "int(3)",
-                            "nama_opd": "varchar(255)",
-                            "foto_kantor": "varchar(50)",
-                            "nama_kepalaopd": "varchar(255)",
-                            "foto_kepalaopd": "varchar(50)",
+                            "nama_opd": "varchar(50)",
+                            "foto_kantor": "varchar(255)",
+                            "nama_kepalaopd": "varchar(50)",
+                            "foto_kepalaopd": "varchar(255)",
                             "alamat": "varchar(100)",
                             "telp": "varchar(15)",
                             "email": "varchar(50)",

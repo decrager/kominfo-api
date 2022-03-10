@@ -7,8 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use App\Models\Album;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Symfony\Component\HttpFoundation\Test\Constraint\ResponseHasCookie;
+use Illuminate\Support\Facades\Storage;
 
 class AlbumController extends Controller
 {
@@ -38,14 +37,18 @@ class AlbumController extends Controller
             $request->validate([
                 'judul' => 'required|max:100',
                 'tgl' => 'required|date',
-                'cover' => 'required|mimes:jpeg,jpg,png|max:5000',
+                'cover' => 'required|mimes:jpeg,jpg,png|max:3072',
                 'user_id' => 'required|max:11'
             ]);
+
+            $file = $request->file('cover');
+            $fileName = $file->getClientOriginalName();
+            $file->storeAs('images/album', $fileName);
 
             $album = new Album;
             $album->judul = $request->judul;
             $album->tgl = $request->tgl;
-            $album->cover = $request->file('cover')->store('images');
+            $album->cover = $request->file('cover')->getClientOriginalName();
             $album->user_id = $request->user_id;
             $album->save();
 
@@ -69,14 +72,23 @@ class AlbumController extends Controller
             $request->validate([
                 'judul' => 'required|max:100',
                 'tgl' => 'required|date',
-                'cover' => 'required|mimes:jpg,png,jpeg|max:5000',
+                'cover' => 'required|mimes:jpg,png,jpeg|max:3072',
                 'user_id' => 'required|max:11'
             ]);
+
+            $file = $request->file('cover');
+            $fileName = $file->getClientOriginalName();
+            $file->storeAs('images/album', $fileName);
+
+            $destination = 'images/album/' . $album->cover;
+            if ($destination) {
+                Storage::delete($destination);
+            }
 
             $album->update([
                 'judul' => $request->judul,
                 'tgl' => $request->tgl,
-                'cover' => $request->file('cover')->store('images'),
+                'cover' => $request->file('cover')->getClientOriginalName(),
                 'user_id' => $request->user_id
             ]);
 
@@ -94,9 +106,14 @@ class AlbumController extends Controller
     public function destroy($id)
     {
         $user = Auth::user();
+        $file = Album::find($id);
+        $destination = 'images/album/' . $file->cover;
 
         if ($user->role == 'admin') {
-            $album = Album::find($id)->delete();
+            if ($destination) {
+                Storage::delete($destination);
+            }
+            Album::find($id)->delete();
             return response()->json([
                 'message' => "Data Album Deleted Successfully!"
             ], Response::HTTP_OK);
@@ -110,13 +127,13 @@ class AlbumController extends Controller
     public function album()
     {
         $album = Album::with('Pengguna')
-        ->select(
-            'id',
-            'judul',
-            'tgl',
-            'cover',
-            'user_id'
-        )->get();
+            ->select(
+                'id',
+                'judul',
+                'tgl',
+                'cover',
+                'user_id'
+            )->get();
 
         return response()->json([
             'message' => "Data Album with Pengguna Loaded Successfully!",
@@ -127,15 +144,15 @@ class AlbumController extends Controller
     public function albumById($id)
     {
         $album = Album::with('Pengguna')
-        ->select(
-            'id',
-            'judul',
-            'tgl',
-            'cover',
-            'user_id'
-        )
-        ->where('id', $id)
-        ->get();
+            ->select(
+                'id',
+                'judul',
+                'tgl',
+                'cover',
+                'user_id'
+            )
+            ->where('id', $id)
+            ->get();
 
         return response()->json([
             'message' => "Data Album with Pengguna Loaded Successfully!",

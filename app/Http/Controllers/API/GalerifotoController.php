@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use App\Models\Galerifoto;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class GalerifotoController extends Controller
 {
@@ -37,14 +37,18 @@ class GalerifotoController extends Controller
             $request->validate([
                 'album_id' => 'required|max:11',
                 'judul' => 'required|max:100',
-                'foto' => 'required|mimes:jpeg,jpg,png|max:5000',
+                'foto' => 'required|mimes:jpeg,jpg,png|max:3072',
                 'keterangan' => 'required|max:100'
             ]);
+
+            $file = $request->file('foto');
+            $fileName = $file->getClientOriginalName();
+            $file->storeAs('images/foto', $fileName);
 
             $foto = new Galerifoto;
             $foto->album_id = $request->album_id;
             $foto->judul = $request->judul;
-            $foto->foto = $request->file('foto')->store('images');
+            $foto->foto = $request->file('foto')->getClientOriginalName();
             $foto->keterangan = $request->keterangan;
             $foto->save();
 
@@ -68,14 +72,23 @@ class GalerifotoController extends Controller
             $request->validate([
                 'album_id' => 'required|max:11',
                 'judul' => 'required|max:100',
-                'foto' => 'required|mimes:jpeg,jpg,png|max:5000',
+                'foto' => 'required|mimes:jpeg,jpg,png|max:3072',
                 'keterangan' => 'required|max:100'
             ]);
+
+            $file = $request->file('foto');
+            $fileName = $file->getClientOriginalName();
+            $file->storeAs('images/foto', $fileName);
+
+            $destination = 'images/foto/'.$foto->foto;
+            if ($destination) {
+                Storage::delete($destination);
+            }
 
             $foto->update([
                 'album_id' => $request->album_id,
                 'judul' => $request->judul,
-                'foto' => $request->file('foto')->store('images'),
+                'foto' => $request->file('foto')->getClientOriginalName(),
                 'keterangan' => $request->keterangan
             ]);
 
@@ -92,10 +105,23 @@ class GalerifotoController extends Controller
 
     public function destroy($id)
     {
-        $foto = Galerifoto::find($id)->delete();
-        return response()->json([
-            'message' => "Data Galerifoto Deleted Successfully!"
-        ], Response::HTTP_OK);
+        $user = Auth::user();
+        $foto = Galerifoto::find($id);
+        $destination = 'images/foto/'.$foto->foto;
+
+        if($user->role=="admin") {
+            if ($destination) {
+                Storage::delete($destination);
+            }
+            Galerifoto::find($id)->delete();
+            return response()->json([
+                'message' => "Data Galerifoto Deleted Successfully!"
+            ], Response::HTTP_OK);
+        } else {
+            return response()->json([
+                'message' => "Unauthorized"
+            ], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     public function galerifoto()
