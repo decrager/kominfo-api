@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use App\Models\Profilopd;
-use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -53,18 +52,18 @@ class ProfilopdController extends Controller
             ]);
 
             $file1 = $request->file('foto_kantor');
-            $fileName1 = $file1->getClientOriginalName();
+            $fileName1 = time() . '_' . $file1->getClientOriginalName();
             $file1->storeAs('images/opd', $fileName1);
 
             $file2 = $request->file('foto_kepalaopd');
-            $fileName2 = $file2->getClientOriginalName();
+            $fileName2 = time() . '_' . $file2->getClientOriginalName();
             $file2->storeAs('images/opd', $fileName2);
 
             $profil = new Profilopd;
             $profil->nama_opd = $request->nama_opd;
-            $profil->foto_kantor = $request->file('foto_kantor')->getClientOriginalName();
+            $profil->foto_kantor = $fileName1;
             $profil->nama_kepalaopd = $request->nama_kepalaopd;
-            $profil->foto_kepalaopd = $request->file('foto_kepalaopd')->getClientOriginalName();
+            $profil->foto_kepalaopd = $fileName2;
             $profil->alamat = $request->alamat;
             $profil->telp = $request->telp;
             $profil->email = $request->email;
@@ -112,11 +111,11 @@ class ProfilopdController extends Controller
             ]);
 
             $file1 = $request->file('foto_kantor');
-            $fileName1 = $file1->getClientOriginalName();
+            $fileName1 = time() . '_' . $file1->getClientOriginalName();
             $file1->storeAs('images/opd', $fileName1);
 
             $file2 = $request->file('foto_kepalaopd');
-            $fileName2 = $file2->getClientOriginalName();
+            $fileName2 = time() . '_' . $file2->getClientOriginalName();
             $file2->storeAs('images/opd', $fileName2);
 
             $destination1 = 'images/opd/' . $profil->foto_kantor;
@@ -132,9 +131,9 @@ class ProfilopdController extends Controller
 
             $profil->update([
                 'nama_opd' => $request->nama_opd,
-                'foto_kantor' => $request->file('foto_kantor')->getClientOriginalName(),
+                'foto_kantor' => $fileName1,
                 'nama_kepalaopd' => $request->nama_kepalaopd,
-                'foto_kepalaopd' => $request->file('foto_kepalaopd')->getClientOriginalName(),
+                'foto_kepalaopd' => $fileName2,
                 'alamat' => $request->alamat,
                 'telp' => $request->telp,
                 'email' => $request->email,

@@ -43,12 +43,12 @@ class GalerivideoController extends Controller
             ]);
 
             $file = $request->file('cover');
-            $fileName = $file->getClientOriginalName();
+            $fileName = time() . '_' . $file->getClientOriginalName();
             $file->storeAs('images/coverVideo', $fileName);
 
             $video = new Galerivideo;
             $video->judul = $request->judul;
-            $video->cover = $request->file('cover')->getClientOriginalName();
+            $video->cover = $fileName;
             $video->embed = $request->embed;
             $video->keterangan = $request->keterangan;
             $video->user_id = $request->user_id;
@@ -80,7 +80,7 @@ class GalerivideoController extends Controller
             ]);
 
             $file = $request->file('cover');
-            $fileName = $file->getClientOriginalName();
+            $fileName = time() . '_' . $file->getClientOriginalName();
             $file->storeAs('images/coverVideo', $fileName);
 
             $destination = 'images/coverVideo/' . $video->cover;
@@ -90,7 +90,7 @@ class GalerivideoController extends Controller
 
             $video->update([
                 'judul' => $request->judul,
-                'cover' => $request->file('cover')->getClientOriginalName(),
+                'cover' => $fileName,
                 'embed' => $request->embed,
                 'keterangan' => $request->keterangan,
                 'user_id' => $request->user_id

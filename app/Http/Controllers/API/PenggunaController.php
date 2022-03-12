@@ -47,7 +47,7 @@ class PenggunaController extends Controller
             ]);
 
             $file = $request->file('foto');
-            $fileName = $file->getClientOriginalName();
+            $fileName = time() . '_' . $file->getClientOriginalName();
             $file->storeAs('images/fotoPengguna', $fileName);
             
             $pengguna = new Pengguna;
@@ -57,7 +57,7 @@ class PenggunaController extends Controller
             $pengguna->username = $request->username;
             $pengguna->password = Hash::make($request->password);
             $pengguna->role = $request->role;
-            $pengguna->foto = $request->file('foto')->getClientOriginalName();
+            $pengguna->foto = $fileName;
             $pengguna->level = $request->level;
             $pengguna->save();
 
@@ -90,7 +90,7 @@ class PenggunaController extends Controller
             ]);
 
             $file = $request->file('foto');
-            $fileName = $file->getClientOriginalName();
+            $fileName = time() . '_' . $file->getClientOriginalName();
             $file->storeAs('images/fotoPengguna', $fileName);
 
             $destination = 'images/fotoPengguna/' . $pengguna->foto;
@@ -105,7 +105,7 @@ class PenggunaController extends Controller
                 'username' => $request->username,
                 'password' => $request->password,
                 'role' => $request->role,
-                'foto' => $request->file('foto')->getClientOriginalName(),
+                'foto' => $fileName,
                 'level' => $request->level
             ]);
 

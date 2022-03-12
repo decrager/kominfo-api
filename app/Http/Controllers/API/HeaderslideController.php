@@ -42,12 +42,12 @@ class HeaderslideController extends Controller
             ]);
 
             $file = $request->file('file');
-            $fileName = $file->getClientOriginalName();
+            $fileName = time() . '_' . $file->getClientOriginalName();
             $file->storeAs('images/headerslide', $fileName);
 
             $header = new Headerslide;
             $header->judul = $request->judul;
-            $header->file = $request->file('file')->getClientOriginalName();
+            $header->file = $fileName;
             $header->keterangan = $request->keterangan;
             $header->status = $request->status;
             $header->save();
@@ -77,7 +77,7 @@ class HeaderslideController extends Controller
             ]);
 
             $file = $request->file('file');
-            $fileName = $file->getClientOriginalName();
+            $fileName = time() . '_' . $file->getClientOriginalName();
             $file->storeAs('images/headerslide', $fileName);
 
             $destination = 'images/headerslide/' . $header->file;
@@ -87,7 +87,7 @@ class HeaderslideController extends Controller
             
             $header->update([
                 'judul' => $request->judul,
-                'file' => $request->file('file')->getClientOriginalName(),
+                'file' => $fileName,
                 'keterangan' => $request->keterangan,
                 'status' => $request->status
             ]);

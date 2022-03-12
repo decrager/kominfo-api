@@ -45,14 +45,14 @@ class BeritaController extends Controller
             ]);
 
             $file = $request->file('gambar');
-            $fileName = $file->getClientOriginalName();
+            $fileName = time() . '_' . $file->getClientOriginalName();
             $file->storeAs('images/banner', $fileName);
 
             $berita = new Berita;
             $berita->judul = $request->judul;
             $berita->kategori_id = $request->kategori_id;
             $berita->isi = $request->isi;
-            $berita->gambar = $request->file('gambar')->getClientOriginalName();
+            $berita->gambar = $fileName;
             $berita->tgl = $request->tgl;
             $berita->status = $request->status;
             $berita->user_id = $request->user_id;
@@ -86,7 +86,7 @@ class BeritaController extends Controller
             ]);
 
             $file = $request->file('gambar');
-            $fileName = $file->getClientOriginalName();
+            $fileName = time() . '_' . $file->getClientOriginalName();
             $file->storeAs('images/berita', $fileName);
 
             $destination = 'images/berita/' . $berita->gambar;
@@ -98,7 +98,7 @@ class BeritaController extends Controller
                 'judul' => $request->judul,
                 'kategori_id' => $request->kategori_id,
                 'isi' => $request->isi,
-                'gambar' => $request->file('gambar')->getClientOriginalName(),
+                'gambar' => $fileName,
                 'tgl' => $request->tgl,
                 'status' => $request->status,
                 'user_id' => $request->user_id

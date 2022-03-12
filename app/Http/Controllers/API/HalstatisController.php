@@ -45,14 +45,14 @@ class HalstatisController extends Controller
             ]);
 
             $file = $request->file('file');
-            $fileName = $file->getClientOriginalName();
+            $fileName = time() . '_' . $file->getClientOriginalName();
             $file->storeAs('images/statis', $fileName);
 
             $halstatis = new Halstatis;
             $halstatis->judul = $request->judul;
             $halstatis->kategori_id = $request->kategori_id;
             $halstatis->isi = $request->isi;
-            $halstatis->file = $request->file('file')->getClientOriginalName();
+            $halstatis->file = $fileName;
             $halstatis->tgl = $request->tgl;
             $halstatis->status = $request->status;
             $halstatis->user_id = $request->user_id;
@@ -86,7 +86,7 @@ class HalstatisController extends Controller
             ]);
 
             $file = $request->file('file');
-            $fileName = $file->getClientOriginalName();
+            $fileName = time() . '_' . $file->getClientOriginalName();
             $file->storeAs('images/statis', $fileName);
 
             $destination = 'images/statis/' . $halstatis->file;
@@ -98,7 +98,7 @@ class HalstatisController extends Controller
                 'judul' => $request->judul,
                 'kategori_id' => $request->kategori_id,
                 'isi' => $request->isi,
-                'file' => $request->file('file')->getClientOriginalName(),
+                'file' => $fileName,
                 'tgl' => $request->tgl,
                 'status' => $request->status,
                 'user_id' => $request->user_id
