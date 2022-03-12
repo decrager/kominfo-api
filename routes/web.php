@@ -37,6 +37,18 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/statistic', function () {
+    return view('statistic');
+})->middleware(['auth', 'verified'])->name('statistic');
+
+Route::get('/registeredUser', function () {
+    return view('registeredUser');
+})->middleware(['auth', 'verified'])->name('registeredUser');
+
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('/logout', [AuthController::class, 'logout']);
     Route::get('/form', [FormController::class, 'index']);
@@ -162,16 +174,5 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 });
 
 Route::post('/loginAPI', [AuthController::class, 'login']);
-
-Route::get('/dashboard', function (Request $request) {
-    // $user = Auth::user();
-
-    // if($user->role=='admin') {
-    //     return view('admin');
-    // } else {
-    //     return view('public');
-    // }
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
 
 require __DIR__ . '/auth.php';
