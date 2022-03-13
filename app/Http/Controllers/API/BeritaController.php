@@ -136,9 +136,10 @@ class BeritaController extends Controller
         }
     }
 
-    public function berita()
+    public function berita(Request $request)
     {
-        $berita = Berita::with('Kat_berita', 'Pengguna')
+        $berita = Berita::latest()
+            ->with('Kat_berita', 'Pengguna')
             ->select(
                 'id',
                 'judul',
@@ -148,11 +149,18 @@ class BeritaController extends Controller
                 'tgl',
                 'status',
                 'user_id'
-            )->get();
+            );
+
+        if ($request->search) {
+            $berita->where('judul', 'like', '%' . $request->search . '%')
+                ->orWhere('isi', 'like', '%' . $request->search . '%');
+        }
+
+        $show = $berita->paginate(6);
 
         return response()->json([
             'message' => "Data Berita with Kategori & Pengguna Loaded Successfully!",
-            'Berita' => $berita
+            'Berita' => $show
         ], Response::HTTP_OK);
     }
 

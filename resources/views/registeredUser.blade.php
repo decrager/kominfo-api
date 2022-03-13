@@ -36,7 +36,7 @@
 
                         <div class="table-responsive">
                             <table class="table table-hover table-striped" width="100%" cellspacing="0">
-                                <thead class="">
+                                <thead>
                                     <tr>
                                         <th scope="col" class="col text-center">No.</th>
                                         <th scope="col">Nama</th>
