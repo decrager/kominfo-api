@@ -170,9 +170,17 @@
                                 <td><button class="btn btn-success float-end" onclick="copy('berita01')">Copy</button></td>
                             </tr>
                             <tr>
+                                <td class="col-1" scope="row"><button
+                                        class="btn btn-outline-success pe-none">GET</button></td>
+                                <td>https://api-kominfo.kotabogor.my.id/beritaPublic <font style="opacity: 60%"> (Search & Pagination Ready)</font></td>
+                                <p hidden id="Berita02">https://api-kominfo.kotabogor.my.id/BeritaPublic</p>
+                                <td><button class="btn btn-success float-end"
+                                        onclick="copy('Berita02')">Copy</button></td>
+                            </tr>
+                            <tr>
                                 <td class="col-1" scope="row"><button class="btn btn-outline-success pe-none">GET</button></td>
-                                <td id="berita02">https://api-kominfo.kotabogor.my.id/berita/{id}</td>
-                                <td><button class="btn btn-success float-end" onclick="copy('berita02')">Copy</button></td>
+                                <td id="berita03">https://api-kominfo.kotabogor.my.id/berita/{id}</td>
+                                <td><button class="btn btn-success float-end" onclick="copy('berita03')">Copy</button></td>
                             </tr>
                         </tbody>
                     </table>

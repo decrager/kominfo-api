@@ -159,6 +159,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     
     // GET RELATION TABLES
     Route::get('/berita', [BeritaController::class, 'berita']); // Berita Table
+    Route::get('/beritaPublic', [BeritaController::class, 'beritaPublic']); // Berita Table
     Route::get('/berita/{id}', [BeritaController::class, 'beritaById']); // Berita Table
     Route::get('/agenda', [AgendaController::class, 'agenda']); // Agenda Table
     Route::get('/agenda/{id}', [AgendaController::class, 'agendaById']); // Agenda Table

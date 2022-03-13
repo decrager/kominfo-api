@@ -136,7 +136,27 @@ class BeritaController extends Controller
         }
     }
 
-    public function berita(Request $request)
+    public function berita()
+    {
+        $berita = Berita::with('Kat_berita', 'Pengguna')
+            ->select(
+                'id',
+                'judul',
+                'kategori_id',
+                'isi',
+                'gambar',
+                'tgl',
+                'status',
+                'user_id'
+            )->get();
+
+        return response()->json([
+            'message' => "Data Berita with Kategori & Pengguna Loaded Successfully!",
+            'Berita' => $berita
+        ], Response::HTTP_OK);
+    }
+
+    public function beritaPublic(Request $request)
     {
         $berita = Berita::latest()
             ->with('Kat_berita', 'Pengguna')
