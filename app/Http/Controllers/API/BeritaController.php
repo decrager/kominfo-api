@@ -176,7 +176,12 @@ class BeritaController extends Controller
                 ->orWhere('isi', 'like', '%' . $request->search . '%');
         }
 
-        $show = $berita->paginate(6);
+        if ($request->perPage) {
+            $perPage = $request->perPage;
+            $show = $berita->paginate($perPage);
+        } else {
+            $show = $berita->get();
+        }
 
         return response()->json([
             'message' => "Data Berita with Kategori & Pengguna Loaded Successfully!",
