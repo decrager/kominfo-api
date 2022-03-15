@@ -149,7 +149,7 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="text-start" style="font-size: 18px">
-                            Tabel Berita dengan Kat_berita & Pengguna
+                            Tabel Berita dengan Kategori Berita & Pengguna
                         </div>
                     </div>
                     <div class="col-6">
@@ -222,7 +222,7 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="text-start" style="font-size: 18px">
-                            Tabel Halstatis dengan Kat_halstatis & Pengguna
+                            Tabel Hal Statis dengan Kategori Hal Statis & Pengguna
                         </div>
                     </div>
                     <div class="col-6">
@@ -288,7 +288,7 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="text-start" style="font-size: 18px">
-                            Tabel Galerifoto dengan Album
+                            Tabel Galeri Foto dengan Album
                         </div>
                     </div>
                     <div class="col-6">
@@ -343,7 +343,7 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="text-start" style="font-size: 18px">
-                            Tabel Galerivideo dengan Pengguna
+                            Tabel Galeri Video dengan Pengguna
                         </div>
                     </div>
                     <div class="col-6">

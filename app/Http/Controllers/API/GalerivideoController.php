@@ -2,17 +2,42 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
-use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Http\Request;
+use Carbon\Carbon;
+use App\Models\Counter;
 use App\Models\Galerivideo;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\Response;
 
 class GalerivideoController extends Controller
 {
     public function view()
     {
+        // Counter
+        $today = Carbon::today()->toDateString();
+        $check = Counter::select('api', 'tanggal', 'visit')->where('api', 'Galeri Video')->where('tanggal', $today)->get();
+        $tanggal = Counter::select('tanggal')->where('api', 'Galeri Video')->where('tanggal', $today)->first();
+
+        if ($check->isEmpty()) {
+            $counter = new Counter;
+            $counter->api = 'Galeri Video';
+            $counter->tanggal = $today;
+            $counter->visit = 1;
+            $counter->save();
+        } elseif ($tanggal->tanggal == $today) {
+            $counter = Counter::where('api', 'Galeri Video')->where('tanggal', $today);
+            $counter->increment('visit');
+        } elseif ($tanggal->tanggal != $today) {
+            $counter = new Counter;
+            $counter->api = 'Galeri Video';
+            $counter->tanggal = $today;
+            $counter->visit = 1;
+            $counter->save();
+        }
+        // End Counter
+
         $video = Galerivideo::orderBy('id', 'ASC')->get();
         return response()->json([
             'message' => "Data Galerivideo Loaded Successfully!",
@@ -130,6 +155,29 @@ class GalerivideoController extends Controller
 
     public function galerivideo()
     {
+        // Counter
+        $today = Carbon::today()->toDateString();
+        $check = Counter::select('api', 'tanggal', 'visit')->where('api', 'Relational Galeri Video')->where('tanggal', $today)->get();
+        $tanggal = Counter::select('tanggal')->where('api', 'Relational Galeri Video')->where('tanggal', $today)->first();
+
+        if ($check->isEmpty()) {
+            $counter = new Counter;
+            $counter->api = 'Relational Galeri Video';
+            $counter->tanggal = $today;
+            $counter->visit = 1;
+            $counter->save();
+        } elseif ($tanggal->tanggal == $today) {
+            $counter = Counter::where('api', 'Relational Galeri Video')->where('tanggal', $today);
+            $counter->increment('visit');
+        } elseif ($tanggal->tanggal != $today) {
+            $counter = new Counter;
+            $counter->api = 'Relational Galeri Video';
+            $counter->tanggal = $today;
+            $counter->visit = 1;
+            $counter->save();
+        }
+        // End Counter
+
         $video = Galerivideo::with('Pengguna')
             ->select(
                 'id',

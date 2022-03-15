@@ -2,17 +2,42 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
-use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Http\Request;
+use Carbon\Carbon;
+use App\Models\Counter;
 use App\Models\Headerslide;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\Response;
 
 class HeaderslideController extends Controller
 {
     public function view()
     {
+        // Counter
+        $today = Carbon::today()->toDateString();
+        $check = Counter::select('api', 'tanggal', 'visit')->where('api', 'Headerslide')->where('tanggal', $today)->get();
+        $tanggal = Counter::select('tanggal')->where('api', 'Headerslide')->where('tanggal', $today)->first();
+
+        if ($check->isEmpty()) {
+            $counter = new Counter;
+            $counter->api = 'Headerslide';
+            $counter->tanggal = $today;
+            $counter->visit = 1;
+            $counter->save();
+        } elseif ($tanggal->tanggal == $today) {
+            $counter = Counter::where('api', 'Headerslide')->where('tanggal', $today);
+            $counter->increment('visit');
+        } elseif ($tanggal->tanggal != $today) {
+            $counter = new Counter;
+            $counter->api = 'Headerslide';
+            $counter->tanggal = $today;
+            $counter->visit = 1;
+            $counter->save();
+        }
+        // End Counter
+        
         $header = Headerslide::orderBy('id', 'ASC')->get();
         return response()->json([
             'message' => "Data Headerslide Loaded Successfully!",

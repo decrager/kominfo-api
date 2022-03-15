@@ -2,17 +2,42 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
-use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Http\Request;
+use Carbon\Carbon;
+use App\Models\Counter;
 use App\Models\Halstatis;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\Response;
 
 class HalstatisController extends Controller
 {
     public function view()
     {
+        // Counter
+        $today = Carbon::today()->toDateString();
+        $check = Counter::select('api', 'tanggal', 'visit')->where('api', 'Hal Statis')->where('tanggal', $today)->get();
+        $tanggal = Counter::select('tanggal')->where('api', 'Hal Statis')->where('tanggal', $today)->first();
+
+        if ($check->isEmpty()) {
+            $counter = new Counter;
+            $counter->api = 'Hal Statis';
+            $counter->tanggal = $today;
+            $counter->visit = 1;
+            $counter->save();
+        } elseif ($tanggal->tanggal == $today) {
+            $counter = Counter::where('api', 'Hal Statis')->where('tanggal', $today);
+            $counter->increment('visit');
+        } elseif ($tanggal->tanggal != $today) {
+            $counter = new Counter;
+            $counter->api = 'Hal Statis';
+            $counter->tanggal = $today;
+            $counter->visit = 1;
+            $counter->save();
+        }
+        // End Counter
+
         $halstatis = Halstatis::orderBy('id', 'ASC')->get();
         return response()->json([
             'message' => "Data Halstatis Loaded Successfully!",
@@ -138,6 +163,29 @@ class HalstatisController extends Controller
 
     public function halstatis()
     {
+        // Counter
+        $today = Carbon::today()->toDateString();
+        $check = Counter::select('api', 'tanggal', 'visit')->where('api', 'Relational Hal Statis')->where('tanggal', $today)->get();
+        $tanggal = Counter::select('tanggal')->where('api', 'Relational Hal Statis')->where('tanggal', $today)->first();
+
+        if ($check->isEmpty()) {
+            $counter = new Counter;
+            $counter->api = 'Relational Hal Statis';
+            $counter->tanggal = $today;
+            $counter->visit = 1;
+            $counter->save();
+        } elseif ($tanggal->tanggal == $today) {
+            $counter = Counter::where('api', 'Relational Hal Statis')->where('tanggal', $today);
+            $counter->increment('visit');
+        } elseif ($tanggal->tanggal != $today) {
+            $counter = new Counter;
+            $counter->api = 'Relational Hal Statis';
+            $counter->tanggal = $today;
+            $counter->visit = 1;
+            $counter->save();
+        }
+        // End Counter
+
         $halstatis = Halstatis::with('Kat_halstatis', 'Pengguna')
             ->select(
                 'id',

@@ -2,17 +2,42 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
-use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Models\Berita;
+use App\Models\Counter;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\Response;
 
 class BeritaController extends Controller
 {
     public function view()
     {
+        // Counter
+        $today = Carbon::today()->toDateString();
+        $check = Counter::select('api', 'tanggal', 'visit')->where('api', 'Berita')->where('tanggal', $today)->get();
+        $tanggal = Counter::select('tanggal')->where('api', 'Berita')->where('tanggal', $today)->first();
+
+        if ($check->isEmpty()) {
+            $counter = new Counter;
+            $counter->api = 'Berita';
+            $counter->tanggal = $today;
+            $counter->visit = 1;
+            $counter->save();
+        } elseif ($tanggal->tanggal == $today) {
+            $counter = Counter::where('api', 'Berita')->where('tanggal', $today);
+            $counter->increment('visit');
+        } elseif ($tanggal->tanggal != $today) {
+            $counter = new Counter;
+            $counter->api = 'Berita';
+            $counter->tanggal = $today;
+            $counter->visit = 1;
+            $counter->save();
+        }
+        // End Counter
+
         $berita = Berita::orderBy('id', 'ASC')->get();
         return response()->json([
             'message' => "Data Berita Loaded Successfully!",
@@ -46,7 +71,7 @@ class BeritaController extends Controller
 
             $file = $request->file('gambar');
             $fileName = time() . '_' . $file->getClientOriginalName();
-            $file->storeAs('images/banner', $fileName);
+            $file->storeAs('images/berita', $fileName);
 
             $berita = new Berita;
             $berita->judul = $request->judul;
@@ -166,6 +191,29 @@ class BeritaController extends Controller
 
     public function beritaPublic(Request $request)
     {
+        // Counter
+        $today = Carbon::today()->toDateString();
+        $check = Counter::select('api', 'tanggal', 'visit')->where('api', 'Relational Berita')->where('tanggal', $today)->get();
+        $tanggal = Counter::select('tanggal')->where('api', 'Relational Berita')->where('tanggal', $today)->first();
+
+        if ($check->isEmpty()) {
+            $counter = new Counter;
+            $counter->api = 'Relational Berita';
+            $counter->tanggal = $today;
+            $counter->visit = 1;
+            $counter->save();
+        } elseif ($tanggal->tanggal == $today) {
+            $counter = Counter::where('api', 'Relational Berita')->where('tanggal', $today);
+            $counter->increment('visit');
+        } elseif ($tanggal->tanggal != $today) {
+            $counter = new Counter;
+            $counter->api = 'Relational Berita';
+            $counter->tanggal = $today;
+            $counter->visit = 1;
+            $counter->save();
+        }
+        // End Counter
+
         $berita = Berita::latest()
             ->with('Kat_berita', 'Pengguna')
             ->select(

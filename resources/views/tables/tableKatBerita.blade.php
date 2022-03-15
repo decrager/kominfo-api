@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-6">
                 <div class="text-start" style="font-size: 20px">
-                    Tabel Kat_berita
+                    Tabel Kategori berita
                 </div>
             </div>
             <div class="col-6">

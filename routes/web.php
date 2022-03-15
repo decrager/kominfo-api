@@ -21,6 +21,7 @@ use App\Http\Controllers\API\GalerifotoController;
 use App\Http\Controllers\API\GalerivideoController;
 use App\Http\Controllers\API\VisitorController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\StatisticController;
 use Illuminate\Http\Request;
 
 /*
@@ -42,10 +43,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/statistic', function () {
-    return view('statistic');
-})->middleware(['auth', 'verified'])->name('statistic');
-
+Route::get('/statistic', [StatisticController::class, 'index'])->middleware(['auth', 'verified'])->name('statistic');
 Route::get('/registeredUser', [UserController::class, 'index'])->middleware(['auth', 'verified'])->name('registeredUser');
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
