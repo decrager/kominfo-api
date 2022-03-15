@@ -136,23 +136,31 @@ class BeritaController extends Controller
         }
     }
 
-    public function berita()
+    public function berita(Request $request)
     {
         $berita = Berita::with('Kat_berita', 'Pengguna')
             ->select(
-                'id',
-                'judul',
-                'kategori_id',
-                'isi',
-                'gambar',
-                'tgl',
-                'status',
-                'user_id'
-            )->get();
+                'beritas.id',
+                'beritas.judul',
+                'beritas.kategori_id',
+                'beritas.isi',
+                'beritas.gambar',
+                'beritas.tgl',
+                'beritas.status',
+                'beritas.user_id'
+            );
+
+        if ($request->category) {
+            $category = $request->category;
+            $show = $berita->join('kat_beritas', 'beritas.kategori_id', '=', 'kat_beritas.id')
+                    ->where('kat_beritas.kategori', 'like', '%' . $category . '%')->get();
+        } else {
+            $show = $berita->get();
+        }
 
         return response()->json([
             'message' => "Data Berita with Kategori & Pengguna Loaded Successfully!",
-            'Berita' => $berita
+            'Berita' => $show
         ], Response::HTTP_OK);
     }
 
@@ -161,19 +169,27 @@ class BeritaController extends Controller
         $berita = Berita::latest()
             ->with('Kat_berita', 'Pengguna')
             ->select(
-                'id',
-                'judul',
-                'kategori_id',
-                'isi',
-                'gambar',
-                'tgl',
-                'status',
-                'user_id'
+                'beritas.id',
+                'beritas.judul',
+                'beritas.kategori_id',
+                'beritas.isi',
+                'beritas.gambar',
+                'beritas.tgl',
+                'beritas.status',
+                'beritas.user_id'
             );
 
         if ($request->search) {
             $berita->where('judul', 'like', '%' . $request->search . '%')
                 ->orWhere('isi', 'like', '%' . $request->search . '%');
+        }
+
+        if ($request->category) {
+            $category = $request->category;
+            $show = $berita->join('kat_beritas', 'beritas.kategori_id', '=', 'kat_beritas.id')
+                    ->where('kat_beritas.kategori', 'like', '%' . $category . '%');
+        } else {
+            $show = $berita;
         }
 
         if ($request->perPage) {
