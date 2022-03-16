@@ -9,11 +9,50 @@
         </h2>
     </x-slot>
 
+    <script>
+        var api = <?php echo $api; ?>;
+        var visit = <?php echo $visit; ?>;
+        var barChartData = {
+            labels: api,
+            datasets: [{
+                label: 'API Usage',
+                backgroundColor: "#6AAAFA",
+                data: visit
+            }]
+        };
+
+        window.onload = function() {
+            var ctx = document.getElementById("canvas").getContext("2d");
+            window.myBar = new Chart(ctx, {
+                type: 'bar',
+                data: barChartData,
+                options: {
+                    elements: {
+                        rectangle: {
+                            borderWidth: 2,
+                            borderColor: '#c1c1c1',
+                            borderSkipped: 'bottom'
+                        }
+                    },
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: 'Total Penggunaan API'
+                    }
+                }
+            });
+        };
+    </script>
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     @if (Auth::user()->role == 'admin')
+                        <div class="panel-body">
+                            <canvas id="canvas" height="200" width="500"></canvas>
+                        </div>
+                        <hr class="my-3">
                         <div class="row col-12 mb-2">
                             <div class="col-6 d-flex">
                                 <div class="row text-start justify-content-center align-self-center ml-3"
@@ -50,7 +89,7 @@
                                 <tbody>
                                     <?php
                                     if ($data->currentPage() > 1) {
-                                        $i = $data->currentPage() * 15 - 14;
+                                        $i = $data->currentPage() * 20 - 19;
                                     } else {
                                         $i = 1;
                                     }

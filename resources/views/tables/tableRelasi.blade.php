@@ -166,7 +166,8 @@
                         <tbody class="mb-2">
                             <tr>
                                 <td class="col-1" scope="row"><button class="btn btn-outline-success pe-none">GET</button></td>
-                                <td id="berita01">https://api-kominfo.kotabogor.my.id/berita</td>
+                                <td>https://api-kominfo.kotabogor.my.id/berita <font style="opacity: 60%"> (Categorize Ready)</font></td></td>
+                                <p hidden id="berita01">https://api-kominfo.kotabogor.my.id/berita</p>
                                 <td><button class="btn btn-success float-end" onclick="copy('berita01')">Copy</button></td>
                             </tr>
                             <tr>
