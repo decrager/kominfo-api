@@ -13,32 +13,40 @@ use Symfony\Component\HttpFoundation\Response;
 
 class BeritaController extends Controller
 {
-    public function view()
+    public function counter($API)
     {
-        // Counter
         $today = Carbon::today()->toDateString();
-        $check = Counter::select('api', 'tanggal', 'visit')->where('api', 'Berita')->where('tanggal', $today)->get();
-        $tanggal = Counter::select('tanggal')->where('api', 'Berita')->where('tanggal', $today)->first();
+        $check = Counter::select('api', 'tanggal', 'visit')->where('api', $API)->where('tanggal', $today)->get();
+        $tanggal = Counter::select('tanggal')->where('api', $API)->where('tanggal', $today)->first();
 
         if ($check->isEmpty()) {
             $counter = new Counter;
-            $counter->api = 'Berita';
+            $counter->api = $API;
             $counter->tanggal = $today;
             $counter->visit = 1;
             $counter->save();
         } elseif ($tanggal->tanggal == $today) {
-            $counter = Counter::where('api', 'Berita')->where('tanggal', $today);
+            $counter = Counter::where('api', $API)->where('tanggal', $today);
             $counter->increment('visit');
         } elseif ($tanggal->tanggal != $today) {
             $counter = new Counter;
-            $counter->api = 'Berita';
+            $counter->api = $API;
             $counter->tanggal = $today;
             $counter->visit = 1;
             $counter->save();
         }
-        // End Counter
+    }
 
-        $berita = Berita::orderBy('id', 'ASC')->get();
+    public function view(Request $request)
+    {
+        $this->counter('Berita');
+
+        if ($request->order == 'DESC' or $request->order == 'ASC') {
+            $berita = Berita::orderBy('id', $request->order)->get();
+        } else {
+            $berita = Berita::orderBy('id', 'ASC')->get();
+        }
+
         return response()->json([
             'message' => "Data Berita Loaded Successfully!",
             'Berita' => $berita
@@ -56,6 +64,8 @@ class BeritaController extends Controller
 
     public function create(Request $request)
     {
+        $this->counter('Berita');
+
         $user = Auth::user();
 
         if ($user->role == 'admin') {
@@ -96,6 +106,8 @@ class BeritaController extends Controller
 
     public function update(Request $request, $id)
     {
+        $this->counter('Berita');
+
         $berita = Berita::find($id);
         $user = Auth::user();
 
@@ -142,6 +154,8 @@ class BeritaController extends Controller
 
     public function destroy($id)
     {
+        $this->counter('Berita');
+
         $user = Auth::user();
         $berita = Berita::find($id);
         $destination = 'images/berita/' . $berita->gambar;
@@ -163,22 +177,29 @@ class BeritaController extends Controller
 
     public function berita(Request $request)
     {
-        $berita = Berita::with('Kat_berita', 'Pengguna')
-            ->select(
-                'beritas.id',
-                'beritas.judul',
-                'beritas.kategori_id',
-                'beritas.isi',
-                'beritas.gambar',
-                'beritas.tgl',
-                'beritas.status',
-                'beritas.user_id'
-            );
+        $this->counter('Relational Berita');
+
+        $berita = Berita::with('Kat_berita', 'Pengguna');
+
+        if ($request->order == 'DESC' or $request->order == 'ASC') {
+            $berita = $berita->orderBy('id', $request->order);
+        }
+
+        $berita = $berita->select(
+            'beritas.id',
+            'beritas.judul',
+            'beritas.kategori_id',
+            'beritas.isi',
+            'beritas.gambar',
+            'beritas.tgl',
+            'beritas.status',
+            'beritas.user_id'
+        );
 
         if ($request->category) {
             $category = $request->category;
             $show = $berita->join('kat_beritas', 'beritas.kategori_id', '=', 'kat_beritas.id')
-                    ->where('kat_beritas.kategori', 'like', '%' . $category . '%')->get();
+                ->where('kat_beritas.kategori', 'like', '%' . $category . '%')->get();
         } else {
             $show = $berita->get();
         }
@@ -191,41 +212,26 @@ class BeritaController extends Controller
 
     public function beritaPublic(Request $request)
     {
-        // Counter
-        $today = Carbon::today()->toDateString();
-        $check = Counter::select('api', 'tanggal', 'visit')->where('api', 'Relational Berita')->where('tanggal', $today)->get();
-        $tanggal = Counter::select('tanggal')->where('api', 'Relational Berita')->where('tanggal', $today)->first();
+        $this->counter('Relational Berita');
 
-        if ($check->isEmpty()) {
-            $counter = new Counter;
-            $counter->api = 'Relational Berita';
-            $counter->tanggal = $today;
-            $counter->visit = 1;
-            $counter->save();
-        } elseif ($tanggal->tanggal == $today) {
-            $counter = Counter::where('api', 'Relational Berita')->where('tanggal', $today);
-            $counter->increment('visit');
-        } elseif ($tanggal->tanggal != $today) {
-            $counter = new Counter;
-            $counter->api = 'Relational Berita';
-            $counter->tanggal = $today;
-            $counter->visit = 1;
-            $counter->save();
+        $berita = Berita::with('Kat_berita', 'Pengguna');
+
+        if ($request->order == 'DESC' or $request->order == 'ASC') {
+            $berita = $berita->orderBy('id', $request->order);
+        } else {
+            $berita = $berita->orderBy('id', 'DESC');
         }
-        // End Counter
 
-        $berita = Berita::latest()
-            ->with('Kat_berita', 'Pengguna')
-            ->select(
-                'beritas.id',
-                'beritas.judul',
-                'beritas.kategori_id',
-                'beritas.isi',
-                'beritas.gambar',
-                'beritas.tgl',
-                'beritas.status',
-                'beritas.user_id'
-            );
+        $berita = $berita->select(
+            'beritas.id',
+            'beritas.judul',
+            'beritas.kategori_id',
+            'beritas.isi',
+            'beritas.gambar',
+            'beritas.tgl',
+            'beritas.status',
+            'beritas.user_id'
+        );
 
         if ($request->search) {
             $berita->where('judul', 'like', '%' . $request->search . '%')
@@ -235,7 +241,7 @@ class BeritaController extends Controller
         if ($request->category) {
             $category = $request->category;
             $show = $berita->join('kat_beritas', 'beritas.kategori_id', '=', 'kat_beritas.id')
-                    ->where('kat_beritas.kategori', 'like', '%' . $category . '%');
+                ->where('kat_beritas.kategori', 'like', '%' . $category . '%');
         } else {
             $show = $berita;
         }
@@ -255,6 +261,8 @@ class BeritaController extends Controller
 
     public function beritaById($id)
     {
+        $this->counter('Relational Berita');
+
         $berita = Berita::with('Kat_berita', 'Pengguna')
             ->select(
                 'id',

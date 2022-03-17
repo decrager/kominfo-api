@@ -71,6 +71,9 @@
                             "updated_at": "Timestamp"
                         }
                         "Path to file": "https://api-kominfo.kotabogor.my.id/storage/images/headerslide/{file_name}"
+                        "Parameter": {
+                            "order": "DESC or ASC"
+                        }
                     </code>
                 </pre>
             </div>

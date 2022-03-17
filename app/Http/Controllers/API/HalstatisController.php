@@ -13,30 +13,33 @@ use Symfony\Component\HttpFoundation\Response;
 
 class HalstatisController extends Controller
 {
-    public function view()
+    public function counter($API)
     {
-        // Counter
         $today = Carbon::today()->toDateString();
-        $check = Counter::select('api', 'tanggal', 'visit')->where('api', 'Hal Statis')->where('tanggal', $today)->get();
-        $tanggal = Counter::select('tanggal')->where('api', 'Hal Statis')->where('tanggal', $today)->first();
+        $check = Counter::select('api', 'tanggal', 'visit')->where('api', $API)->where('tanggal', $today)->get();
+        $tanggal = Counter::select('tanggal')->where('api', $API)->where('tanggal', $today)->first();
 
         if ($check->isEmpty()) {
             $counter = new Counter;
-            $counter->api = 'Hal Statis';
+            $counter->api = $API;
             $counter->tanggal = $today;
             $counter->visit = 1;
             $counter->save();
         } elseif ($tanggal->tanggal == $today) {
-            $counter = Counter::where('api', 'Hal Statis')->where('tanggal', $today);
+            $counter = Counter::where('api', $API)->where('tanggal', $today);
             $counter->increment('visit');
         } elseif ($tanggal->tanggal != $today) {
             $counter = new Counter;
-            $counter->api = 'Hal Statis';
+            $counter->api = $API;
             $counter->tanggal = $today;
             $counter->visit = 1;
             $counter->save();
         }
-        // End Counter
+    }
+
+    public function view()
+    {
+        $this->counter('Hal Statis');
 
         $halstatis = Halstatis::orderBy('id', 'ASC')->get();
         return response()->json([
@@ -47,6 +50,8 @@ class HalstatisController extends Controller
 
     public function viewById($id)
     {
+        $this->counter('Hal Statis');
+
         $halstatis = Halstatis::find($id);
         return response()->json([
             'message' => "Data Halstatis Loaded Successfully!",
@@ -56,6 +61,8 @@ class HalstatisController extends Controller
 
     public function create(Request $request)
     {
+        $this->counter('Hal Statis');
+
         $user = Auth::user();
 
         if ($user->role == 'admin') {
@@ -96,6 +103,8 @@ class HalstatisController extends Controller
 
     public function update(Request $request, $id)
     {
+        $this->counter('Hal Statis');
+
         $halstatis = Halstatis::find($id);
         $user = Auth::user();
 
@@ -142,6 +151,8 @@ class HalstatisController extends Controller
 
     public function destroy($id)
     {
+        $this->counter('Hal Statis');
+
         $user = Auth::user();
         $halstatis = Halstatis::find($id);
         $destination = 'images/statis/' . $halstatis->file;
@@ -163,28 +174,7 @@ class HalstatisController extends Controller
 
     public function halstatis()
     {
-        // Counter
-        $today = Carbon::today()->toDateString();
-        $check = Counter::select('api', 'tanggal', 'visit')->where('api', 'Relational Hal Statis')->where('tanggal', $today)->get();
-        $tanggal = Counter::select('tanggal')->where('api', 'Relational Hal Statis')->where('tanggal', $today)->first();
-
-        if ($check->isEmpty()) {
-            $counter = new Counter;
-            $counter->api = 'Relational Hal Statis';
-            $counter->tanggal = $today;
-            $counter->visit = 1;
-            $counter->save();
-        } elseif ($tanggal->tanggal == $today) {
-            $counter = Counter::where('api', 'Relational Hal Statis')->where('tanggal', $today);
-            $counter->increment('visit');
-        } elseif ($tanggal->tanggal != $today) {
-            $counter = new Counter;
-            $counter->api = 'Relational Hal Statis';
-            $counter->tanggal = $today;
-            $counter->visit = 1;
-            $counter->save();
-        }
-        // End Counter
+        $this->counter('Relational Hal Statis');
 
         $halstatis = Halstatis::with('Kat_halstatis', 'Pengguna')
             ->select(
@@ -206,6 +196,8 @@ class HalstatisController extends Controller
 
     public function halstatisById($id)
     {
+        $this->counter('Relational Hal Statis');
+        
         $halstatis = Halstatis::with('Kat_halstatis', 'Pengguna')
             ->select(
                 'id',

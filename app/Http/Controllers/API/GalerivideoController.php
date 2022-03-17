@@ -13,30 +13,33 @@ use Symfony\Component\HttpFoundation\Response;
 
 class GalerivideoController extends Controller
 {
-    public function view()
+    public function counter($API)
     {
-        // Counter
         $today = Carbon::today()->toDateString();
-        $check = Counter::select('api', 'tanggal', 'visit')->where('api', 'Galeri Video')->where('tanggal', $today)->get();
-        $tanggal = Counter::select('tanggal')->where('api', 'Galeri Video')->where('tanggal', $today)->first();
+        $check = Counter::select('api', 'tanggal', 'visit')->where('api', $API)->where('tanggal', $today)->get();
+        $tanggal = Counter::select('tanggal')->where('api', $API)->where('tanggal', $today)->first();
 
         if ($check->isEmpty()) {
             $counter = new Counter;
-            $counter->api = 'Galeri Video';
+            $counter->api = $API;
             $counter->tanggal = $today;
             $counter->visit = 1;
             $counter->save();
         } elseif ($tanggal->tanggal == $today) {
-            $counter = Counter::where('api', 'Galeri Video')->where('tanggal', $today);
+            $counter = Counter::where('api', $API)->where('tanggal', $today);
             $counter->increment('visit');
         } elseif ($tanggal->tanggal != $today) {
             $counter = new Counter;
-            $counter->api = 'Galeri Video';
+            $counter->api = $API;
             $counter->tanggal = $today;
             $counter->visit = 1;
             $counter->save();
         }
-        // End Counter
+    }
+
+    public function view()
+    {
+        $this->counter('Galeri Video');
 
         $video = Galerivideo::orderBy('id', 'ASC')->get();
         return response()->json([
@@ -47,6 +50,8 @@ class GalerivideoController extends Controller
 
     public function viewById($id)
     {
+        $this->counter('Galeri Video');
+
         $video = Galerivideo::find($id);
         return response()->json([
             'message' => "Data Galerivideo Laoded Successfully!",
@@ -56,6 +61,8 @@ class GalerivideoController extends Controller
 
     public function create(Request $request)
     {
+        $this->counter('Galeri Video');
+
         $user = Auth::user();
 
         if ($user->role == 'admin') {
@@ -92,6 +99,8 @@ class GalerivideoController extends Controller
 
     public function update(Request $request, $id)
     {
+        $this->counter('Galeri Video');
+
         $video = Galerivideo::find($id);
         $user = Auth::user();
 
@@ -134,6 +143,8 @@ class GalerivideoController extends Controller
 
     public function destroy($id)
     {
+        $this->counter('Galeri Video');
+
         $user = Auth::user();
         $video = Galerivideo::find($id);
         $destination = 'images/coverVideo/' . $video->cover;
@@ -155,29 +166,8 @@ class GalerivideoController extends Controller
 
     public function galerivideo()
     {
-        // Counter
-        $today = Carbon::today()->toDateString();
-        $check = Counter::select('api', 'tanggal', 'visit')->where('api', 'Relational Galeri Video')->where('tanggal', $today)->get();
-        $tanggal = Counter::select('tanggal')->where('api', 'Relational Galeri Video')->where('tanggal', $today)->first();
-
-        if ($check->isEmpty()) {
-            $counter = new Counter;
-            $counter->api = 'Relational Galeri Video';
-            $counter->tanggal = $today;
-            $counter->visit = 1;
-            $counter->save();
-        } elseif ($tanggal->tanggal == $today) {
-            $counter = Counter::where('api', 'Relational Galeri Video')->where('tanggal', $today);
-            $counter->increment('visit');
-        } elseif ($tanggal->tanggal != $today) {
-            $counter = new Counter;
-            $counter->api = 'Relational Galeri Video';
-            $counter->tanggal = $today;
-            $counter->visit = 1;
-            $counter->save();
-        }
-        // End Counter
-
+        $this->counter('Relational Galeri Video');
+        
         $video = Galerivideo::with('Pengguna')
             ->select(
                 'id',
@@ -196,6 +186,8 @@ class GalerivideoController extends Controller
 
     public function galerivideoById($id)
     {
+        $this->counter('Relational Galeri Video');
+
         $video = Galerivideo::with('Pengguna')
             ->select(
                 'id',

@@ -13,32 +13,40 @@ use Symfony\Component\HttpFoundation\Response;
 
 class HeaderslideController extends Controller
 {
-    public function view()
+    public function counter($API)
     {
-        // Counter
         $today = Carbon::today()->toDateString();
-        $check = Counter::select('api', 'tanggal', 'visit')->where('api', 'Headerslide')->where('tanggal', $today)->get();
-        $tanggal = Counter::select('tanggal')->where('api', 'Headerslide')->where('tanggal', $today)->first();
+        $check = Counter::select('api', 'tanggal', 'visit')->where('api', $API)->where('tanggal', $today)->get();
+        $tanggal = Counter::select('tanggal')->where('api', $API)->where('tanggal', $today)->first();
 
         if ($check->isEmpty()) {
             $counter = new Counter;
-            $counter->api = 'Headerslide';
+            $counter->api = $API;
             $counter->tanggal = $today;
             $counter->visit = 1;
             $counter->save();
         } elseif ($tanggal->tanggal == $today) {
-            $counter = Counter::where('api', 'Headerslide')->where('tanggal', $today);
+            $counter = Counter::where('api', $API)->where('tanggal', $today);
             $counter->increment('visit');
         } elseif ($tanggal->tanggal != $today) {
             $counter = new Counter;
-            $counter->api = 'Headerslide';
+            $counter->api = $API;
             $counter->tanggal = $today;
             $counter->visit = 1;
             $counter->save();
         }
-        // End Counter
+    }
+
+    public function view(Request $request)
+    {
+        $this->counter('Headerslide');
         
-        $header = Headerslide::orderBy('id', 'ASC')->get();
+        if ($request->order == 'DESC' or $request->order == 'ASC') {
+            $header = Headerslide::orderBy('id', $request->order)->get();
+        } else {
+            $header = Headerslide::orderBy('id', 'ASC')->get();
+        }
+
         return response()->json([
             'message' => "Data Headerslide Loaded Successfully!",
             'Headerslide' => $header
@@ -47,6 +55,8 @@ class HeaderslideController extends Controller
 
     public function viewById($id)
     {
+        $this->counter('Headerslide');
+
         $header = Headerslide::find($id);
         return response()->json([
             'message' => "Data Headerslide Loaded Successfully!",
@@ -56,6 +66,8 @@ class HeaderslideController extends Controller
 
     public function create(Request $request)
     {
+        $this->counter('Headerslide');
+
         $user = Auth::user();
 
         if ($user->role == 'admin') {
@@ -90,6 +102,8 @@ class HeaderslideController extends Controller
 
     public function update(Request $request, $id)
     {
+        $this->counter('Headerslide');
+
         $header = Headerslide::find($id);
         $user = Auth::user();
 
@@ -130,6 +144,8 @@ class HeaderslideController extends Controller
 
     public function destroy($id)
     {
+        $this->counter('Headerslide');
+        
         $user = Auth::user();
         $header = Headerslide::find($id);
         $destination = 'images/headerslide/' . $header->file;

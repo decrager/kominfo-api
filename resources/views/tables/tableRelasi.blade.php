@@ -76,6 +76,9 @@
                                         "level": "int(2)"
                                     }
                                 }
+                                "Parameter": {
+                                    "order": "DESC or ASC"
+                                }
                             </code>
                         </pre>
                     </div>
@@ -138,6 +141,10 @@
                                         "level": "int(2)"
                                     }
                                 }
+                                "Path to files": "https://api-kominfo.kotabogor.my.id/storage/images/album/{file_name}"
+                                "Parameter": {
+                                    "order": "DESC or ASC"
+                                }
                             </code>
                         </pre>
                     </div>
@@ -165,23 +172,32 @@
                     <table class="mb-2">
                         <tbody class="mb-2">
                             <tr>
-                                <td class="col-1" scope="row"><button class="btn btn-outline-success pe-none">GET</button></td>
-                                <td>https://api-kominfo.kotabogor.my.id/berita <font style="opacity: 60%"> (Categorize Ready)</font></td></td>
+                                <td class="col-1" scope="row"><button
+                                        class="btn btn-outline-success pe-none">GET</button></td>
+                                <td>https://api-kominfo.kotabogor.my.id/berita <font style="opacity: 60%"> (Categorize
+                                        Ready)</font>
+                                </td>
+                                </td>
                                 <p hidden id="berita01">https://api-kominfo.kotabogor.my.id/berita</p>
-                                <td><button class="btn btn-success float-end" onclick="copy('berita01')">Copy</button></td>
+                                <td><button class="btn btn-success float-end" onclick="copy('berita01')">Copy</button>
+                                </td>
                             </tr>
                             <tr>
                                 <td class="col-1" scope="row"><button
                                         class="btn btn-outline-success pe-none">GET</button></td>
-                                <td>https://api-kominfo.kotabogor.my.id/beritaPublic <font style="opacity: 60%"> (Search & Pagination Ready)</font></td>
+                                <td>https://api-kominfo.kotabogor.my.id/beritaPublic <font style="opacity: 60%"> (Search
+                                        & Pagination Ready)</font>
+                                </td>
                                 <p hidden id="Berita02">https://api-kominfo.kotabogor.my.id/beritaPublic</p>
-                                <td><button class="btn btn-success float-end"
-                                        onclick="copy('Berita02')">Copy</button></td>
+                                <td><button class="btn btn-success float-end" onclick="copy('Berita02')">Copy</button>
+                                </td>
                             </tr>
                             <tr>
-                                <td class="col-1" scope="row"><button class="btn btn-outline-success pe-none">GET</button></td>
+                                <td class="col-1" scope="row"><button
+                                        class="btn btn-outline-success pe-none">GET</button></td>
                                 <td id="berita03">https://api-kominfo.kotabogor.my.id/berita/{id}</td>
-                                <td><button class="btn btn-success float-end" onclick="copy('berita03')">Copy</button></td>
+                                <td><button class="btn btn-success float-end" onclick="copy('berita03')">Copy</button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -212,6 +228,19 @@
                                         "level": "int(2)"
                                     }
                                 }
+                                "Path to file": "https://api-kominfo.kotabogor.my.id/storage/images/berita/{file_name}"
+                                "Parameter": {
+                                    "berita": {
+                                        "order": "DESC or ASC",
+                                        "category": "keywords",
+                                    },
+                                    "beritaPublic": {
+                                        "order": "DESC or ASC",
+                                        "search": "keywords",
+                                        "category": "keywords",
+                                        "perPage": "Pagination Size"
+                                    }
+                                }
                             </code>
                         </pre>
                     </div>
@@ -239,14 +268,18 @@
                     <table class="mb-2">
                         <tbody class="mb-2">
                             <tr>
-                                <td class="col-1" scope="row"><button class="btn btn-outline-success pe-none">GET</button></td>
+                                <td class="col-1" scope="row"><button
+                                        class="btn btn-outline-success pe-none">GET</button></td>
                                 <td id="halstatis01">https://api-kominfo.kotabogor.my.id/halstatis</td>
-                                <td><button class="btn btn-success float-end" onclick="copy('halstatis01')">Copy</button></td>
+                                <td><button class="btn btn-success float-end"
+                                        onclick="copy('halstatis01')">Copy</button></td>
                             </tr>
                             <tr>
-                                <td class="col-1" scope="row"><button class="btn btn-outline-success pe-none">GET</button></td>
+                                <td class="col-1" scope="row"><button
+                                        class="btn btn-outline-success pe-none">GET</button></td>
                                 <td id="halstatis02">https://api-kominfo.kotabogor.my.id/halstatis/{id}</td>
-                                <td><button class="btn btn-success float-end" onclick="copy('halstatis02')">Copy</button></td>
+                                <td><button class="btn btn-success float-end"
+                                        onclick="copy('halstatis02')">Copy</button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -278,6 +311,7 @@
                                         "level": "int(2)"
                                     }
                                 }
+                                "Path to file": "https://api-kominfo.kotabogor.my.id/storage/images/statis/{file_name}"
                             </code>
                         </pre>
                     </div>
@@ -305,14 +339,18 @@
                     <table class="mb-2">
                         <tbody class="mb-2">
                             <tr>
-                                <td class="col-1" scope="row"><button class="btn btn-outline-success pe-none">GET</button></td>
+                                <td class="col-1" scope="row"><button
+                                        class="btn btn-outline-success pe-none">GET</button></td>
                                 <td id="galerifoto01">https://api-kominfo.kotabogor.my.id/galerifoto</td>
-                                <td><button class="btn btn-success float-end" onclick="copy('galerifoto01')">Copy</button></td>
+                                <td><button class="btn btn-success float-end"
+                                        onclick="copy('galerifoto01')">Copy</button></td>
                             </tr>
                             <tr>
-                                <td class="col-1" scope="row"><button class="btn btn-outline-success pe-none">GET</button></td>
+                                <td class="col-1" scope="row"><button
+                                        class="btn btn-outline-success pe-none">GET</button></td>
                                 <td id="galerifoto02">https://api-kominfo.kotabogor.my.id/galerifoto/{id}</td>
-                                <td><button class="btn btn-success float-end" onclick="copy('galerifoto02')">Copy</button></td>
+                                <td><button class="btn btn-success float-end"
+                                        onclick="copy('galerifoto02')">Copy</button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -333,6 +371,7 @@
                                         "user_id": "int(11)",
                                     }
                                 }
+                                "Path to file": "https://api-kominfo.kotabogor.my.id/storage/images/foto/{file_name}"
                             </code>
                         </pre>
                     </div>
@@ -360,14 +399,18 @@
                     <table class="mb-2">
                         <tbody class="mb-2">
                             <tr>
-                                <td class="col-1" scope="row"><button class="btn btn-outline-success pe-none">GET</button></td>
+                                <td class="col-1" scope="row"><button
+                                        class="btn btn-outline-success pe-none">GET</button></td>
                                 <td id="galerivideo01">https://api-kominfo.kotabogor.my.id/galerivideo</td>
-                                <td><button class="btn btn-success float-end" onclick="copy('galerivideo01')">Copy</button></td>
+                                <td><button class="btn btn-success float-end"
+                                        onclick="copy('galerivideo01')">Copy</button></td>
                             </tr>
                             <tr>
-                                <td class="col-1" scope="row"><button class="btn btn-outline-success pe-none">GET</button></td>
+                                <td class="col-1" scope="row"><button
+                                        class="btn btn-outline-success pe-none">GET</button></td>
                                 <td id="galerivideo02">https://api-kominfo.kotabogor.my.id/galerivideo/{id}</td>
-                                <td><button class="btn btn-success float-end" onclick="copy('galerivideo02')">Copy</button></td>
+                                <td><button class="btn btn-success float-end"
+                                        onclick="copy('galerivideo02')">Copy</button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -392,6 +435,7 @@
                                         "level": "int(2)"
                                     }
                                 }
+                                "Path to file": "https://api-kominfo.kotabogor.my.id/storage/images/coverVideo/{file_name}"
                             </code>
                         </pre>
                     </div>

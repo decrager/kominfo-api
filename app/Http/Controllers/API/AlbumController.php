@@ -10,35 +10,44 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use App\Models\Counter;
+use Illuminate\Support\Facades\Redis;
 
 class AlbumController extends Controller
 {
-    public function view()
+    public function counter($API)
     {
-        // Counter
         $today = Carbon::today()->toDateString();
-        $check = Counter::select('api', 'tanggal', 'visit')->where('api', 'Album')->where('tanggal', $today)->get();
-        $tanggal = Counter::select('tanggal')->where('api', 'Album')->where('tanggal', $today)->first();
+        $check = Counter::select('api', 'tanggal', 'visit')->where('api', $API)->where('tanggal', $today)->get();
+        $tanggal = Counter::select('tanggal')->where('api', $API)->where('tanggal', $today)->first();
 
         if ($check->isEmpty()) {
             $counter = new Counter;
-            $counter->api = 'Album';
+            $counter->api = $API;
             $counter->tanggal = $today;
             $counter->visit = 1;
             $counter->save();
         } elseif ($tanggal->tanggal == $today) {
-            $counter = Counter::where('api', 'Album')->where('tanggal', $today);
+            $counter = Counter::where('api', $API)->where('tanggal', $today);
             $counter->increment('visit');
         } elseif ($tanggal->tanggal != $today) {
             $counter = new Counter;
-            $counter->api = 'Album';
+            $counter->api = $API;
             $counter->tanggal = $today;
             $counter->visit = 1;
             $counter->save();
         }
-        // End Counter
+    }
 
-        $album = Album::orderBy('id', 'ASC')->get();
+    public function view(Request $request)
+    {
+        $this->counter('Album');
+
+        if ($request->order == 'DESC' or $request->order == 'ASC') {
+            $album = Album::orderBy('id', $request->order)->get();
+        } else {
+            $album = Album::orderBy('id', 'ASC')->get();
+        }
+
         return response()->json([
             'message' => "Data Album Loaded Successfully!",
             'Album' => $album
@@ -47,6 +56,8 @@ class AlbumController extends Controller
 
     public function viewById($id)
     {
+        $this->counter('Album');
+
         $album = Album::find($id);
         return response()->json([
             'message' => "Data Album Loaded Successfully",
@@ -56,6 +67,8 @@ class AlbumController extends Controller
 
     public function create(Request $request)
     {
+        $this->counter('Album');
+
         $user = Auth::user();
 
         if ($user->role == 'admin') {
@@ -90,6 +103,8 @@ class AlbumController extends Controller
 
     public function update(Request $request, $id)
     {
+        $this->counter('Album');
+
         $album = Album::find($id);
         $user = Auth::user();
 
@@ -130,6 +145,8 @@ class AlbumController extends Controller
 
     public function destroy($id)
     {
+        $this->counter('Album');
+
         $user = Auth::user();
         $file = Album::find($id);
         $destination = 'images/album/' . $file->cover;
@@ -149,39 +166,23 @@ class AlbumController extends Controller
         }
     }
 
-    public function album()
+    public function album(Request $request)
     {
-        // Counter
-        $today = Carbon::today()->toDateString();
-        $check = Counter::select('api', 'tanggal', 'visit')->where('api', 'Relational Album')->where('tanggal', $today)->get();
-        $tanggal = Counter::select('tanggal')->where('api', 'Relational Album')->where('tanggal', $today)->first();
+        $this->counter('Relational Album');
 
-        if ($check->isEmpty()) {
-            $counter = new Counter;
-            $counter->api = 'Relational Album';
-            $counter->tanggal = $today;
-            $counter->visit = 1;
-            $counter->save();
-        } elseif ($tanggal->tanggal == $today) {
-            $counter = Counter::where('api', 'Relational Album')->where('tanggal', $today);
-            $counter->increment('visit');
-        } elseif ($tanggal->tanggal != $today) {
-            $counter = new Counter;
-            $counter->api = 'Relational Album';
-            $counter->tanggal = $today;
-            $counter->visit = 1;
-            $counter->save();
+        $album = Album::with('Pengguna');
+
+        if ($request->order == 'DESC' or $request->order == 'ASC') {
+            $album = $album->orderBy('id', $request->order);
         }
-        // End Counter
 
-        $album = Album::with('Pengguna')
-            ->select(
-                'id',
-                'judul',
-                'tgl',
-                'cover',
-                'user_id'
-            )->get();
+        $album = $album->select(
+            'id',
+            'judul',
+            'tgl',
+            'cover',
+            'user_id'
+        )->get();
 
         return response()->json([
             'message' => "Data Album with Pengguna Loaded Successfully!",
@@ -191,6 +192,8 @@ class AlbumController extends Controller
 
     public function albumById($id)
     {
+        $this->counter('Relational Album');
+
         $album = Album::with('Pengguna')
             ->select(
                 'id',

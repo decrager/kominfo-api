@@ -13,30 +13,33 @@ use Symfony\Component\HttpFoundation\Response;
 
 class GalerifotoController extends Controller
 {
-    public function view()
+    public function counter($API)
     {
-        // Counter
         $today = Carbon::today()->toDateString();
-        $check = Counter::select('api', 'tanggal', 'visit')->where('api', 'Galeri Foto')->where('tanggal', $today)->get();
-        $tanggal = Counter::select('tanggal')->where('api', 'Galeri Foto')->where('tanggal', $today)->first();
+        $check = Counter::select('api', 'tanggal', 'visit')->where('api', $API)->where('tanggal', $today)->get();
+        $tanggal = Counter::select('tanggal')->where('api', $API)->where('tanggal', $today)->first();
 
         if ($check->isEmpty()) {
             $counter = new Counter;
-            $counter->api = 'Galeri Foto';
+            $counter->api = $API;
             $counter->tanggal = $today;
             $counter->visit = 1;
             $counter->save();
         } elseif ($tanggal->tanggal == $today) {
-            $counter = Counter::where('api', 'Galeri Foto')->where('tanggal', $today);
+            $counter = Counter::where('api', $API)->where('tanggal', $today);
             $counter->increment('visit');
         } elseif ($tanggal->tanggal != $today) {
             $counter = new Counter;
-            $counter->api = 'Galeri Foto';
+            $counter->api = $API;
             $counter->tanggal = $today;
             $counter->visit = 1;
             $counter->save();
         }
-        // End Counter
+    }
+
+    public function view()
+    {
+        $this->counter('Galeri Foto');
         
         $foto = Galerifoto::orderBy('id', 'ASC')->get();
         return response()->json([
@@ -56,6 +59,8 @@ class GalerifotoController extends Controller
 
     public function create(Request $request)
     {
+        $this->counter('Galeri Foto');
+
         $user = Auth::user();
 
         if ($user->role == 'admin') {
@@ -90,6 +95,8 @@ class GalerifotoController extends Controller
 
     public function update(Request $request, $id)
     {
+        $this->counter('Galeri Foto');
+
         $foto = Galerifoto::find($id);
         $user = Auth::user();
 
@@ -130,6 +137,8 @@ class GalerifotoController extends Controller
 
     public function destroy($id)
     {
+        $this->counter('Galeri Foto');
+
         $user = Auth::user();
         $foto = Galerifoto::find($id);
         $destination = 'images/foto/'.$foto->foto;
@@ -151,28 +160,7 @@ class GalerifotoController extends Controller
 
     public function galerifoto()
     {
-        // Counter
-        $today = Carbon::today()->toDateString();
-        $check = Counter::select('api', 'tanggal', 'visit')->where('api', 'Relational Galeri Foto')->where('tanggal', $today)->get();
-        $tanggal = Counter::select('tanggal')->where('api', 'Relational Galeri Foto')->where('tanggal', $today)->first();
-
-        if ($check->isEmpty()) {
-            $counter = new Counter;
-            $counter->api = 'Relational Galeri Foto';
-            $counter->tanggal = $today;
-            $counter->visit = 1;
-            $counter->save();
-        } elseif ($tanggal->tanggal == $today) {
-            $counter = Counter::where('api', 'Relational Galeri Foto')->where('tanggal', $today);
-            $counter->increment('visit');
-        } elseif ($tanggal->tanggal != $today) {
-            $counter = new Counter;
-            $counter->api = 'Relational Galeri Foto';
-            $counter->tanggal = $today;
-            $counter->visit = 1;
-            $counter->save();
-        }
-        // End Counter
+        $this->counter('Relational Galeri Foto');
 
         $foto = Galerifoto::with('Album')
         ->select(
@@ -191,6 +179,8 @@ class GalerifotoController extends Controller
 
     public function galerifotoById($id)
     {
+        $this->counter('Relational Galeri Foto');
+        
         $foto = Galerifoto::with('Album')
         ->select(
             'id',
