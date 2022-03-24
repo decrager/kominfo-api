@@ -27,5 +27,6 @@ class VerifyCsrfToken extends Middleware
         '/Kat_halstatisCrt','/Kat_halstatisUpd/*','Kat_halstatisDest/*',
         '/PenggunaCrt','/PenggunaUpd/*','PenggunaDest/*',
         '/ProfilopdCrt','/ProfilopdUpd/*','ProfilopdDest/*',
+        '/VisitorCrt','/VisitorUpd/*','VisitorDest/*',
     ];
 }
