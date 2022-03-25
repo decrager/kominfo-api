@@ -40,8 +40,8 @@
                 <pre>
                     <code class="language-json text-left pt-3">
                         {
-                            "email" : "varchar(255)",
-                            "password" : "varchar(255)"
+                            "email" : "varchar(255)", // Fillabel | Required
+                            "password" : "varchar(255)" // Fillabel | Required
                         }
                     </code>
                 </pre>

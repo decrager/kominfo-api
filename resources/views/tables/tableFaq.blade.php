@@ -63,8 +63,8 @@
                     <code class="language-json text-left pt-3">
                         {
                             "id": "int(11)",
-                            "pertanyaan": "text",
-                            "jawaban": "text",
+                            "pertanyaan": "text", // Fillabel | Required
+                            "jawaban": "text", // Fillabel | Required
                             "created_at": "Timestamp",
                             "updated_at": "Timestamp"
                         }

@@ -63,10 +63,10 @@
                     <code class="language-json text-left pt-3">
                         {
                             "id": "int(11)",
-                            "album_id": "int(11)",
-                            "judul": "varchar",
-                            "foto": "varchar(255)",
-                            "keterangan": "varchar(100)",
+                            "album_id": "int(11)", // Fillabel | Required
+                            "judul": "varchar", // Fillabel | Required
+                            "foto": "varchar(255)", // Fillabel | Required
+                            "keterangan": "varchar(100)", // Fillabel | Required
                             "created_at": "Timestamp",
                             "updated_at": "Timestamp"
                         }

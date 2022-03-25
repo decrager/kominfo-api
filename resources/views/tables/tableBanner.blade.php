@@ -63,11 +63,11 @@
                     <code class="language-json text-left pt-3">
                         {
                             "id": "int(11)",
-                            "judul": "varchar(85)",
-                            "kategori": "enum('0','1')",
-                            "file": "varchar(255)",
-                            "link": "varchar(100)",
-                            "status": "enum('0','1')",
+                            "judul": "varchar(85)", // Fillabel | Required
+                            "kategori": "enum('0','1')", // Fillabel | Required
+                            "file": "varchar(255)", // Fillabel | Required
+                            "link": "varchar(100)", // Fillabel | Required
+                            "status": "enum('0','1')", // Fillabel | Required
                             "created_at": "Timestamp",
                             "updated_at": "Timestamp"
                         }

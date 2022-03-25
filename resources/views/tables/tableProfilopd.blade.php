@@ -62,21 +62,21 @@
                 <pre>
                     <code class="language-json text-left pt-3">
                         {
-                            "id": "int(3)",
-                            "nama_opd": "varchar(50)",
-                            "foto_kantor": "varchar(255)",
-                            "nama_kepalaopd": "varchar(50)",
-                            "foto_kepalaopd": "varchar(255)",
-                            "alamat": "varchar(100)",
-                            "telp": "varchar(15)",
-                            "email": "varchar(50)",
-                            "website": "varchar(50)",
-                            "twitter_widget": "text",
-                            "twitter_link": "varchar(100)",
-                            "ig_widget": "text",
-                            "ig_link": "varchar(100)",
-                            "facebook_widget": "text",
-                            "facebook_link": "varchar(100)",
+                            "id": "int(3)", // Fillabel | Required
+                            "nama_opd": "varchar(50)", // Fillabel | Required
+                            "foto_kantor": "varchar(255)", // Fillabel | Required
+                            "nama_kepalaopd": "varchar(50)", // Fillabel | Required
+                            "foto_kepalaopd": "varchar(255)", // Fillabel | Required
+                            "alamat": "varchar(100)", // Fillabel | Required
+                            "telp": "varchar(15)", // Fillabel | Required
+                            "email": "varchar(50)", // Fillabel | Required
+                            "website": "varchar(50)", // Fillabel | Required
+                            "twitter_widget": "text", // Fillabel | Required
+                            "twitter_link": "varchar(100)", // Fillabel | Nullable
+                            "ig_widget": "text", // Fillabel | Required
+                            "ig_link": "varchar(100)", // Fillabel | Nullable
+                            "facebook_widget": "text", // Fillabel | Required
+                            "facebook_link": "varchar(100)", // Fillabel | Nullabel
                             "created_at": "Timestamp",
                             "updated_at": "Timestamp"
                         }

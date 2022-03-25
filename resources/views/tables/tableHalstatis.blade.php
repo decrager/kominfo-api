@@ -63,14 +63,14 @@
                     <code class="language-json text-left pt-3">
                         {
                             "id": "int(11)",
-                            "judul": "varchar(100)",
-                            "kategori_id": "int(11)",
-                            "isi": "text",
-                            "file": "varchar(255)",
-                            "tgl": "date(yyyy-mm-dd)",
-                            "status": "enum('0','1')",
-                            "user_id": "int(11)",
-                            "created_at": "Timestamp",
+                            "judul": "varchar(100)", // Fillabel | Required
+                            "kategori_id": "int(11)", // Fillabel | Required
+                            "isi": "text", // Fillabel | Required
+                            "file": "varchar(255)", // Fillabel | Required
+                            "tgl": "date(yyyy-mm-dd)", // Fillabel | Required
+                            "status": "enum('0','1')", // Fillabel | Required
+                            "user_id": "int(11)", // Fillabel | Required
+                            "created_at": "Timestamp", 
                             "updated_at": "Timestamp"
                         }
                         "Path to file": "https://api-kominfo.kotabogor.my.id/storage/images/statis/{file_name}"
