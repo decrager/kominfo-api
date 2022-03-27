@@ -62,7 +62,7 @@
                 <pre>
                     <code class="language-json text-left pt-3">
                         {
-                            "id": "int(11)", // Fillabel | Required
+                            "id": "int(11)",
                             "nama_doc": "varchar(50)", // Fillabel | Required
                             "link": "varchar(100)", // Fillabel | Nullable
                             "file": "varchar(255)", // Fillabel | Nullable

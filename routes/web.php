@@ -82,7 +82,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('/Dokumen', [DokumenController::class, 'view']);
     Route::get('/Dokumen/{id}', [DokumenController::class, 'viewById']);
     Route::post('/DokumenCrt', [DokumenController::class, 'create']);
-    Route::put('/DokumenUpd/{id}', [DokumenController::class, 'update']);
+    Route::post('/DokumenUpd/{id}', [DokumenController::class, 'update']);
     Route::delete('/DokumenDest/{id}', [DokumenController::class, 'destroy']);
 
     // CRUD table Faq
