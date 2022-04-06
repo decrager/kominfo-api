@@ -62,20 +62,20 @@
                 <pre>
                     <code class="language-json text-left pt-3">
                         {
-                            "id": "int(3)", // Fillabel | Required
-                            "nama_opd": "varchar(50)", // Fillabel | Required
-                            "foto_kantor": "varchar(255)", // Fillabel | Required
-                            "nama_kepalaopd": "varchar(50)", // Fillabel | Required
-                            "foto_kepalaopd": "varchar(255)", // Fillabel | Required
-                            "alamat": "varchar(100)", // Fillabel | Required
-                            "telp": "varchar(15)", // Fillabel | Required
-                            "email": "varchar(50)", // Fillabel | Required
-                            "website": "varchar(50)", // Fillabel | Required
-                            "twitter_widget": "text", // Fillabel | Required
-                            "twitter_link": "varchar(100)", // Fillabel | Nullable
-                            "ig_widget": "text", // Fillabel | Required
-                            "ig_link": "varchar(100)", // Fillabel | Nullable
-                            "facebook_widget": "text", // Fillabel | Required
+                            "id": "int(3)", // Request Body
+                            "nama_opd": "varchar(50)", // Request Body
+                            "foto_kantor": "varchar(255)", // Request Body
+                            "nama_kepalaopd": "varchar(50)", // Request Body
+                            "foto_kepalaopd": "varchar(255)", // Request Body
+                            "alamat": "varchar(100)", // Request Body
+                            "telp": "varchar(15)", // Request Body
+                            "email": "varchar(50)", // Request Body
+                            "website": "varchar(50)", // Request Body
+                            "twitter_widget": "text", // Request Body
+                            "twitter_link": "varchar(100)", // Request Body
+                            "ig_widget": "text", // Request Body
+                            "ig_link": "varchar(100)", // Request Body
+                            "facebook_widget": "text", // Request Body
                             "facebook_link": "varchar(100)", // Fillabel | Nullabel
                             "created_at": "Timestamp",
                             "updated_at": "Timestamp"

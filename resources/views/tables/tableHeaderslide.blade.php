@@ -63,12 +63,12 @@
                     <code class="language-json text-left pt-3">
                         {
                             "id": "int(11)",
-                            "judul": "varchar(85)", // Fillabel | Required
-                            "file": "varchar(255)", // Fillabel | Required
-                            "keterangan": "varchar(100)", // Fillabel | Required
-                            "status": "enum('0','1')", // Fillabel | Required
-                            "created_at": "Timestamp", // Fillabel | Required
-                            "updated_at": "Timestamp" // Fillabel | Required
+                            "judul": "varchar(85)", // Request Body
+                            "file": "varchar(255)", // Request Body
+                            "keterangan": "varchar(100)", // Request Body
+                            "status": "enum('0','1')", // Request Body
+                            "created_at": "Timestamp", // Request Body
+                            "updated_at": "Timestamp" // Request Body
                         }
                         "Path to file": "https://api-kominfo.kotabogor.my.id/storage/images/headerslide/{file_name}"
                         "Parameter": {

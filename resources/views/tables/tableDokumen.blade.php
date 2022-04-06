@@ -63,10 +63,10 @@
                     <code class="language-json text-left pt-3">
                         {
                             "id": "int(11)",
-                            "nama_doc": "varchar(50)", // Fillabel | Required
-                            "link": "varchar(100)", // Fillabel | Nullable
-                            "file": "varchar(255)", // Fillabel | Nullable
-                            "keterangan": "varchar(200)", // Fillabel | Required
+                            "nama_doc": "varchar(50)", // Request Body
+                            "link": "varchar(100)", // Request Body
+                            "file": "varchar(255)", // Request Body
+                            "keterangan": "varchar(200)", // Request Body
                             "created_at": "Timestamp",
                             "updated_at": "Timestamp"
                         }

@@ -63,11 +63,11 @@
                     <code class="language-json text-left pt-3">
                         {
                             "id": "int(11)",
-                            "judul": "varchar(85)", // Fillabel | Required
-                            "cover": "varchar(255)", // Fillabel | Required
-                            "embed": "varchar(50)", // Fillabel | Required
-                            "keterangan": "varchar(100)", // Fillabel | Required
-                            "user_id": "int(11)", // Fillabel | Required
+                            "judul": "varchar(85)", // Request Body
+                            "cover": "varchar(255)", // Request Body
+                            "embed": "varchar(50)", // Request Body
+                            "keterangan": "varchar(100)", // Request Body
+                            "user_id": "int(11)", // Request Body
                             "created_at": "Timestamp",
                             "updated_at": "Timestamp"
                         }

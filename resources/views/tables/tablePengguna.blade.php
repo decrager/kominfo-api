@@ -63,14 +63,14 @@
                     <code class="language-json text-left pt-3">
                         {
                             "id": "int(3)",
-                            "nama": "varchar(50)", // Fillabel | Required
-                            "email": "varchar(50)", // Fillabel | Required
-                            "telp": "varchar(15)", // Fillabel | Required
-                            "username": "varchar(25)", // Fillabel | Required
-                            "password": "varchar(100)", // Fillabel | Required
-                            "role": "varchar(25)", // Fillabel | Required
-                            "foto": "varchar(255)", // Fillabel | Required
-                            "level": "int(2)", // Fillabel | Required
+                            "nama": "varchar(50)", // Request Body
+                            "email": "varchar(50)", // Request Body
+                            "telp": "varchar(15)", // Request Body
+                            "username": "varchar(25)", // Request Body
+                            "password": "varchar(100)", // Request Body
+                            "role": "varchar(25)", // Request Body
+                            "foto": "varchar(255)", // Request Body
+                            "level": "int(2)", // Request Body
                             "created_at": "Timestamp",
                             "updated_at": "Timestamp"
                         }

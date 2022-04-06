@@ -63,10 +63,10 @@
                     <code class="language-json text-left pt-3">
                         {
                             "id": "int(11)",
-                            "judul": "varchar(100)", // Fillabel | Required
-                            "tgl": "date(yyyy-mm-dd)", // Fillabel | Required
-                            "cover": "varchar(255)", // Fillabel | Required
-                            "user_id": "int(11)", // Fillabel | Required
+                            "judul": "varchar(100)", // Request Body
+                            "tgl": "date(yyyy-mm-dd)", // Request Body
+                            "cover": "varchar(255)", // Request Body
+                            "user_id": "int(11)", // Request Body
                             "created_at": "Timestamp",
                             "updated_at": "Timestamp"
                         }

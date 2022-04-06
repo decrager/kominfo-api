@@ -63,13 +63,13 @@
                     <code class="language-json text-left pt-3">
                         {
                             "id": "int(11)",
-                            "judul": "varchar(100)", // Fillabel | Required
-                            "kategori_id": "int(11)", // Fillabel | Required
-                            "isi": "text", // Fillabel | Required
-                            "file": "varchar(255)", // Fillabel | Required
-                            "tgl": "date(yyyy-mm-dd)", // Fillabel | Required
-                            "status": "enum('0','1')", // Fillabel | Required
-                            "user_id": "int(11)", // Fillabel | Required
+                            "judul": "varchar(100)", // Request Body
+                            "kategori_id": "int(11)", // Request Body
+                            "isi": "text", // Request Body
+                            "file": "varchar(255)", // Request Body
+                            "tgl": "date(yyyy-mm-dd)", // Request Body
+                            "status": "enum('0','1')", // Request Body
+                            "user_id": "int(11)", // Request Body
                             "created_at": "Timestamp", 
                             "updated_at": "Timestamp"
                         }
