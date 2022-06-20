@@ -65,7 +65,7 @@
                             "id": "int(11)",
                             "hari": "varchar(10)", // Request Body
                             "tgl": "date(yyyy-mm-dd)", // Request Body
-                            "waktu": "time(H:i:s)", // Request Body
+                            "waktu": "time(H:i)", // Request Body
                             "lokasi": "varchar(100)", // Request Body
                             "kegiatan": "varchar(250)", // Request Body
                             "user_id": "int(11)", // Request Body

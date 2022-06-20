@@ -69,28 +69,20 @@ class VisitorController extends Controller
     {
         $this->counter('Visitor');
 
-        $user = Auth::user();
+        $request->validate([
+            'tgl' => 'required|date',
+            'total_visit' => 'required|numeric'
+        ]);
 
-        if ($user->role == 'admin') {
-            $request->validate([
-                'tgl' => 'required|date',
-                'total_visit' => 'required|numeric'
-            ]);
+        $visitor = new Visitor;
+        $visitor->tgl = $request->tgl;
+        $visitor->total_visit = $request->total_visit;
+        $visitor->save();
 
-            $visitor = new Visitor;
-            $visitor->tgl = $request->tgl;
-            $visitor->total_visit = $request->total_visit;
-            $visitor->save();
-
-            return response()->json([
-                'message' => 'Data visitor Added Successfully!',
-                'Added visitor' => $visitor
-            ], Response::HTTP_OK);
-        } else {
-            return response()->json([
-                'message' => "Unauthorized"
-            ], Response::HTTP_UNAUTHORIZED);
-        }
+        return response()->json([
+            'message' => 'Data visitor Added Successfully!',
+            'Added visitor' => $visitor
+        ], Response::HTTP_OK);
     }
 
     public function update(Request $request, $id)
@@ -98,45 +90,33 @@ class VisitorController extends Controller
         $this->counter('Visitor');
 
         $visitor = Visitor::find($id);
-        $user = Auth::user();
+        $request->validate([
+            'tgl' => 'required|date',
+            'total_visit' => 'required|numeric'
+        ]);
 
-        if ($user->role == 'admin') {
-            $request->validate([
-                'tgl' => 'required|date',
-                'total_visit' => 'required|numeric'
-            ]);
+        $visitor->update([
+            'tgl' => $request->tgl,
+            'total_visit' => $request->total_visit
+        ]);
 
-            $visitor->update([
-                'tgl' => $request->tgl,
-                'total_visit' => $request->total_visit
-            ]);
-
-            return response()->json([
-                'message' => 'Data visitor Updated Success',
-                'Updated visitor' => $visitor
-            ], Response::HTTP_OK);
-        } else {
-            return response()->json([
-                'message' => "Unauthorized"
-            ], Response::HTTP_UNAUTHORIZED);
-        }
+        return response()->json([
+            'message' => 'Data visitor Updated Success',
+            'Updated visitor' => $visitor
+        ], Response::HTTP_OK);
     }
 
     public function destroy($id)
     {
         $this->counter('Visitor');
 
-        $user = Auth::user();
+        $visitor = Visitor::find($id)->delete();
+        return response()->json([
+            'message' => 'Data visitor Deleted Successfully!'
+        ], Response::HTTP_OK);
 
-        if ($user->role == 'admin') {
-            $visitor = Visitor::find($id)->delete();
-            return response()->json([
-                'message' => 'Data visitor Deleted Successfully!'
-            ], Response::HTTP_OK);
-        } else {
-            return response()->json([
-                'message' => "Unauthorized"
-            ], Response::HTTP_UNAUTHORIZED);
-        }
+        return response()->json([
+            'message' => "Unauthorized"
+        ], Response::HTTP_UNAUTHORIZED);
     }
 }

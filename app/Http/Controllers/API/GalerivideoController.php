@@ -69,7 +69,7 @@ class GalerivideoController extends Controller
             $request->validate([
                 'judul' => 'required|max:85',
                 'cover' => 'required|mimes:jpeg,jpg,png|max:3072',
-                'embed' => 'required|max:50',
+                'embed' => 'required',
                 'keterangan' => 'required|max:200',
                 'user_id' => 'required|max:11'
             ]);
@@ -108,7 +108,7 @@ class GalerivideoController extends Controller
             $request->validate([
                 'judul' => 'required|max:85',
                 'cover' => 'required|mimes:jpeg,jpg,png|max:3072',
-                'embed' => 'required|max:50',
+                'embed' => 'required',
                 'keterangan' => 'required|max:200',
                 'user_id' => 'required|max:11'
             ]);
